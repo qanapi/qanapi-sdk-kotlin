@@ -1,0 +1,56 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.qanapi.api.models.scopes
+
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.qanapi.api.core.jsonMapper
+import java.time.OffsetDateTime
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Disabled
+import org.junit.jupiter.api.Test
+
+internal class ScopeRetrieveResponseTest {
+
+    @Disabled("skipped: tests are disabled for the time being")
+    @Test
+    fun create() {
+        val scopeRetrieveResponse =
+            ScopeRetrieveResponse.builder()
+                .id(1L)
+                .createdAt(OffsetDateTime.parse("2025-05-21T21:01:37.000000Z"))
+                .name("Encrypt")
+                .route("api/v2/encrypt")
+                .updatedAt(OffsetDateTime.parse("2025-05-21T21:01:37.000000Z"))
+                .build()
+
+        assertThat(scopeRetrieveResponse.id()).isEqualTo(1L)
+        assertThat(scopeRetrieveResponse.createdAt())
+            .isEqualTo(OffsetDateTime.parse("2025-05-21T21:01:37.000000Z"))
+        assertThat(scopeRetrieveResponse.name()).isEqualTo("Encrypt")
+        assertThat(scopeRetrieveResponse.route()).isEqualTo("api/v2/encrypt")
+        assertThat(scopeRetrieveResponse.updatedAt())
+            .isEqualTo(OffsetDateTime.parse("2025-05-21T21:01:37.000000Z"))
+    }
+
+    @Disabled("skipped: tests are disabled for the time being")
+    @Test
+    fun roundtrip() {
+        val jsonMapper = jsonMapper()
+        val scopeRetrieveResponse =
+            ScopeRetrieveResponse.builder()
+                .id(1L)
+                .createdAt(OffsetDateTime.parse("2025-05-21T21:01:37.000000Z"))
+                .name("Encrypt")
+                .route("api/v2/encrypt")
+                .updatedAt(OffsetDateTime.parse("2025-05-21T21:01:37.000000Z"))
+                .build()
+
+        val roundtrippedScopeRetrieveResponse =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(scopeRetrieveResponse),
+                jacksonTypeRef<ScopeRetrieveResponse>(),
+            )
+
+        assertThat(roundtrippedScopeRetrieveResponse).isEqualTo(scopeRetrieveResponse)
+    }
+}

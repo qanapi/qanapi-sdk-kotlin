@@ -1,0 +1,37 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.qanapi.api.services.blocking
+
+import com.google.errorprone.annotations.MustBeClosed
+import com.qanapi.api.core.RequestOptions
+import com.qanapi.api.core.http.HttpResponseFor
+import com.qanapi.api.models.encrypt.EncryptEncryptDataParams
+import com.qanapi.api.models.encrypt.EncryptEncryptDataResponse
+
+interface EncryptService {
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
+
+    /** Encrypt data with optional ACL */
+    fun encryptData(
+        params: EncryptEncryptDataParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): EncryptEncryptDataResponse
+
+    /** A view of [EncryptService] that provides access to raw HTTP responses for each method. */
+    interface WithRawResponse {
+
+        /**
+         * Returns a raw HTTP response for `post /encrypt`, but is otherwise the same as
+         * [EncryptService.encryptData].
+         */
+        @MustBeClosed
+        fun encryptData(
+            params: EncryptEncryptDataParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<EncryptEncryptDataResponse>
+    }
+}
