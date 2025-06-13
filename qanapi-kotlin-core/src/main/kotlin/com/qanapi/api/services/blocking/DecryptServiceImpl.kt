@@ -27,6 +27,9 @@ class DecryptServiceImpl internal constructor(private val clientOptions: ClientO
 
     override fun withRawResponse(): DecryptService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): DecryptService =
+        DecryptServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun decryptPayload(
         params: DecryptDecryptPayloadParams,
         requestOptions: RequestOptions,
@@ -38,6 +41,13 @@ class DecryptServiceImpl internal constructor(private val clientOptions: ClientO
         DecryptService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): DecryptService.WithRawResponse =
+            DecryptServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val decryptPayloadHandler: Handler<DecryptDecryptPayloadResponse> =
             jsonHandler<DecryptDecryptPayloadResponse>(clientOptions.jsonMapper)

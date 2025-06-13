@@ -3,6 +3,7 @@
 package com.qanapi.api.services.blocking.apikeys
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.qanapi.api.core.ClientOptions
 import com.qanapi.api.core.RequestOptions
 import com.qanapi.api.core.http.HttpResponseFor
 import com.qanapi.api.models.apikeys.scopes.ScopeAttachParams
@@ -20,6 +21,13 @@ interface ScopeService {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ScopeService
 
     /** Retrieve scopes associated with an API Key */
     fun retrieve(
@@ -80,6 +88,13 @@ interface ScopeService {
 
     /** A view of [ScopeService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ScopeService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /api-keys/{apiKey}/scopes`, but is otherwise the

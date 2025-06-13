@@ -36,6 +36,9 @@ class ScopeServiceAsyncImpl internal constructor(private val clientOptions: Clie
 
     override fun withRawResponse(): ScopeServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ScopeServiceAsync =
+        ScopeServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: ScopeCreateParams,
         requestOptions: RequestOptions,
@@ -75,6 +78,13 @@ class ScopeServiceAsyncImpl internal constructor(private val clientOptions: Clie
         ScopeServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): ScopeServiceAsync.WithRawResponse =
+            ScopeServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<ScopeCreateResponse> =
             jsonHandler<ScopeCreateResponse>(clientOptions.jsonMapper)

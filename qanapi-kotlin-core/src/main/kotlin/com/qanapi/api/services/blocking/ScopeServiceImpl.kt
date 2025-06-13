@@ -36,6 +36,9 @@ class ScopeServiceImpl internal constructor(private val clientOptions: ClientOpt
 
     override fun withRawResponse(): ScopeService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ScopeService =
+        ScopeServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: ScopeCreateParams,
         requestOptions: RequestOptions,
@@ -75,6 +78,11 @@ class ScopeServiceImpl internal constructor(private val clientOptions: ClientOpt
         ScopeService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): ScopeService.WithRawResponse =
+            ScopeServiceImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
 
         private val createHandler: Handler<ScopeCreateResponse> =
             jsonHandler<ScopeCreateResponse>(clientOptions.jsonMapper)
