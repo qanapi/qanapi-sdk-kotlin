@@ -35,6 +35,9 @@ class AuthServiceAsyncImpl internal constructor(private val clientOptions: Clien
 
     override fun withRawResponse(): AuthServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): AuthServiceAsync =
+        AuthServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun login(
         params: AuthLoginParams,
         requestOptions: RequestOptions,
@@ -74,6 +77,13 @@ class AuthServiceAsyncImpl internal constructor(private val clientOptions: Clien
         AuthServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): AuthServiceAsync.WithRawResponse =
+            AuthServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val loginHandler: Handler<AuthLoginResponse> =
             jsonHandler<AuthLoginResponse>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

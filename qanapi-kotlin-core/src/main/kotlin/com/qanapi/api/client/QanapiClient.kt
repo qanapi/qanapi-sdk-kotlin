@@ -2,6 +2,7 @@
 
 package com.qanapi.api.client
 
+import com.qanapi.api.core.ClientOptions
 import com.qanapi.api.services.blocking.ApiKeyService
 import com.qanapi.api.services.blocking.AuthService
 import com.qanapi.api.services.blocking.DecryptService
@@ -37,6 +38,13 @@ interface QanapiClient {
      */
     fun withRawResponse(): WithRawResponse
 
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: (ClientOptions.Builder) -> Unit): QanapiClient
+
     fun auth(): AuthService
 
     fun encrypt(): EncryptService
@@ -62,6 +70,13 @@ interface QanapiClient {
 
     /** A view of [QanapiClient] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(modifier: (ClientOptions.Builder) -> Unit): QanapiClient.WithRawResponse
 
         fun auth(): AuthService.WithRawResponse
 

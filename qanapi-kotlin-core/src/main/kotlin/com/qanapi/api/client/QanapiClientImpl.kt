@@ -46,6 +46,9 @@ class QanapiClientImpl(private val clientOptions: ClientOptions) : QanapiClient 
 
     override fun withRawResponse(): QanapiClient.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): QanapiClient =
+        QanapiClientImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun auth(): AuthService = auth
 
     override fun encrypt(): EncryptService = encrypt
@@ -80,6 +83,11 @@ class QanapiClientImpl(private val clientOptions: ClientOptions) : QanapiClient 
         private val scopes: ScopeService.WithRawResponse by lazy {
             ScopeServiceImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): QanapiClient.WithRawResponse =
+            QanapiClientImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
 
         override fun auth(): AuthService.WithRawResponse = auth
 

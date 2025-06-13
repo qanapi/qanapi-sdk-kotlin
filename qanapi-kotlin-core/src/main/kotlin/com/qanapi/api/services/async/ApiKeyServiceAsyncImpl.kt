@@ -34,6 +34,9 @@ class ApiKeyServiceAsyncImpl internal constructor(private val clientOptions: Cli
 
     override fun withRawResponse(): ApiKeyServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ApiKeyServiceAsync =
+        ApiKeyServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun scopes(): ScopeServiceAsync = scopes
 
     override suspend fun revoke(
@@ -58,6 +61,13 @@ class ApiKeyServiceAsyncImpl internal constructor(private val clientOptions: Cli
         private val scopes: ScopeServiceAsync.WithRawResponse by lazy {
             ScopeServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): ApiKeyServiceAsync.WithRawResponse =
+            ApiKeyServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         override fun scopes(): ScopeServiceAsync.WithRawResponse = scopes
 

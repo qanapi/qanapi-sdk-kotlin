@@ -3,6 +3,7 @@
 package com.qanapi.api.services.async.apikeys
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.qanapi.api.core.ClientOptions
 import com.qanapi.api.core.RequestOptions
 import com.qanapi.api.core.http.HttpResponseFor
 import com.qanapi.api.models.apikeys.scopes.ScopeAttachParams
@@ -20,6 +21,13 @@ interface ScopeServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ScopeServiceAsync
 
     /** Retrieve scopes associated with an API Key */
     suspend fun retrieve(
@@ -82,6 +90,15 @@ interface ScopeServiceAsync {
 
     /** A view of [ScopeServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): ScopeServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /api-keys/{apiKey}/scopes`, but is otherwise the

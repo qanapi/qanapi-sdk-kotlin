@@ -34,6 +34,9 @@ class AuthServiceImpl internal constructor(private val clientOptions: ClientOpti
 
     override fun withRawResponse(): AuthService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): AuthService =
+        AuthServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun login(params: AuthLoginParams, requestOptions: RequestOptions): AuthLoginResponse =
         // post /auth/login
         withRawResponse().login(params, requestOptions).parse()
@@ -70,6 +73,11 @@ class AuthServiceImpl internal constructor(private val clientOptions: ClientOpti
         AuthService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): AuthService.WithRawResponse =
+            AuthServiceImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
 
         private val loginHandler: Handler<AuthLoginResponse> =
             jsonHandler<AuthLoginResponse>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

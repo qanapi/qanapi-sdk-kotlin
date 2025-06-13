@@ -34,6 +34,9 @@ class ApiKeyServiceImpl internal constructor(private val clientOptions: ClientOp
 
     override fun withRawResponse(): ApiKeyService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ApiKeyService =
+        ApiKeyServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun scopes(): ScopeService = scopes
 
     override fun revoke(
@@ -58,6 +61,11 @@ class ApiKeyServiceImpl internal constructor(private val clientOptions: ClientOp
         private val scopes: ScopeService.WithRawResponse by lazy {
             ScopeServiceImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): ApiKeyService.WithRawResponse =
+            ApiKeyServiceImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
 
         override fun scopes(): ScopeService.WithRawResponse = scopes
 

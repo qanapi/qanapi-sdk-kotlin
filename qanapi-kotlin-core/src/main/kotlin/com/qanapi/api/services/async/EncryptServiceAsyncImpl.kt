@@ -27,6 +27,9 @@ class EncryptServiceAsyncImpl internal constructor(private val clientOptions: Cl
 
     override fun withRawResponse(): EncryptServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): EncryptServiceAsync =
+        EncryptServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun encryptData(
         params: EncryptEncryptDataParams,
         requestOptions: RequestOptions,
@@ -38,6 +41,13 @@ class EncryptServiceAsyncImpl internal constructor(private val clientOptions: Cl
         EncryptServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): EncryptServiceAsync.WithRawResponse =
+            EncryptServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val encryptDataHandler: Handler<EncryptEncryptDataResponse> =
             jsonHandler<EncryptEncryptDataResponse>(clientOptions.jsonMapper)
