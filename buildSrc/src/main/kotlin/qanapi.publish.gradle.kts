@@ -21,6 +21,7 @@ configure<PublishingExtension> {
                 developers {
                     developer {
                         name.set("Qanapi")
+                        email.set("support@qanapi.com")
                     }
                 }
 
