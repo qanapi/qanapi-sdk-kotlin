@@ -13,10 +13,10 @@ internal class DecryptDecryptPayloadParamsTest {
     @Test
     fun create() {
         DecryptDecryptPayloadParams.builder()
-            .decrypt(
-                Decrypt.builder()
+            .decryptedPayload(
+                DecryptedPayload.builder()
                     .data(
-                        Decrypt.Data.UnionMember1.builder()
+                        DecryptedPayload.Data.UnionMember1.builder()
                             .putAdditionalProperty("password", JsonValue.from("bar"))
                             .build()
                     )
@@ -31,10 +31,10 @@ internal class DecryptDecryptPayloadParamsTest {
     fun body() {
         val params =
             DecryptDecryptPayloadParams.builder()
-                .decrypt(
-                    Decrypt.builder()
+                .decryptedPayload(
+                    DecryptedPayload.builder()
                         .data(
-                            Decrypt.Data.UnionMember1.builder()
+                            DecryptedPayload.Data.UnionMember1.builder()
                                 .putAdditionalProperty("password", JsonValue.from("bar"))
                                 .build()
                         )
@@ -47,9 +47,9 @@ internal class DecryptDecryptPayloadParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                Decrypt.builder()
+                DecryptedPayload.builder()
                     .data(
-                        Decrypt.Data.UnionMember1.builder()
+                        DecryptedPayload.Data.UnionMember1.builder()
                             .putAdditionalProperty("password", JsonValue.from("bar"))
                             .build()
                     )
@@ -63,10 +63,10 @@ internal class DecryptDecryptPayloadParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             DecryptDecryptPayloadParams.builder()
-                .decrypt(
-                    Decrypt.builder()
+                .decryptedPayload(
+                    DecryptedPayload.builder()
                         .data(
-                            Decrypt.Data.UnionMember1.builder()
+                            DecryptedPayload.Data.UnionMember1.builder()
                                 .putAdditionalProperty("password", JsonValue.from("bar"))
                                 .build()
                         )
@@ -78,9 +78,9 @@ internal class DecryptDecryptPayloadParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                Decrypt.builder()
+                DecryptedPayload.builder()
                     .data(
-                        Decrypt.Data.UnionMember1.builder()
+                        DecryptedPayload.Data.UnionMember1.builder()
                             .putAdditionalProperty("password", JsonValue.from("bar"))
                             .build()
                     )
