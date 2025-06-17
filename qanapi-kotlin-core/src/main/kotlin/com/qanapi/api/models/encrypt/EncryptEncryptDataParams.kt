@@ -12,14 +12,14 @@ import java.util.Objects
 /** Encrypt data with optional ACL */
 class EncryptEncryptDataParams
 private constructor(
-    private val encrypt: Encrypt,
+    private val encryptedData: EncryptedData,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun encrypt(): Encrypt = encrypt
+    fun encryptedData(): EncryptedData = encryptedData
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = encrypt._additionalProperties()
+    fun _additionalBodyProperties(): Map<String, JsonValue> = encryptedData._additionalProperties()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -34,7 +34,7 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .encrypt()
+         * .encryptedData()
          * ```
          */
         fun builder() = Builder()
@@ -43,17 +43,19 @@ private constructor(
     /** A builder for [EncryptEncryptDataParams]. */
     class Builder internal constructor() {
 
-        private var encrypt: Encrypt? = null
+        private var encryptedData: EncryptedData? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(encryptEncryptDataParams: EncryptEncryptDataParams) = apply {
-            encrypt = encryptEncryptDataParams.encrypt
+            encryptedData = encryptEncryptDataParams.encryptedData
             additionalHeaders = encryptEncryptDataParams.additionalHeaders.toBuilder()
             additionalQueryParams = encryptEncryptDataParams.additionalQueryParams.toBuilder()
         }
 
-        fun encrypt(encrypt: Encrypt) = apply { this.encrypt = encrypt }
+        fun encryptedData(encryptedData: EncryptedData) = apply {
+            this.encryptedData = encryptedData
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -160,20 +162,20 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .encrypt()
+         * .encryptedData()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
         fun build(): EncryptEncryptDataParams =
             EncryptEncryptDataParams(
-                checkRequired("encrypt", encrypt),
+                checkRequired("encryptedData", encryptedData),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): Encrypt = encrypt
+    fun _body(): EncryptedData = encryptedData
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -184,11 +186,11 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is EncryptEncryptDataParams && encrypt == other.encrypt && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is EncryptEncryptDataParams && encryptedData == other.encryptedData && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(encrypt, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(encryptedData, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "EncryptEncryptDataParams{encrypt=$encrypt, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "EncryptEncryptDataParams{encryptedData=$encryptedData, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

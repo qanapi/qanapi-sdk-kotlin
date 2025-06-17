@@ -29,7 +29,7 @@ import com.qanapi.api.errors.QanapiInvalidDataException
 import java.util.Collections
 import java.util.Objects
 
-class Encrypt
+class EncryptedData
 private constructor(
     private val data: JsonField<Data>,
     private val access: JsonField<Access>,
@@ -139,7 +139,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [Encrypt].
+         * Returns a mutable builder for constructing an instance of [EncryptedData].
          *
          * The following fields are required:
          * ```kotlin
@@ -149,7 +149,7 @@ private constructor(
         fun builder() = Builder()
     }
 
-    /** A builder for [Encrypt]. */
+    /** A builder for [EncryptedData]. */
     class Builder internal constructor() {
 
         private var data: JsonField<Data>? = null
@@ -158,12 +158,12 @@ private constructor(
         private var sensitiveFields: JsonField<MutableList<String>>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-        internal fun from(encrypt: Encrypt) = apply {
-            data = encrypt.data
-            access = encrypt.access
-            attributes = encrypt.attributes
-            sensitiveFields = encrypt.sensitiveFields.map { it.toMutableList() }
-            additionalProperties = encrypt.additionalProperties.toMutableMap()
+        internal fun from(encryptedData: EncryptedData) = apply {
+            data = encryptedData.data
+            access = encryptedData.access
+            attributes = encryptedData.attributes
+            sensitiveFields = encryptedData.sensitiveFields.map { it.toMutableList() }
+            additionalProperties = encryptedData.additionalProperties.toMutableMap()
         }
 
         /**
@@ -274,7 +274,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [Encrypt].
+         * Returns an immutable instance of [EncryptedData].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -285,8 +285,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): Encrypt =
-            Encrypt(
+        fun build(): EncryptedData =
+            EncryptedData(
                 checkRequired("data", data),
                 access,
                 attributes,
@@ -297,7 +297,7 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): Encrypt = apply {
+    fun validate(): EncryptedData = apply {
         if (validated) {
             return@apply
         }
@@ -1172,7 +1172,7 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Encrypt && data == other.data && access == other.access && attributes == other.attributes && sensitiveFields == other.sensitiveFields && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is EncryptedData && data == other.data && access == other.access && attributes == other.attributes && sensitiveFields == other.sensitiveFields && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
@@ -1182,5 +1182,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Encrypt{data=$data, access=$access, attributes=$attributes, sensitiveFields=$sensitiveFields, additionalProperties=$additionalProperties}"
+        "EncryptedData{data=$data, access=$access, attributes=$attributes, sensitiveFields=$sensitiveFields, additionalProperties=$additionalProperties}"
 }

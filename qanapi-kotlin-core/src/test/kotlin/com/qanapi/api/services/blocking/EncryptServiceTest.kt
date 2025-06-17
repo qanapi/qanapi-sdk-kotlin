@@ -5,8 +5,8 @@ package com.qanapi.api.services.blocking
 import com.qanapi.api.TestServerExtension
 import com.qanapi.api.client.okhttp.QanapiOkHttpClient
 import com.qanapi.api.core.JsonValue
-import com.qanapi.api.models.encrypt.Encrypt
 import com.qanapi.api.models.encrypt.EncryptEncryptDataParams
+import com.qanapi.api.models.encrypt.EncryptedData
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -28,17 +28,19 @@ internal class EncryptServiceTest {
         val response =
             encryptService.encryptData(
                 EncryptEncryptDataParams.builder()
-                    .encrypt(
-                        Encrypt.builder()
+                    .encryptedData(
+                        EncryptedData.builder()
                             .data(
-                                Encrypt.Data.UnionMember2.builder()
+                                EncryptedData.Data.UnionMember2.builder()
                                     .putAdditionalProperty("password", JsonValue.from("bar"))
                                     .build()
                             )
-                            .access(Encrypt.Access.builder().addAcl("admin").build())
+                            .access(EncryptedData.Access.builder().addAcl("admin").build())
                             .attributes(
-                                Encrypt.Attributes.builder()
-                                    .classification(Encrypt.Attributes.Classification.CONFIDENTIAL)
+                                EncryptedData.Attributes.builder()
+                                    .classification(
+                                        EncryptedData.Attributes.Classification.CONFIDENTIAL
+                                    )
                                     .owner("alice@example.com")
                                     .addTag("legal")
                                     .build()

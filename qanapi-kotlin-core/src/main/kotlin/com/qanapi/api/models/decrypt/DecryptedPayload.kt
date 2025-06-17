@@ -28,7 +28,7 @@ import com.qanapi.api.errors.QanapiInvalidDataException
 import java.util.Collections
 import java.util.Objects
 
-class Decrypt
+class DecryptedPayload
 private constructor(
     private val data: JsonField<Data>,
     private val sensitiveFields: JsonField<List<String>>,
@@ -98,7 +98,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [Decrypt].
+         * Returns a mutable builder for constructing an instance of [DecryptedPayload].
          *
          * The following fields are required:
          * ```kotlin
@@ -108,17 +108,17 @@ private constructor(
         fun builder() = Builder()
     }
 
-    /** A builder for [Decrypt]. */
+    /** A builder for [DecryptedPayload]. */
     class Builder internal constructor() {
 
         private var data: JsonField<Data>? = null
         private var sensitiveFields: JsonField<MutableList<String>>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-        internal fun from(decrypt: Decrypt) = apply {
-            data = decrypt.data
-            sensitiveFields = decrypt.sensitiveFields.map { it.toMutableList() }
-            additionalProperties = decrypt.additionalProperties.toMutableMap()
+        internal fun from(decryptedPayload: DecryptedPayload) = apply {
+            data = decryptedPayload.data
+            sensitiveFields = decryptedPayload.sensitiveFields.map { it.toMutableList() }
+            additionalProperties = decryptedPayload.additionalProperties.toMutableMap()
         }
 
         /**
@@ -200,7 +200,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [Decrypt].
+         * Returns an immutable instance of [DecryptedPayload].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -211,8 +211,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): Decrypt =
-            Decrypt(
+        fun build(): DecryptedPayload =
+            DecryptedPayload(
                 checkRequired("data", data),
                 (sensitiveFields ?: JsonMissing.of()).map { it.toImmutable() },
                 additionalProperties.toMutableMap(),
@@ -221,7 +221,7 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): Decrypt = apply {
+    fun validate(): DecryptedPayload = apply {
         if (validated) {
             return@apply
         }
@@ -548,7 +548,7 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Decrypt && data == other.data && sensitiveFields == other.sensitiveFields && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is DecryptedPayload && data == other.data && sensitiveFields == other.sensitiveFields && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
@@ -558,5 +558,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Decrypt{data=$data, sensitiveFields=$sensitiveFields, additionalProperties=$additionalProperties}"
+        "DecryptedPayload{data=$data, sensitiveFields=$sensitiveFields, additionalProperties=$additionalProperties}"
 }
