@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.4 (2025-06-17)
+
+Full Changelog: [v0.1.0-alpha.3...v0.1.0-alpha.4](https://github.com/qanapi/qanapi-sdk-kotlin/compare/v0.1.0-alpha.3...v0.1.0-alpha.4)
+
+### Features
+
+* **api:** update via SDK Studio ([6afde4b](https://github.com/qanapi/qanapi-sdk-kotlin/commit/6afde4b55fc3c05ee498f43b434b8718393460d3))
+
 ## 0.1.0-alpha.3 (2025-06-17)
 
 Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/qanapi/qanapi-sdk-kotlin/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
