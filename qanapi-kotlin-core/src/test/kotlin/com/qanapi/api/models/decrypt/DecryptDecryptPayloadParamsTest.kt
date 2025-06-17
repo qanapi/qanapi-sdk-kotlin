@@ -13,16 +13,12 @@ internal class DecryptDecryptPayloadParamsTest {
     @Test
     fun create() {
         DecryptDecryptPayloadParams.builder()
-            .decryptedPayload(
-                DecryptedPayload.builder()
-                    .data(
-                        DecryptedPayload.Data.UnionMember1.builder()
-                            .putAdditionalProperty("password", JsonValue.from("bar"))
-                            .build()
-                    )
-                    .addSensitiveField("password")
+            .data(
+                DecryptDecryptPayloadParams.Data.UnionMember1.builder()
+                    .putAdditionalProperty("password", JsonValue.from("bar"))
                     .build()
             )
+            .addSensitiveField("password")
             .build()
     }
 
@@ -31,31 +27,25 @@ internal class DecryptDecryptPayloadParamsTest {
     fun body() {
         val params =
             DecryptDecryptPayloadParams.builder()
-                .decryptedPayload(
-                    DecryptedPayload.builder()
-                        .data(
-                            DecryptedPayload.Data.UnionMember1.builder()
-                                .putAdditionalProperty("password", JsonValue.from("bar"))
-                                .build()
-                        )
-                        .addSensitiveField("password")
+                .data(
+                    DecryptDecryptPayloadParams.Data.UnionMember1.builder()
+                        .putAdditionalProperty("password", JsonValue.from("bar"))
                         .build()
                 )
+                .addSensitiveField("password")
                 .build()
 
         val body = params._body()
 
-        assertThat(body)
+        assertThat(body.data())
             .isEqualTo(
-                DecryptedPayload.builder()
-                    .data(
-                        DecryptedPayload.Data.UnionMember1.builder()
-                            .putAdditionalProperty("password", JsonValue.from("bar"))
-                            .build()
-                    )
-                    .addSensitiveField("password")
-                    .build()
+                DecryptDecryptPayloadParams.Data.ofUnionMember1(
+                    DecryptDecryptPayloadParams.Data.UnionMember1.builder()
+                        .putAdditionalProperty("password", JsonValue.from("bar"))
+                        .build()
+                )
             )
+        assertThat(body.sensitiveFields()).containsExactly("password")
     }
 
     @Disabled("skipped: tests are disabled for the time being")
@@ -63,28 +53,22 @@ internal class DecryptDecryptPayloadParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             DecryptDecryptPayloadParams.builder()
-                .decryptedPayload(
-                    DecryptedPayload.builder()
-                        .data(
-                            DecryptedPayload.Data.UnionMember1.builder()
-                                .putAdditionalProperty("password", JsonValue.from("bar"))
-                                .build()
-                        )
+                .data(
+                    DecryptDecryptPayloadParams.Data.UnionMember1.builder()
+                        .putAdditionalProperty("password", JsonValue.from("bar"))
                         .build()
                 )
                 .build()
 
         val body = params._body()
 
-        assertThat(body)
+        assertThat(body.data())
             .isEqualTo(
-                DecryptedPayload.builder()
-                    .data(
-                        DecryptedPayload.Data.UnionMember1.builder()
-                            .putAdditionalProperty("password", JsonValue.from("bar"))
-                            .build()
-                    )
-                    .build()
+                DecryptDecryptPayloadParams.Data.ofUnionMember1(
+                    DecryptDecryptPayloadParams.Data.UnionMember1.builder()
+                        .putAdditionalProperty("password", JsonValue.from("bar"))
+                        .build()
+                )
             )
     }
 }
