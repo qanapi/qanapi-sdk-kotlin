@@ -8,5 +8,5 @@ dependencies {
 }
 
 application {
-    mainClass = "com.qanapi.api.example.MainKt"
+    mainClass = "cloud.qanapi.example.MainKt"
 }
