@@ -2,8 +2,8 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.qanapi.api/qanapi-kotlin)](https://central.sonatype.com/artifact/com.qanapi.api/qanapi-kotlin/0.1.0-alpha.3)
-[![javadoc](https://javadoc.io/badge2/com.qanapi.api/qanapi-kotlin/0.1.0-alpha.3/javadoc.svg)](https://javadoc.io/doc/com.qanapi.api/qanapi-kotlin/0.1.0-alpha.3)
+[![Maven Central](https://img.shields.io/maven-central/v/cloud.qanapi/qanapi-kotlin)](https://central.sonatype.com/artifact/cloud.qanapi/qanapi-kotlin/0.1.0-alpha.3)
+[![javadoc](https://javadoc.io/badge2/cloud.qanapi/qanapi-kotlin/0.1.0-alpha.3/javadoc.svg)](https://javadoc.io/doc/cloud.qanapi/qanapi-kotlin/0.1.0-alpha.3)
 
 <!-- x-release-please-end -->
 
@@ -13,7 +13,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 <!-- x-release-please-start-version -->
 
-KDocs are available on [javadoc.io](https://javadoc.io/doc/com.qanapi.api/qanapi-kotlin/0.1.0-alpha.3).
+KDocs are available on [javadoc.io](https://javadoc.io/doc/cloud.qanapi/qanapi-kotlin/0.1.0-alpha.3).
 
 <!-- x-release-please-end -->
 
@@ -24,14 +24,14 @@ KDocs are available on [javadoc.io](https://javadoc.io/doc/com.qanapi.api/qanapi
 ### Gradle
 
 ```kotlin
-implementation("com.qanapi.api:qanapi-kotlin:0.1.0-alpha.3")
+implementation("cloud.qanapi:qanapi-kotlin:0.1.0-alpha.3")
 ```
 
 ### Maven
 
 ```xml
 <dependency>
-  <groupId>com.qanapi.api</groupId>
+  <groupId>cloud.qanapi</groupId>
   <artifactId>qanapi-kotlin</artifactId>
   <version>0.1.0-alpha.3</version>
 </dependency>
@@ -46,10 +46,10 @@ This library requires Java 8 or later.
 ## Usage
 
 ```kotlin
-import com.qanapi.api.client.QanapiClient
-import com.qanapi.api.client.okhttp.QanapiOkHttpClient
-import com.qanapi.api.models.auth.AuthLoginParams
-import com.qanapi.api.models.auth.AuthLoginResponse
+import cloud.qanapi.client.QanapiClient
+import cloud.qanapi.client.okhttp.QanapiOkHttpClient
+import cloud.qanapi.models.auth.AuthLoginParams
+import cloud.qanapi.models.auth.AuthLoginResponse
 
 // Configures using the `QANAPI_API_KEY`, `QANAPI_SUBDOMAIN` and `QANAPI_BASE_URL` environment variables
 val client: QanapiClient = QanapiOkHttpClient.fromEnv()
@@ -66,8 +66,8 @@ val response: AuthLoginResponse = client.auth().login(params)
 Configure the client using environment variables:
 
 ```kotlin
-import com.qanapi.api.client.QanapiClient
-import com.qanapi.api.client.okhttp.QanapiOkHttpClient
+import cloud.qanapi.client.QanapiClient
+import cloud.qanapi.client.okhttp.QanapiOkHttpClient
 
 // Configures using the `QANAPI_API_KEY`, `QANAPI_SUBDOMAIN` and `QANAPI_BASE_URL` environment variables
 val client: QanapiClient = QanapiOkHttpClient.fromEnv()
@@ -76,8 +76,8 @@ val client: QanapiClient = QanapiOkHttpClient.fromEnv()
 Or manually:
 
 ```kotlin
-import com.qanapi.api.client.QanapiClient
-import com.qanapi.api.client.okhttp.QanapiOkHttpClient
+import cloud.qanapi.client.QanapiClient
+import cloud.qanapi.client.okhttp.QanapiOkHttpClient
 
 val client: QanapiClient = QanapiOkHttpClient.builder()
     .apiKey("My API Key")
@@ -88,8 +88,8 @@ val client: QanapiClient = QanapiOkHttpClient.builder()
 Or using a combination of the two approaches:
 
 ```kotlin
-import com.qanapi.api.client.QanapiClient
-import com.qanapi.api.client.okhttp.QanapiOkHttpClient
+import cloud.qanapi.client.QanapiClient
+import cloud.qanapi.client.okhttp.QanapiOkHttpClient
 
 val client: QanapiClient = QanapiOkHttpClient.builder()
     // Configures using the `QANAPI_API_KEY`, `QANAPI_SUBDOMAIN` and `QANAPI_BASE_URL` environment variables
@@ -115,7 +115,7 @@ See this table for the available options:
 To temporarily use a modified client configuration, while reusing the same connection and thread pools, call `withOptions()` on any client or service:
 
 ```kotlin
-import com.qanapi.api.client.QanapiClient
+import cloud.qanapi.client.QanapiClient
 
 val clientWithOptions: QanapiClient = client.withOptions {
     it.baseUrl("https://example.com")
@@ -144,10 +144,10 @@ Because each class is immutable, builder modification will _never_ affect alread
 The default client is synchronous. To switch to asynchronous execution, call the `async()` method:
 
 ```kotlin
-import com.qanapi.api.client.QanapiClient
-import com.qanapi.api.client.okhttp.QanapiOkHttpClient
-import com.qanapi.api.models.auth.AuthLoginParams
-import com.qanapi.api.models.auth.AuthLoginResponse
+import cloud.qanapi.client.QanapiClient
+import cloud.qanapi.client.okhttp.QanapiOkHttpClient
+import cloud.qanapi.models.auth.AuthLoginParams
+import cloud.qanapi.models.auth.AuthLoginResponse
 
 // Configures using the `QANAPI_API_KEY`, `QANAPI_SUBDOMAIN` and `QANAPI_BASE_URL` environment variables
 val client: QanapiClient = QanapiOkHttpClient.fromEnv()
@@ -162,10 +162,10 @@ val response: AuthLoginResponse = client.async().auth().login(params)
 Or create an asynchronous client from the beginning:
 
 ```kotlin
-import com.qanapi.api.client.QanapiClientAsync
-import com.qanapi.api.client.okhttp.QanapiOkHttpClientAsync
-import com.qanapi.api.models.auth.AuthLoginParams
-import com.qanapi.api.models.auth.AuthLoginResponse
+import cloud.qanapi.client.QanapiClientAsync
+import cloud.qanapi.client.okhttp.QanapiOkHttpClientAsync
+import cloud.qanapi.models.auth.AuthLoginParams
+import cloud.qanapi.models.auth.AuthLoginResponse
 
 // Configures using the `QANAPI_API_KEY`, `QANAPI_SUBDOMAIN` and `QANAPI_BASE_URL` environment variables
 val client: QanapiClientAsync = QanapiOkHttpClientAsync.fromEnv()
@@ -186,10 +186,10 @@ The SDK defines methods that deserialize responses into instances of Kotlin clas
 To access this data, prefix any HTTP method call on a client or service with `withRawResponse()`:
 
 ```kotlin
-import com.qanapi.api.core.http.Headers
-import com.qanapi.api.core.http.HttpResponseFor
-import com.qanapi.api.models.auth.AuthLoginParams
-import com.qanapi.api.models.auth.AuthLoginResponse
+import cloud.qanapi.core.http.Headers
+import cloud.qanapi.core.http.HttpResponseFor
+import cloud.qanapi.models.auth.AuthLoginParams
+import cloud.qanapi.models.auth.AuthLoginResponse
 
 val params: AuthLoginParams = AuthLoginParams.builder()
     .email("valid@email.com")
@@ -204,7 +204,7 @@ val headers: Headers = response.headers()
 You can still deserialize the response into an instance of a Kotlin class if needed:
 
 ```kotlin
-import com.qanapi.api.models.auth.AuthLoginResponse
+import cloud.qanapi.models.auth.AuthLoginResponse
 
 val parsedResponse: AuthLoginResponse = response.parse()
 ```
@@ -213,24 +213,24 @@ val parsedResponse: AuthLoginResponse = response.parse()
 
 The SDK throws custom unchecked exception types:
 
-- [`QanapiServiceException`](qanapi-kotlin-core/src/main/kotlin/com/qanapi/api/errors/QanapiServiceException.kt): Base class for HTTP errors. See this table for which exception subclass is thrown for each HTTP status code:
+- [`QanapiServiceException`](qanapi-kotlin-core/src/main/kotlin/cloud/qanapi/errors/QanapiServiceException.kt): Base class for HTTP errors. See this table for which exception subclass is thrown for each HTTP status code:
 
-  | Status | Exception                                                                                                                    |
-  | ------ | ---------------------------------------------------------------------------------------------------------------------------- |
-  | 400    | [`BadRequestException`](qanapi-kotlin-core/src/main/kotlin/com/qanapi/api/errors/BadRequestException.kt)                     |
-  | 401    | [`UnauthorizedException`](qanapi-kotlin-core/src/main/kotlin/com/qanapi/api/errors/UnauthorizedException.kt)                 |
-  | 403    | [`PermissionDeniedException`](qanapi-kotlin-core/src/main/kotlin/com/qanapi/api/errors/PermissionDeniedException.kt)         |
-  | 404    | [`NotFoundException`](qanapi-kotlin-core/src/main/kotlin/com/qanapi/api/errors/NotFoundException.kt)                         |
-  | 422    | [`UnprocessableEntityException`](qanapi-kotlin-core/src/main/kotlin/com/qanapi/api/errors/UnprocessableEntityException.kt)   |
-  | 429    | [`RateLimitException`](qanapi-kotlin-core/src/main/kotlin/com/qanapi/api/errors/RateLimitException.kt)                       |
-  | 5xx    | [`InternalServerException`](qanapi-kotlin-core/src/main/kotlin/com/qanapi/api/errors/InternalServerException.kt)             |
-  | others | [`UnexpectedStatusCodeException`](qanapi-kotlin-core/src/main/kotlin/com/qanapi/api/errors/UnexpectedStatusCodeException.kt) |
+  | Status | Exception                                                                                                                  |
+  | ------ | -------------------------------------------------------------------------------------------------------------------------- |
+  | 400    | [`BadRequestException`](qanapi-kotlin-core/src/main/kotlin/cloud/qanapi/errors/BadRequestException.kt)                     |
+  | 401    | [`UnauthorizedException`](qanapi-kotlin-core/src/main/kotlin/cloud/qanapi/errors/UnauthorizedException.kt)                 |
+  | 403    | [`PermissionDeniedException`](qanapi-kotlin-core/src/main/kotlin/cloud/qanapi/errors/PermissionDeniedException.kt)         |
+  | 404    | [`NotFoundException`](qanapi-kotlin-core/src/main/kotlin/cloud/qanapi/errors/NotFoundException.kt)                         |
+  | 422    | [`UnprocessableEntityException`](qanapi-kotlin-core/src/main/kotlin/cloud/qanapi/errors/UnprocessableEntityException.kt)   |
+  | 429    | [`RateLimitException`](qanapi-kotlin-core/src/main/kotlin/cloud/qanapi/errors/RateLimitException.kt)                       |
+  | 5xx    | [`InternalServerException`](qanapi-kotlin-core/src/main/kotlin/cloud/qanapi/errors/InternalServerException.kt)             |
+  | others | [`UnexpectedStatusCodeException`](qanapi-kotlin-core/src/main/kotlin/cloud/qanapi/errors/UnexpectedStatusCodeException.kt) |
 
-- [`QanapiIoException`](qanapi-kotlin-core/src/main/kotlin/com/qanapi/api/errors/QanapiIoException.kt): I/O networking errors.
+- [`QanapiIoException`](qanapi-kotlin-core/src/main/kotlin/cloud/qanapi/errors/QanapiIoException.kt): I/O networking errors.
 
-- [`QanapiInvalidDataException`](qanapi-kotlin-core/src/main/kotlin/com/qanapi/api/errors/QanapiInvalidDataException.kt): Failure to interpret successfully parsed data. For example, when accessing a property that's supposed to be required, but the API unexpectedly omitted it from the response.
+- [`QanapiInvalidDataException`](qanapi-kotlin-core/src/main/kotlin/cloud/qanapi/errors/QanapiInvalidDataException.kt): Failure to interpret successfully parsed data. For example, when accessing a property that's supposed to be required, but the API unexpectedly omitted it from the response.
 
-- [`QanapiException`](qanapi-kotlin-core/src/main/kotlin/com/qanapi/api/errors/QanapiException.kt): Base class for all exceptions. Most errors will result in one of the previously mentioned ones, but completely generic errors may be thrown using the base class.
+- [`QanapiException`](qanapi-kotlin-core/src/main/kotlin/cloud/qanapi/errors/QanapiException.kt): Base class for all exceptions. Most errors will result in one of the previously mentioned ones, but completely generic errors may be thrown using the base class.
 
 ## Logging
 
@@ -254,7 +254,7 @@ The SDK depends on [Jackson](https://github.com/FasterXML/jackson) for JSON seri
 
 The SDK throws an exception if it detects an incompatible Jackson version at runtime (e.g. if the default version was overridden in your Maven or Gradle config).
 
-If the SDK threw an exception, but you're _certain_ the version is compatible, then disable the version check using the `checkJacksonVersionCompatibility` on [`QanapiOkHttpClient`](qanapi-kotlin-client-okhttp/src/main/kotlin/com/qanapi/api/client/okhttp/QanapiOkHttpClient.kt) or [`QanapiOkHttpClientAsync`](qanapi-kotlin-client-okhttp/src/main/kotlin/com/qanapi/api/client/okhttp/QanapiOkHttpClientAsync.kt).
+If the SDK threw an exception, but you're _certain_ the version is compatible, then disable the version check using the `checkJacksonVersionCompatibility` on [`QanapiOkHttpClient`](qanapi-kotlin-client-okhttp/src/main/kotlin/cloud/qanapi/client/okhttp/QanapiOkHttpClient.kt) or [`QanapiOkHttpClientAsync`](qanapi-kotlin-client-okhttp/src/main/kotlin/cloud/qanapi/client/okhttp/QanapiOkHttpClientAsync.kt).
 
 > [!CAUTION]
 > We make no guarantee that the SDK works correctly when the Jackson version check is disabled.
@@ -278,8 +278,8 @@ The API may also explicitly instruct the SDK to retry or not retry a response.
 To set a custom number of retries, configure the client using the `maxRetries` method:
 
 ```kotlin
-import com.qanapi.api.client.QanapiClient
-import com.qanapi.api.client.okhttp.QanapiOkHttpClient
+import cloud.qanapi.client.QanapiClient
+import cloud.qanapi.client.okhttp.QanapiOkHttpClient
 
 val client: QanapiClient = QanapiOkHttpClient.builder()
     .fromEnv()
@@ -294,7 +294,7 @@ Requests time out after 1 minute by default.
 To set a custom timeout, configure the method call using the `timeout` method:
 
 ```kotlin
-import com.qanapi.api.models.auth.AuthLoginResponse
+import cloud.qanapi.models.auth.AuthLoginResponse
 
 val response: AuthLoginResponse = client.auth().login(
   params, RequestOptions.builder().timeout(Duration.ofSeconds(30)).build()
@@ -304,8 +304,8 @@ val response: AuthLoginResponse = client.auth().login(
 Or configure the default for all method calls at the client level:
 
 ```kotlin
-import com.qanapi.api.client.QanapiClient
-import com.qanapi.api.client.okhttp.QanapiOkHttpClient
+import cloud.qanapi.client.QanapiClient
+import cloud.qanapi.client.okhttp.QanapiOkHttpClient
 import java.time.Duration
 
 val client: QanapiClient = QanapiOkHttpClient.builder()
@@ -319,8 +319,8 @@ val client: QanapiClient = QanapiOkHttpClient.builder()
 To route requests through a proxy, configure the client using the `proxy` method:
 
 ```kotlin
-import com.qanapi.api.client.QanapiClient
-import com.qanapi.api.client.okhttp.QanapiOkHttpClient
+import cloud.qanapi.client.QanapiClient
+import cloud.qanapi.client.okhttp.QanapiOkHttpClient
 import java.net.InetSocketAddress
 import java.net.Proxy
 
@@ -341,10 +341,10 @@ The SDK consists of three artifacts:
 - `qanapi-kotlin-core`
   - Contains core SDK logic
   - Does not depend on [OkHttp](https://square.github.io/okhttp)
-  - Exposes [`QanapiClient`](qanapi-kotlin-core/src/main/kotlin/com/qanapi/api/client/QanapiClient.kt), [`QanapiClientAsync`](qanapi-kotlin-core/src/main/kotlin/com/qanapi/api/client/QanapiClientAsync.kt), [`QanapiClientImpl`](qanapi-kotlin-core/src/main/kotlin/com/qanapi/api/client/QanapiClientImpl.kt), and [`QanapiClientAsyncImpl`](qanapi-kotlin-core/src/main/kotlin/com/qanapi/api/client/QanapiClientAsyncImpl.kt), all of which can work with any HTTP client
+  - Exposes [`QanapiClient`](qanapi-kotlin-core/src/main/kotlin/cloud/qanapi/client/QanapiClient.kt), [`QanapiClientAsync`](qanapi-kotlin-core/src/main/kotlin/cloud/qanapi/client/QanapiClientAsync.kt), [`QanapiClientImpl`](qanapi-kotlin-core/src/main/kotlin/cloud/qanapi/client/QanapiClientImpl.kt), and [`QanapiClientAsyncImpl`](qanapi-kotlin-core/src/main/kotlin/cloud/qanapi/client/QanapiClientAsyncImpl.kt), all of which can work with any HTTP client
 - `qanapi-kotlin-client-okhttp`
   - Depends on [OkHttp](https://square.github.io/okhttp)
-  - Exposes [`QanapiOkHttpClient`](qanapi-kotlin-client-okhttp/src/main/kotlin/com/qanapi/api/client/okhttp/QanapiOkHttpClient.kt) and [`QanapiOkHttpClientAsync`](qanapi-kotlin-client-okhttp/src/main/kotlin/com/qanapi/api/client/okhttp/QanapiOkHttpClientAsync.kt), which provide a way to construct [`QanapiClientImpl`](qanapi-kotlin-core/src/main/kotlin/com/qanapi/api/client/QanapiClientImpl.kt) and [`QanapiClientAsyncImpl`](qanapi-kotlin-core/src/main/kotlin/com/qanapi/api/client/QanapiClientAsyncImpl.kt), respectively, using OkHttp
+  - Exposes [`QanapiOkHttpClient`](qanapi-kotlin-client-okhttp/src/main/kotlin/cloud/qanapi/client/okhttp/QanapiOkHttpClient.kt) and [`QanapiOkHttpClientAsync`](qanapi-kotlin-client-okhttp/src/main/kotlin/cloud/qanapi/client/okhttp/QanapiOkHttpClientAsync.kt), which provide a way to construct [`QanapiClientImpl`](qanapi-kotlin-core/src/main/kotlin/cloud/qanapi/client/QanapiClientImpl.kt) and [`QanapiClientAsyncImpl`](qanapi-kotlin-core/src/main/kotlin/cloud/qanapi/client/QanapiClientAsyncImpl.kt), respectively, using OkHttp
 - `qanapi-kotlin`
   - Depends on and exposes the APIs of both `qanapi-kotlin-core` and `qanapi-kotlin-client-okhttp`
   - Does not have its own logic
@@ -359,16 +359,16 @@ This structure allows replacing the SDK's default HTTP client without pulling in
 To use a customized `OkHttpClient`:
 
 1. Replace your [`qanapi-kotlin` dependency](#installation) with `qanapi-kotlin-core`
-2. Copy `qanapi-kotlin-client-okhttp`'s [`OkHttpClient`](qanapi-kotlin-client-okhttp/src/main/kotlin/com/qanapi/api/client/okhttp/OkHttpClient.kt) class into your code and customize it
-3. Construct [`QanapiClientImpl`](qanapi-kotlin-core/src/main/kotlin/com/qanapi/api/client/QanapiClientImpl.kt) or [`QanapiClientAsyncImpl`](qanapi-kotlin-core/src/main/kotlin/com/qanapi/api/client/QanapiClientAsyncImpl.kt), similarly to [`QanapiOkHttpClient`](qanapi-kotlin-client-okhttp/src/main/kotlin/com/qanapi/api/client/okhttp/QanapiOkHttpClient.kt) or [`QanapiOkHttpClientAsync`](qanapi-kotlin-client-okhttp/src/main/kotlin/com/qanapi/api/client/okhttp/QanapiOkHttpClientAsync.kt), using your customized client
+2. Copy `qanapi-kotlin-client-okhttp`'s [`OkHttpClient`](qanapi-kotlin-client-okhttp/src/main/kotlin/cloud/qanapi/client/okhttp/OkHttpClient.kt) class into your code and customize it
+3. Construct [`QanapiClientImpl`](qanapi-kotlin-core/src/main/kotlin/cloud/qanapi/client/QanapiClientImpl.kt) or [`QanapiClientAsyncImpl`](qanapi-kotlin-core/src/main/kotlin/cloud/qanapi/client/QanapiClientAsyncImpl.kt), similarly to [`QanapiOkHttpClient`](qanapi-kotlin-client-okhttp/src/main/kotlin/cloud/qanapi/client/okhttp/QanapiOkHttpClient.kt) or [`QanapiOkHttpClientAsync`](qanapi-kotlin-client-okhttp/src/main/kotlin/cloud/qanapi/client/okhttp/QanapiOkHttpClientAsync.kt), using your customized client
 
 ### Completely custom HTTP client
 
 To use a completely custom HTTP client:
 
 1. Replace your [`qanapi-kotlin` dependency](#installation) with `qanapi-kotlin-core`
-2. Write a class that implements the [`HttpClient`](qanapi-kotlin-core/src/main/kotlin/com/qanapi/api/core/http/HttpClient.kt) interface
-3. Construct [`QanapiClientImpl`](qanapi-kotlin-core/src/main/kotlin/com/qanapi/api/client/QanapiClientImpl.kt) or [`QanapiClientAsyncImpl`](qanapi-kotlin-core/src/main/kotlin/com/qanapi/api/client/QanapiClientAsyncImpl.kt), similarly to [`QanapiOkHttpClient`](qanapi-kotlin-client-okhttp/src/main/kotlin/com/qanapi/api/client/okhttp/QanapiOkHttpClient.kt) or [`QanapiOkHttpClientAsync`](qanapi-kotlin-client-okhttp/src/main/kotlin/com/qanapi/api/client/okhttp/QanapiOkHttpClientAsync.kt), using your new client class
+2. Write a class that implements the [`HttpClient`](qanapi-kotlin-core/src/main/kotlin/cloud/qanapi/core/http/HttpClient.kt) interface
+3. Construct [`QanapiClientImpl`](qanapi-kotlin-core/src/main/kotlin/cloud/qanapi/client/QanapiClientImpl.kt) or [`QanapiClientAsyncImpl`](qanapi-kotlin-core/src/main/kotlin/cloud/qanapi/client/QanapiClientAsyncImpl.kt), similarly to [`QanapiOkHttpClient`](qanapi-kotlin-client-okhttp/src/main/kotlin/cloud/qanapi/client/okhttp/QanapiOkHttpClient.kt) or [`QanapiOkHttpClientAsync`](qanapi-kotlin-client-okhttp/src/main/kotlin/cloud/qanapi/client/okhttp/QanapiOkHttpClientAsync.kt), using your new client class
 
 ## Undocumented API functionality
 
@@ -379,8 +379,8 @@ The SDK is typed for convenient usage of the documented API. However, it also su
 To set undocumented parameters, call the `putAdditionalHeader`, `putAdditionalQueryParam`, or `putAdditionalBodyProperty` methods on any `Params` class:
 
 ```kotlin
-import com.qanapi.api.core.JsonValue
-import com.qanapi.api.models.auth.AuthLoginParams
+import cloud.qanapi.core.JsonValue
+import cloud.qanapi.models.auth.AuthLoginParams
 
 val params: AuthLoginParams = AuthLoginParams.builder()
     .putAdditionalHeader("Secret-Header", "42")
@@ -394,8 +394,8 @@ These can be accessed on the built object later using the `_additionalHeaders()`
 To set undocumented parameters on _nested_ headers, query params, or body classes, call the `putAdditionalProperty` method on the nested class:
 
 ```kotlin
-import com.qanapi.api.core.JsonValue
-import com.qanapi.api.models.encrypt.EncryptEncryptDataParams
+import cloud.qanapi.core.JsonValue
+import cloud.qanapi.models.encrypt.EncryptEncryptDataParams
 
 val params: EncryptEncryptDataParams = EncryptEncryptDataParams.builder()
     .access(EncryptEncryptDataParams.Access.builder()
@@ -406,11 +406,11 @@ val params: EncryptEncryptDataParams = EncryptEncryptDataParams.builder()
 
 These properties can be accessed on the nested built object later using the `_additionalProperties()` method.
 
-To set a documented parameter or property to an undocumented or not yet supported _value_, pass a [`JsonValue`](qanapi-kotlin-core/src/main/kotlin/com/qanapi/api/core/Values.kt) object to its setter:
+To set a documented parameter or property to an undocumented or not yet supported _value_, pass a [`JsonValue`](qanapi-kotlin-core/src/main/kotlin/cloud/qanapi/core/Values.kt) object to its setter:
 
 ```kotlin
-import com.qanapi.api.core.JsonValue
-import com.qanapi.api.models.auth.AuthLoginParams
+import cloud.qanapi.core.JsonValue
+import cloud.qanapi.models.auth.AuthLoginParams
 
 val params: AuthLoginParams = AuthLoginParams.builder()
     .email(JsonValue.from(42))
@@ -418,10 +418,10 @@ val params: AuthLoginParams = AuthLoginParams.builder()
     .build()
 ```
 
-The most straightforward way to create a [`JsonValue`](qanapi-kotlin-core/src/main/kotlin/com/qanapi/api/core/Values.kt) is using its `from(...)` method:
+The most straightforward way to create a [`JsonValue`](qanapi-kotlin-core/src/main/kotlin/cloud/qanapi/core/Values.kt) is using its `from(...)` method:
 
 ```kotlin
-import com.qanapi.api.core.JsonValue
+import cloud.qanapi.core.JsonValue
 
 // Create primitive JSON values
 val nullValue: JsonValue = JsonValue.from(null)
@@ -455,11 +455,11 @@ val complexValue: JsonValue = JsonValue.from(mapOf(
 
 Normally a `Builder` class's `build` method will throw [`IllegalStateException`](https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalStateException.html) if any required parameter or property is unset.
 
-To forcibly omit a required parameter or property, pass [`JsonMissing`](qanapi-kotlin-core/src/main/kotlin/com/qanapi/api/core/Values.kt):
+To forcibly omit a required parameter or property, pass [`JsonMissing`](qanapi-kotlin-core/src/main/kotlin/cloud/qanapi/core/Values.kt):
 
 ```kotlin
-import com.qanapi.api.core.JsonMissing
-import com.qanapi.api.models.auth.AuthLoginParams
+import cloud.qanapi.core.JsonMissing
+import cloud.qanapi.models.auth.AuthLoginParams
 
 val params: AuthLoginParams = AuthLoginParams.builder()
     .password("secret1234")
@@ -472,10 +472,10 @@ val params: AuthLoginParams = AuthLoginParams.builder()
 To access undocumented response properties, call the `_additionalProperties()` method:
 
 ```kotlin
-import com.qanapi.api.core.JsonBoolean
-import com.qanapi.api.core.JsonNull
-import com.qanapi.api.core.JsonNumber
-import com.qanapi.api.core.JsonValue
+import cloud.qanapi.core.JsonBoolean
+import cloud.qanapi.core.JsonNull
+import cloud.qanapi.core.JsonNumber
+import cloud.qanapi.core.JsonValue
 
 val additionalProperties: Map<String, JsonValue> = client.auth().login(params)._additionalProperties()
 val secretPropertyValue: JsonValue = additionalProperties.get("secretProperty")
@@ -492,7 +492,7 @@ val result = when (secretPropertyValue) {
 To access a property's raw JSON value, which may be undocumented, call its `_` prefixed method:
 
 ```kotlin
-import com.qanapi.api.core.JsonField
+import cloud.qanapi.core.JsonField
 
 val email: JsonField<String> = client.auth().login(params)._email()
 
@@ -514,12 +514,12 @@ if (email.isMissing()) {
 
 In rare cases, the API may return a response that doesn't match the expected type. For example, the SDK may expect a property to contain a `String`, but the API could return something else.
 
-By default, the SDK will not throw an exception in this case. It will throw [`QanapiInvalidDataException`](qanapi-kotlin-core/src/main/kotlin/com/qanapi/api/errors/QanapiInvalidDataException.kt) only if you directly access the property.
+By default, the SDK will not throw an exception in this case. It will throw [`QanapiInvalidDataException`](qanapi-kotlin-core/src/main/kotlin/cloud/qanapi/errors/QanapiInvalidDataException.kt) only if you directly access the property.
 
 If you would prefer to check that the response is completely well-typed upfront, then either call `validate()`:
 
 ```kotlin
-import com.qanapi.api.models.auth.AuthLoginResponse
+import cloud.qanapi.models.auth.AuthLoginResponse
 
 val response: AuthLoginResponse = client.auth().login(params).validate()
 ```
@@ -527,7 +527,7 @@ val response: AuthLoginResponse = client.auth().login(params).validate()
 Or configure the method call to validate the response using the `responseValidation` method:
 
 ```kotlin
-import com.qanapi.api.models.auth.AuthLoginResponse
+import cloud.qanapi.models.auth.AuthLoginResponse
 
 val response: AuthLoginResponse = client.auth().login(
   params, RequestOptions.builder().responseValidation(true).build()
@@ -537,8 +537,8 @@ val response: AuthLoginResponse = client.auth().login(
 Or configure the default for all method calls at the client level:
 
 ```kotlin
-import com.qanapi.api.client.QanapiClient
-import com.qanapi.api.client.okhttp.QanapiOkHttpClient
+import cloud.qanapi.client.QanapiClient
+import cloud.qanapi.client.okhttp.QanapiOkHttpClient
 
 val client: QanapiClient = QanapiOkHttpClient.builder()
     .fromEnv()
