@@ -6,7 +6,6 @@ import com.qanapi.api.TestServerExtension
 import com.qanapi.api.client.okhttp.QanapiOkHttpClientAsync
 import com.qanapi.api.core.JsonValue
 import com.qanapi.api.models.encrypt.EncryptEncryptDataParams
-import com.qanapi.api.models.encrypt.EncryptedData
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -28,26 +27,22 @@ internal class EncryptServiceAsyncTest {
         val response =
             encryptServiceAsync.encryptData(
                 EncryptEncryptDataParams.builder()
-                    .encryptedData(
-                        EncryptedData.builder()
-                            .data(
-                                EncryptedData.Data.UnionMember2.builder()
-                                    .putAdditionalProperty("password", JsonValue.from("bar"))
-                                    .build()
-                            )
-                            .access(EncryptedData.Access.builder().addAcl("admin").build())
-                            .attributes(
-                                EncryptedData.Attributes.builder()
-                                    .classification(
-                                        EncryptedData.Attributes.Classification.CONFIDENTIAL
-                                    )
-                                    .owner("alice@example.com")
-                                    .addTag("legal")
-                                    .build()
-                            )
-                            .addSensitiveField("password")
+                    .data(
+                        EncryptEncryptDataParams.Data.UnionMember2.builder()
+                            .putAdditionalProperty("password", JsonValue.from("bar"))
                             .build()
                     )
+                    .access(EncryptEncryptDataParams.Access.builder().addAcl("admin").build())
+                    .attributes(
+                        EncryptEncryptDataParams.Attributes.builder()
+                            .classification(
+                                EncryptEncryptDataParams.Attributes.Classification.CONFIDENTIAL
+                            )
+                            .owner("alice@example.com")
+                            .addTag("legal")
+                            .build()
+                    )
+                    .addSensitiveField("password")
                     .build()
             )
 

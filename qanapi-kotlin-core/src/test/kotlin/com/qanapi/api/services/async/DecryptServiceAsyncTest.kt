@@ -6,7 +6,6 @@ import com.qanapi.api.TestServerExtension
 import com.qanapi.api.client.okhttp.QanapiOkHttpClientAsync
 import com.qanapi.api.core.JsonValue
 import com.qanapi.api.models.decrypt.DecryptDecryptPayloadParams
-import com.qanapi.api.models.decrypt.DecryptedPayload
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -28,16 +27,12 @@ internal class DecryptServiceAsyncTest {
         val response =
             decryptServiceAsync.decryptPayload(
                 DecryptDecryptPayloadParams.builder()
-                    .decryptedPayload(
-                        DecryptedPayload.builder()
-                            .data(
-                                DecryptedPayload.Data.UnionMember1.builder()
-                                    .putAdditionalProperty("password", JsonValue.from("bar"))
-                                    .build()
-                            )
-                            .addSensitiveField("password")
+                    .data(
+                        DecryptDecryptPayloadParams.Data.UnionMember1.builder()
+                            .putAdditionalProperty("password", JsonValue.from("bar"))
                             .build()
                     )
+                    .addSensitiveField("password")
                     .build()
             )
 
