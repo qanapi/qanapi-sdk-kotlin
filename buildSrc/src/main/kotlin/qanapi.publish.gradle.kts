@@ -26,9 +26,9 @@ configure<PublishingExtension> {
                 }
 
                 scm {
-                    connection.set("scm:git:git://github.com/stainless-sdks/qanapi-kotlin.git")
-                    developerConnection.set("scm:git:git://github.com/stainless-sdks/qanapi-kotlin.git")
-                    url.set("https://github.com/stainless-sdks/qanapi-kotlin")
+                    connection.set("scm:git:git://github.com/qanapi/qanapi-sdk-kotlin.git")
+                    developerConnection.set("scm:git:git://github.com/qanapi/qanapi-sdk-kotlin.git")
+                    url.set("https://github.com/qanapi/qanapi-sdk-kotlin")
                 }
 
                 versionMapping {
