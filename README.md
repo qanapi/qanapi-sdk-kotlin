@@ -2,8 +2,8 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.qanapi.api/qanapi-kotlin)](https://central.sonatype.com/artifact/com.qanapi.api/qanapi-kotlin/0.1.0-alpha.1)
-[![javadoc](https://javadoc.io/badge2/com.qanapi.api/qanapi-kotlin/0.1.0-alpha.1/javadoc.svg)](https://javadoc.io/doc/com.qanapi.api/qanapi-kotlin/0.1.0-alpha.1)
+[![Maven Central](https://img.shields.io/maven-central/v/com.qanapi.api/qanapi-kotlin)](https://central.sonatype.com/artifact/com.qanapi.api/qanapi-kotlin/0.1.0-alpha.2)
+[![javadoc](https://javadoc.io/badge2/com.qanapi.api/qanapi-kotlin/0.1.0-alpha.2/javadoc.svg)](https://javadoc.io/doc/com.qanapi.api/qanapi-kotlin/0.1.0-alpha.2)
 
 <!-- x-release-please-end -->
 
@@ -13,7 +13,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 <!-- x-release-please-start-version -->
 
-KDocs are available on [javadoc.io](https://javadoc.io/doc/com.qanapi.api/qanapi-kotlin/0.1.0-alpha.1).
+KDocs are available on [javadoc.io](https://javadoc.io/doc/com.qanapi.api/qanapi-kotlin/0.1.0-alpha.2).
 
 <!-- x-release-please-end -->
 
@@ -24,7 +24,7 @@ KDocs are available on [javadoc.io](https://javadoc.io/doc/com.qanapi.api/qanapi
 ### Gradle
 
 ```kotlin
-implementation("com.qanapi.api:qanapi-kotlin:0.1.0-alpha.1")
+implementation("com.qanapi.api:qanapi-kotlin:0.1.0-alpha.2")
 ```
 
 ### Maven
@@ -33,7 +33,7 @@ implementation("com.qanapi.api:qanapi-kotlin:0.1.0-alpha.1")
 <dependency>
   <groupId>com.qanapi.api</groupId>
   <artifactId>qanapi-kotlin</artifactId>
-  <version>0.1.0-alpha.1</version>
+  <version>0.1.0-alpha.2</version>
 </dependency>
 ```
 
