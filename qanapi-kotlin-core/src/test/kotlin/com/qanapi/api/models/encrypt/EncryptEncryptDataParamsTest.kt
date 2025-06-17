@@ -13,24 +13,20 @@ internal class EncryptEncryptDataParamsTest {
     @Test
     fun create() {
         EncryptEncryptDataParams.builder()
-            .encryptedData(
-                EncryptedData.builder()
-                    .data(
-                        EncryptedData.Data.UnionMember2.builder()
-                            .putAdditionalProperty("password", JsonValue.from("bar"))
-                            .build()
-                    )
-                    .access(EncryptedData.Access.builder().addAcl("admin").build())
-                    .attributes(
-                        EncryptedData.Attributes.builder()
-                            .classification(EncryptedData.Attributes.Classification.CONFIDENTIAL)
-                            .owner("alice@example.com")
-                            .addTag("legal")
-                            .build()
-                    )
-                    .addSensitiveField("password")
+            .data(
+                EncryptEncryptDataParams.Data.UnionMember2.builder()
+                    .putAdditionalProperty("password", JsonValue.from("bar"))
                     .build()
             )
+            .access(EncryptEncryptDataParams.Access.builder().addAcl("admin").build())
+            .attributes(
+                EncryptEncryptDataParams.Attributes.builder()
+                    .classification(EncryptEncryptDataParams.Attributes.Classification.CONFIDENTIAL)
+                    .owner("alice@example.com")
+                    .addTag("legal")
+                    .build()
+            )
+            .addSensitiveField("password")
             .build()
     }
 
@@ -39,49 +35,45 @@ internal class EncryptEncryptDataParamsTest {
     fun body() {
         val params =
             EncryptEncryptDataParams.builder()
-                .encryptedData(
-                    EncryptedData.builder()
-                        .data(
-                            EncryptedData.Data.UnionMember2.builder()
-                                .putAdditionalProperty("password", JsonValue.from("bar"))
-                                .build()
-                        )
-                        .access(EncryptedData.Access.builder().addAcl("admin").build())
-                        .attributes(
-                            EncryptedData.Attributes.builder()
-                                .classification(
-                                    EncryptedData.Attributes.Classification.CONFIDENTIAL
-                                )
-                                .owner("alice@example.com")
-                                .addTag("legal")
-                                .build()
-                        )
-                        .addSensitiveField("password")
+                .data(
+                    EncryptEncryptDataParams.Data.UnionMember2.builder()
+                        .putAdditionalProperty("password", JsonValue.from("bar"))
                         .build()
                 )
+                .access(EncryptEncryptDataParams.Access.builder().addAcl("admin").build())
+                .attributes(
+                    EncryptEncryptDataParams.Attributes.builder()
+                        .classification(
+                            EncryptEncryptDataParams.Attributes.Classification.CONFIDENTIAL
+                        )
+                        .owner("alice@example.com")
+                        .addTag("legal")
+                        .build()
+                )
+                .addSensitiveField("password")
                 .build()
 
         val body = params._body()
 
-        assertThat(body)
+        assertThat(body.data())
             .isEqualTo(
-                EncryptedData.builder()
-                    .data(
-                        EncryptedData.Data.UnionMember2.builder()
-                            .putAdditionalProperty("password", JsonValue.from("bar"))
-                            .build()
-                    )
-                    .access(EncryptedData.Access.builder().addAcl("admin").build())
-                    .attributes(
-                        EncryptedData.Attributes.builder()
-                            .classification(EncryptedData.Attributes.Classification.CONFIDENTIAL)
-                            .owner("alice@example.com")
-                            .addTag("legal")
-                            .build()
-                    )
-                    .addSensitiveField("password")
+                EncryptEncryptDataParams.Data.ofUnionMember2(
+                    EncryptEncryptDataParams.Data.UnionMember2.builder()
+                        .putAdditionalProperty("password", JsonValue.from("bar"))
+                        .build()
+                )
+            )
+        assertThat(body.access())
+            .isEqualTo(EncryptEncryptDataParams.Access.builder().addAcl("admin").build())
+        assertThat(body.attributes())
+            .isEqualTo(
+                EncryptEncryptDataParams.Attributes.builder()
+                    .classification(EncryptEncryptDataParams.Attributes.Classification.CONFIDENTIAL)
+                    .owner("alice@example.com")
+                    .addTag("legal")
                     .build()
             )
+        assertThat(body.sensitiveFields()).containsExactly("password")
     }
 
     @Disabled("skipped: tests are disabled for the time being")
@@ -89,28 +81,22 @@ internal class EncryptEncryptDataParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             EncryptEncryptDataParams.builder()
-                .encryptedData(
-                    EncryptedData.builder()
-                        .data(
-                            EncryptedData.Data.UnionMember2.builder()
-                                .putAdditionalProperty("password", JsonValue.from("bar"))
-                                .build()
-                        )
+                .data(
+                    EncryptEncryptDataParams.Data.UnionMember2.builder()
+                        .putAdditionalProperty("password", JsonValue.from("bar"))
                         .build()
                 )
                 .build()
 
         val body = params._body()
 
-        assertThat(body)
+        assertThat(body.data())
             .isEqualTo(
-                EncryptedData.builder()
-                    .data(
-                        EncryptedData.Data.UnionMember2.builder()
-                            .putAdditionalProperty("password", JsonValue.from("bar"))
-                            .build()
-                    )
-                    .build()
+                EncryptEncryptDataParams.Data.ofUnionMember2(
+                    EncryptEncryptDataParams.Data.UnionMember2.builder()
+                        .putAdditionalProperty("password", JsonValue.from("bar"))
+                        .build()
+                )
             )
     }
 }
