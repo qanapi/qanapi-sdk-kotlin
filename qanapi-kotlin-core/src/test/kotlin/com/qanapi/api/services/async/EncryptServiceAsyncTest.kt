@@ -5,6 +5,7 @@ package com.qanapi.api.services.async
 import com.qanapi.api.TestServerExtension
 import com.qanapi.api.client.okhttp.QanapiOkHttpClientAsync
 import com.qanapi.api.core.JsonValue
+import com.qanapi.api.models.encrypt.Encrypt
 import com.qanapi.api.models.encrypt.EncryptEncryptDataParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -27,22 +28,24 @@ internal class EncryptServiceAsyncTest {
         val response =
             encryptServiceAsync.encryptData(
                 EncryptEncryptDataParams.builder()
-                    .data(
-                        EncryptEncryptDataParams.Data.UnionMember2.builder()
-                            .putAdditionalProperty("password", JsonValue.from("bar"))
-                            .build()
-                    )
-                    .access(EncryptEncryptDataParams.Access.builder().addAcl("admin").build())
-                    .attributes(
-                        EncryptEncryptDataParams.Attributes.builder()
-                            .classification(
-                                EncryptEncryptDataParams.Attributes.Classification.CONFIDENTIAL
+                    .encrypt(
+                        Encrypt.builder()
+                            .data(
+                                Encrypt.Data.UnionMember2.builder()
+                                    .putAdditionalProperty("password", JsonValue.from("bar"))
+                                    .build()
                             )
-                            .owner("alice@example.com")
-                            .addTag("legal")
+                            .access(Encrypt.Access.builder().addAcl("admin").build())
+                            .attributes(
+                                Encrypt.Attributes.builder()
+                                    .classification(Encrypt.Attributes.Classification.CONFIDENTIAL)
+                                    .owner("alice@example.com")
+                                    .addTag("legal")
+                                    .build()
+                            )
+                            .addSensitiveField("password")
                             .build()
                     )
-                    .addSensitiveField("password")
                     .build()
             )
 
