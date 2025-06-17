@@ -28,7 +28,7 @@ import com.qanapi.api.errors.QanapiInvalidDataException
 import java.util.Collections
 import java.util.Objects
 
-class Descrypt
+class Decrypt
 private constructor(
     private val data: JsonField<Data>,
     private val sensitiveFields: JsonField<List<String>>,
@@ -98,7 +98,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [Descrypt].
+         * Returns a mutable builder for constructing an instance of [Decrypt].
          *
          * The following fields are required:
          * ```kotlin
@@ -108,17 +108,17 @@ private constructor(
         fun builder() = Builder()
     }
 
-    /** A builder for [Descrypt]. */
+    /** A builder for [Decrypt]. */
     class Builder internal constructor() {
 
         private var data: JsonField<Data>? = null
         private var sensitiveFields: JsonField<MutableList<String>>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-        internal fun from(descrypt: Descrypt) = apply {
-            data = descrypt.data
-            sensitiveFields = descrypt.sensitiveFields.map { it.toMutableList() }
-            additionalProperties = descrypt.additionalProperties.toMutableMap()
+        internal fun from(decrypt: Decrypt) = apply {
+            data = decrypt.data
+            sensitiveFields = decrypt.sensitiveFields.map { it.toMutableList() }
+            additionalProperties = decrypt.additionalProperties.toMutableMap()
         }
 
         /**
@@ -200,7 +200,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [Descrypt].
+         * Returns an immutable instance of [Decrypt].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -211,8 +211,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): Descrypt =
-            Descrypt(
+        fun build(): Decrypt =
+            Decrypt(
                 checkRequired("data", data),
                 (sensitiveFields ?: JsonMissing.of()).map { it.toImmutable() },
                 additionalProperties.toMutableMap(),
@@ -221,7 +221,7 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): Descrypt = apply {
+    fun validate(): Decrypt = apply {
         if (validated) {
             return@apply
         }
@@ -548,7 +548,7 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Descrypt && data == other.data && sensitiveFields == other.sensitiveFields && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is Decrypt && data == other.data && sensitiveFields == other.sensitiveFields && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
@@ -558,5 +558,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Descrypt{data=$data, sensitiveFields=$sensitiveFields, additionalProperties=$additionalProperties}"
+        "Decrypt{data=$data, sensitiveFields=$sensitiveFields, additionalProperties=$additionalProperties}"
 }
