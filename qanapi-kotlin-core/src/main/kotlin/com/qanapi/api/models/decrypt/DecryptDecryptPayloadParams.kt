@@ -12,14 +12,14 @@ import java.util.Objects
 /** Decrypt encrypted payload */
 class DecryptDecryptPayloadParams
 private constructor(
-    private val descrypt: Descrypt,
+    private val decrypt: Decrypt,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun descrypt(): Descrypt = descrypt
+    fun decrypt(): Decrypt = decrypt
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = descrypt._additionalProperties()
+    fun _additionalBodyProperties(): Map<String, JsonValue> = decrypt._additionalProperties()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -34,7 +34,7 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .descrypt()
+         * .decrypt()
          * ```
          */
         fun builder() = Builder()
@@ -43,17 +43,17 @@ private constructor(
     /** A builder for [DecryptDecryptPayloadParams]. */
     class Builder internal constructor() {
 
-        private var descrypt: Descrypt? = null
+        private var decrypt: Decrypt? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(decryptDecryptPayloadParams: DecryptDecryptPayloadParams) = apply {
-            descrypt = decryptDecryptPayloadParams.descrypt
+            decrypt = decryptDecryptPayloadParams.decrypt
             additionalHeaders = decryptDecryptPayloadParams.additionalHeaders.toBuilder()
             additionalQueryParams = decryptDecryptPayloadParams.additionalQueryParams.toBuilder()
         }
 
-        fun descrypt(descrypt: Descrypt) = apply { this.descrypt = descrypt }
+        fun decrypt(decrypt: Decrypt) = apply { this.decrypt = decrypt }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -160,20 +160,20 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .descrypt()
+         * .decrypt()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
         fun build(): DecryptDecryptPayloadParams =
             DecryptDecryptPayloadParams(
-                checkRequired("descrypt", descrypt),
+                checkRequired("decrypt", decrypt),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): Descrypt = descrypt
+    fun _body(): Decrypt = decrypt
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -184,11 +184,11 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is DecryptDecryptPayloadParams && descrypt == other.descrypt && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is DecryptDecryptPayloadParams && decrypt == other.decrypt && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(descrypt, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(decrypt, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "DecryptDecryptPayloadParams{descrypt=$descrypt, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "DecryptDecryptPayloadParams{decrypt=$decrypt, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
