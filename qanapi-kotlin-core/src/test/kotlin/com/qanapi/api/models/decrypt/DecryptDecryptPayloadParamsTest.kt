@@ -13,12 +13,16 @@ internal class DecryptDecryptPayloadParamsTest {
     @Test
     fun create() {
         DecryptDecryptPayloadParams.builder()
-            .data(
-                DecryptDecryptPayloadParams.Data.UnionMember1.builder()
-                    .putAdditionalProperty("password", JsonValue.from("bar"))
+            .descrypt(
+                Descrypt.builder()
+                    .data(
+                        Descrypt.Data.UnionMember1.builder()
+                            .putAdditionalProperty("password", JsonValue.from("bar"))
+                            .build()
+                    )
+                    .addSensitiveField("password")
                     .build()
             )
-            .addSensitiveField("password")
             .build()
     }
 
@@ -27,25 +31,31 @@ internal class DecryptDecryptPayloadParamsTest {
     fun body() {
         val params =
             DecryptDecryptPayloadParams.builder()
-                .data(
-                    DecryptDecryptPayloadParams.Data.UnionMember1.builder()
-                        .putAdditionalProperty("password", JsonValue.from("bar"))
+                .descrypt(
+                    Descrypt.builder()
+                        .data(
+                            Descrypt.Data.UnionMember1.builder()
+                                .putAdditionalProperty("password", JsonValue.from("bar"))
+                                .build()
+                        )
+                        .addSensitiveField("password")
                         .build()
                 )
-                .addSensitiveField("password")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.data())
+        assertThat(body)
             .isEqualTo(
-                DecryptDecryptPayloadParams.Data.ofUnionMember1(
-                    DecryptDecryptPayloadParams.Data.UnionMember1.builder()
-                        .putAdditionalProperty("password", JsonValue.from("bar"))
-                        .build()
-                )
+                Descrypt.builder()
+                    .data(
+                        Descrypt.Data.UnionMember1.builder()
+                            .putAdditionalProperty("password", JsonValue.from("bar"))
+                            .build()
+                    )
+                    .addSensitiveField("password")
+                    .build()
             )
-        assertThat(body.sensitiveFields()).containsExactly("password")
     }
 
     @Disabled("skipped: tests are disabled for the time being")
@@ -53,22 +63,28 @@ internal class DecryptDecryptPayloadParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             DecryptDecryptPayloadParams.builder()
-                .data(
-                    DecryptDecryptPayloadParams.Data.UnionMember1.builder()
-                        .putAdditionalProperty("password", JsonValue.from("bar"))
+                .descrypt(
+                    Descrypt.builder()
+                        .data(
+                            Descrypt.Data.UnionMember1.builder()
+                                .putAdditionalProperty("password", JsonValue.from("bar"))
+                                .build()
+                        )
                         .build()
                 )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.data())
+        assertThat(body)
             .isEqualTo(
-                DecryptDecryptPayloadParams.Data.ofUnionMember1(
-                    DecryptDecryptPayloadParams.Data.UnionMember1.builder()
-                        .putAdditionalProperty("password", JsonValue.from("bar"))
-                        .build()
-                )
+                Descrypt.builder()
+                    .data(
+                        Descrypt.Data.UnionMember1.builder()
+                            .putAdditionalProperty("password", JsonValue.from("bar"))
+                            .build()
+                    )
+                    .build()
             )
     }
 }
