@@ -7,13 +7,13 @@
 
 <!-- x-release-please-end -->
 
-The Qanapi Kotlin SDK provides convenient access to the Qanapi REST API from applications written in Kotlin.
+The Qanapi Kotlin SDK provides convenient access to the [Qanapi REST API](https://www.qanapi.com/docs) from applications written in Kotlin.
 
 It is generated with [Stainless](https://www.stainless.com/).
 
 <!-- x-release-please-start-version -->
 
-KDocs are available on [javadoc.io](https://javadoc.io/doc/cloud.qanapi/qanapi-kotlin/1.0.1).
+The REST API documentation can be found on [www.qanapi.com](https://www.qanapi.com/docs). KDocs are available on [javadoc.io](https://javadoc.io/doc/cloud.qanapi/qanapi-kotlin/1.0.1).
 
 <!-- x-release-please-end -->
 
