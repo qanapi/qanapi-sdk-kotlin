@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.1 (2025-06-24)
+
+Full Changelog: [v1.1.0...v1.1.1](https://github.com/qanapi/qanapi-sdk-kotlin/compare/v1.1.0...v1.1.1)
+
+### Bug Fixes
+
+* **client:** bump max requests per host to max requests (5 -&gt; 64) ([c28616f](https://github.com/qanapi/qanapi-sdk-kotlin/commit/c28616f670c73248a917101d11670b09867bef12))
+
 ## 1.1.0 (2025-06-18)
 
 Full Changelog: [v1.0.1...v1.1.0](https://github.com/qanapi/qanapi-sdk-kotlin/compare/v1.0.1...v1.1.0)
