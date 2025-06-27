@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.2 (2025-06-27)
+
+Full Changelog: [v1.1.1...v1.1.2](https://github.com/qanapi/qanapi-sdk-kotlin/compare/v1.1.1...v1.1.2)
+
+### Bug Fixes
+
+* **ci:** release-doctor — report correct token name ([ddbeb28](https://github.com/qanapi/qanapi-sdk-kotlin/commit/ddbeb282db00f3f06011baeb1bfe56e426e4c5bd))
+
 ## 1.1.1 (2025-06-24)
 
 Full Changelog: [v1.1.0...v1.1.1](https://github.com/qanapi/qanapi-sdk-kotlin/compare/v1.1.0...v1.1.1)
