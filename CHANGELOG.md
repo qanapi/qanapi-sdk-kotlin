@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.1.3 (2025-06-30)
+
+Full Changelog: [v1.1.2...v1.1.3](https://github.com/qanapi/qanapi-sdk-kotlin/compare/v1.1.2...v1.1.3)
+
+### Bug Fixes
+
+* **client:** don't close client on `withOptions` usage when original is gc'd ([8ee9a47](https://github.com/qanapi/qanapi-sdk-kotlin/commit/8ee9a47757448043144a0d37e0f9faf2b5893f34))
+
+
+### Chores
+
+* **ci:** only run for pushes and fork pull requests ([85b3244](https://github.com/qanapi/qanapi-sdk-kotlin/commit/85b3244e35cc88849867c33bcf349b2159c3eec4))
+
 ## 1.1.2 (2025-06-27)
 
 Full Changelog: [v1.1.1...v1.1.2](https://github.com/qanapi/qanapi-sdk-kotlin/compare/v1.1.1...v1.1.2)
