@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.4 (2025-07-01)
+
+Full Changelog: [v1.1.3...v1.1.4](https://github.com/qanapi/qanapi-sdk-kotlin/compare/v1.1.3...v1.1.4)
+
+### Refactors
+
+* **internal:** minor `ClientOptionsTest` change ([4040cae](https://github.com/qanapi/qanapi-sdk-kotlin/commit/4040cae6c0b29fc9a8098c623947890c7b5ec854))
+
 ## 1.1.3 (2025-06-30)
 
 Full Changelog: [v1.1.2...v1.1.3](https://github.com/qanapi/qanapi-sdk-kotlin/compare/v1.1.2...v1.1.3)

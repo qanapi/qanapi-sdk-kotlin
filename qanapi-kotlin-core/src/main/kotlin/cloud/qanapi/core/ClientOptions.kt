@@ -34,7 +34,7 @@ private constructor(
         }
     }
 
-    fun baseUrl(): String = baseUrl ?: PRODUCTION_URL
+    fun baseUrl(): String = (baseUrl ?: PRODUCTION_URL).replace("{subdomain}", subdomain)
 
     fun toBuilder() = Builder().from(this)
 
