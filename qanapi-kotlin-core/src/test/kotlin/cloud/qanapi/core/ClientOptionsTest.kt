@@ -14,9 +14,24 @@ import org.mockito.kotlin.verify
 @ExtendWith(MockitoExtension::class)
 internal class ClientOptionsTest {
 
+    private val httpClient = mock<HttpClient>()
+
+    @Test
+    fun baseUrl_production_substitutesTemplateVariables() {
+        val clientOptions =
+            ClientOptions.builder()
+                .httpClient(httpClient)
+                .apiKey("My API Key")
+                .subdomain("My-Subdomain")
+                .build()
+
+        val baseUrl = clientOptions.baseUrl()
+
+        assertThat(baseUrl).isEqualTo("https://My-Subdomain.qanapi.cloud/api/v2")
+    }
+
     @Test
     fun toBuilder_whenOriginalClientOptionsGarbageCollected_doesNotCloseOriginalClient() {
-        val httpClient = mock<HttpClient>()
         var clientOptions =
             ClientOptions.builder()
                 .httpClient(httpClient)
