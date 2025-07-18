@@ -8,7 +8,7 @@ repositories {
 
 allprojects {
     group = "cloud.qanapi"
-    version = "1.1.4" // x-release-please-version
+    version = "1.1.5" // x-release-please-version
 }
 
 subprojects {
