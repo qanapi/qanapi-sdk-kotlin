@@ -3,13 +3,13 @@
 package cloud.qanapi.services.async
 
 import cloud.qanapi.core.ClientOptions
-import cloud.qanapi.core.JsonValue
 import cloud.qanapi.core.RequestOptions
+import cloud.qanapi.core.handlers.errorBodyHandler
 import cloud.qanapi.core.handlers.errorHandler
 import cloud.qanapi.core.handlers.jsonHandler
-import cloud.qanapi.core.handlers.withErrorHandler
 import cloud.qanapi.core.http.HttpMethod
 import cloud.qanapi.core.http.HttpRequest
+import cloud.qanapi.core.http.HttpResponse
 import cloud.qanapi.core.http.HttpResponse.Handler
 import cloud.qanapi.core.http.HttpResponseFor
 import cloud.qanapi.core.http.json
@@ -76,7 +76,8 @@ class AuthServiceAsyncImpl internal constructor(private val clientOptions: Clien
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         AuthServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
@@ -86,7 +87,7 @@ class AuthServiceAsyncImpl internal constructor(private val clientOptions: Clien
             )
 
         private val loginHandler: Handler<AuthLoginResponse> =
-            jsonHandler<AuthLoginResponse>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<AuthLoginResponse>(clientOptions.jsonMapper)
 
         override suspend fun login(
             params: AuthLoginParams,
@@ -102,7 +103,7 @@ class AuthServiceAsyncImpl internal constructor(private val clientOptions: Clien
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { loginHandler.handle(it) }
                     .also {
@@ -114,7 +115,7 @@ class AuthServiceAsyncImpl internal constructor(private val clientOptions: Clien
         }
 
         private val logoutHandler: Handler<AuthLogoutResponse> =
-            jsonHandler<AuthLogoutResponse>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<AuthLogoutResponse>(clientOptions.jsonMapper)
 
         override suspend fun logout(
             params: AuthLogoutParams,
@@ -130,7 +131,7 @@ class AuthServiceAsyncImpl internal constructor(private val clientOptions: Clien
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { logoutHandler.handle(it) }
                     .also {
@@ -143,7 +144,6 @@ class AuthServiceAsyncImpl internal constructor(private val clientOptions: Clien
 
         private val refreshTokenHandler: Handler<AuthRefreshTokenResponse> =
             jsonHandler<AuthRefreshTokenResponse>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override suspend fun refreshToken(
             params: AuthRefreshTokenParams,
@@ -159,7 +159,7 @@ class AuthServiceAsyncImpl internal constructor(private val clientOptions: Clien
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { refreshTokenHandler.handle(it) }
                     .also {
@@ -172,7 +172,6 @@ class AuthServiceAsyncImpl internal constructor(private val clientOptions: Clien
 
         private val retrieveUserDetailsHandler: Handler<AuthRetrieveUserDetailsResponse> =
             jsonHandler<AuthRetrieveUserDetailsResponse>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override suspend fun retrieveUserDetails(
             params: AuthRetrieveUserDetailsParams,
@@ -187,7 +186,7 @@ class AuthServiceAsyncImpl internal constructor(private val clientOptions: Clien
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { retrieveUserDetailsHandler.handle(it) }
                     .also {
@@ -200,7 +199,6 @@ class AuthServiceAsyncImpl internal constructor(private val clientOptions: Clien
 
         private val revokeTokenHandler: Handler<AuthRevokeTokenResponse> =
             jsonHandler<AuthRevokeTokenResponse>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override suspend fun revokeToken(
             params: AuthRevokeTokenParams,
@@ -216,7 +214,7 @@ class AuthServiceAsyncImpl internal constructor(private val clientOptions: Clien
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { revokeTokenHandler.handle(it) }
                     .also {

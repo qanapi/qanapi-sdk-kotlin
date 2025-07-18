@@ -3,14 +3,14 @@
 package cloud.qanapi.services.async
 
 import cloud.qanapi.core.ClientOptions
-import cloud.qanapi.core.JsonValue
 import cloud.qanapi.core.RequestOptions
 import cloud.qanapi.core.checkRequired
+import cloud.qanapi.core.handlers.errorBodyHandler
 import cloud.qanapi.core.handlers.errorHandler
 import cloud.qanapi.core.handlers.jsonHandler
-import cloud.qanapi.core.handlers.withErrorHandler
 import cloud.qanapi.core.http.HttpMethod
 import cloud.qanapi.core.http.HttpRequest
+import cloud.qanapi.core.http.HttpResponse
 import cloud.qanapi.core.http.HttpResponse.Handler
 import cloud.qanapi.core.http.HttpResponseFor
 import cloud.qanapi.core.http.json
@@ -56,7 +56,8 @@ class ApiKeyServiceAsyncImpl internal constructor(private val clientOptions: Cli
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ApiKeyServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         private val scopes: ScopeServiceAsync.WithRawResponse by lazy {
             ScopeServiceAsyncImpl.WithRawResponseImpl(clientOptions)
@@ -73,7 +74,6 @@ class ApiKeyServiceAsyncImpl internal constructor(private val clientOptions: Cli
 
         private val revokeHandler: Handler<ApiKeyRevokeResponse> =
             jsonHandler<ApiKeyRevokeResponse>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override suspend fun revoke(
             params: ApiKeyRevokeParams,
@@ -92,7 +92,7 @@ class ApiKeyServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { revokeHandler.handle(it) }
                     .also {
@@ -105,7 +105,6 @@ class ApiKeyServiceAsyncImpl internal constructor(private val clientOptions: Cli
 
         private val rotateHandler: Handler<ApiKeyRotateResponse> =
             jsonHandler<ApiKeyRotateResponse>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override suspend fun rotate(
             params: ApiKeyRotateParams,
@@ -124,7 +123,7 @@ class ApiKeyServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { rotateHandler.handle(it) }
                     .also {

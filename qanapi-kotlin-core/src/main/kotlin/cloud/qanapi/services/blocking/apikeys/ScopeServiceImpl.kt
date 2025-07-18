@@ -3,14 +3,14 @@
 package cloud.qanapi.services.blocking.apikeys
 
 import cloud.qanapi.core.ClientOptions
-import cloud.qanapi.core.JsonValue
 import cloud.qanapi.core.RequestOptions
 import cloud.qanapi.core.checkRequired
+import cloud.qanapi.core.handlers.errorBodyHandler
 import cloud.qanapi.core.handlers.errorHandler
 import cloud.qanapi.core.handlers.jsonHandler
-import cloud.qanapi.core.handlers.withErrorHandler
 import cloud.qanapi.core.http.HttpMethod
 import cloud.qanapi.core.http.HttpRequest
+import cloud.qanapi.core.http.HttpResponse
 import cloud.qanapi.core.http.HttpResponse.Handler
 import cloud.qanapi.core.http.HttpResponseFor
 import cloud.qanapi.core.http.json
@@ -65,7 +65,8 @@ class ScopeServiceImpl internal constructor(private val clientOptions: ClientOpt
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ScopeService.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
@@ -74,7 +75,6 @@ class ScopeServiceImpl internal constructor(private val clientOptions: ClientOpt
 
         private val retrieveHandler: Handler<List<ScopeRetrieveResponse>> =
             jsonHandler<List<ScopeRetrieveResponse>>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override fun retrieve(
             params: ScopeRetrieveParams,
@@ -92,7 +92,7 @@ class ScopeServiceImpl internal constructor(private val clientOptions: ClientOpt
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { retrieveHandler.handle(it) }
                     .also {
@@ -105,7 +105,6 @@ class ScopeServiceImpl internal constructor(private val clientOptions: ClientOpt
 
         private val attachHandler: Handler<ScopeAttachResponse> =
             jsonHandler<ScopeAttachResponse>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override fun attach(
             params: ScopeAttachParams,
@@ -124,7 +123,7 @@ class ScopeServiceImpl internal constructor(private val clientOptions: ClientOpt
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { attachHandler.handle(it) }
                     .also {
@@ -137,7 +136,6 @@ class ScopeServiceImpl internal constructor(private val clientOptions: ClientOpt
 
         private val detachHandler: Handler<ScopeDetachResponse> =
             jsonHandler<ScopeDetachResponse>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override fun detach(
             params: ScopeDetachParams,
@@ -156,7 +154,7 @@ class ScopeServiceImpl internal constructor(private val clientOptions: ClientOpt
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { detachHandler.handle(it) }
                     .also {
@@ -168,7 +166,7 @@ class ScopeServiceImpl internal constructor(private val clientOptions: ClientOpt
         }
 
         private val syncHandler: Handler<ScopeSyncResponse> =
-            jsonHandler<ScopeSyncResponse>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<ScopeSyncResponse>(clientOptions.jsonMapper)
 
         override fun sync(
             params: ScopeSyncParams,
@@ -187,7 +185,7 @@ class ScopeServiceImpl internal constructor(private val clientOptions: ClientOpt
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { syncHandler.handle(it) }
                     .also {
