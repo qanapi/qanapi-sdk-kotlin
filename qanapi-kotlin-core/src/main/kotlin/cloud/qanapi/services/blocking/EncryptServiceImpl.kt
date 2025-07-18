@@ -3,13 +3,13 @@
 package cloud.qanapi.services.blocking
 
 import cloud.qanapi.core.ClientOptions
-import cloud.qanapi.core.JsonValue
 import cloud.qanapi.core.RequestOptions
+import cloud.qanapi.core.handlers.errorBodyHandler
 import cloud.qanapi.core.handlers.errorHandler
 import cloud.qanapi.core.handlers.jsonHandler
-import cloud.qanapi.core.handlers.withErrorHandler
 import cloud.qanapi.core.http.HttpMethod
 import cloud.qanapi.core.http.HttpRequest
+import cloud.qanapi.core.http.HttpResponse
 import cloud.qanapi.core.http.HttpResponse.Handler
 import cloud.qanapi.core.http.HttpResponseFor
 import cloud.qanapi.core.http.json
@@ -40,7 +40,8 @@ class EncryptServiceImpl internal constructor(private val clientOptions: ClientO
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         EncryptService.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
@@ -51,7 +52,6 @@ class EncryptServiceImpl internal constructor(private val clientOptions: ClientO
 
         private val encryptDataHandler: Handler<EncryptEncryptDataResponse> =
             jsonHandler<EncryptEncryptDataResponse>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override fun encryptData(
             params: EncryptEncryptDataParams,
@@ -67,7 +67,7 @@ class EncryptServiceImpl internal constructor(private val clientOptions: ClientO
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { encryptDataHandler.handle(it) }
                     .also {
