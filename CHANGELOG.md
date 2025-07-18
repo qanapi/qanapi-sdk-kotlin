@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.1.5 (2025-07-18)
+
+Full Changelog: [v1.1.4...v1.1.5](https://github.com/qanapi/qanapi-sdk-kotlin/compare/v1.1.4...v1.1.5)
+
+### Bug Fixes
+
+* **client:** ensure error handling always occurs ([6dcdda0](https://github.com/qanapi/qanapi-sdk-kotlin/commit/6dcdda03356b98ab7ba7081d7a896d9bc1e6dfb3))
+
+
+### Chores
+
+* **ci:** bump `actions/setup-java` to v4 ([2e895de](https://github.com/qanapi/qanapi-sdk-kotlin/commit/2e895de7d5dbb02ce2a18b5b0f82cfbd20a11c65))
+* **ci:** ensure docs generation always succeeds ([dbc796a](https://github.com/qanapi/qanapi-sdk-kotlin/commit/dbc796aed809f9a1d9ae34c7f5a8f64fb58a1645))
+* **internal:** allow running specific example from cli ([630e895](https://github.com/qanapi/qanapi-sdk-kotlin/commit/630e895425b7ae49ae59f38a3f2b289e2d37621f))
+
 ## 1.1.4 (2025-07-01)
 
 Full Changelog: [v1.1.3...v1.1.4](https://github.com/qanapi/qanapi-sdk-kotlin/compare/v1.1.3...v1.1.4)
