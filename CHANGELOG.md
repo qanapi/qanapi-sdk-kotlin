@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.2.0 (2025-07-19)
+
+Full Changelog: [v1.1.5...v1.2.0](https://github.com/qanapi/qanapi-sdk-kotlin/compare/v1.1.5...v1.2.0)
+
+### Features
+
+* **client:** add https config options ([527ca81](https://github.com/qanapi/qanapi-sdk-kotlin/commit/527ca81d892d623ff57a51d9e50374a39b6ada52))
+
+
+### Chores
+
+* **internal:** refactor delegating from client to options ([11430d7](https://github.com/qanapi/qanapi-sdk-kotlin/commit/11430d79d157f96750a9d0daa9bde37e64befbcd))
+
 ## 1.1.5 (2025-07-18)
 
 Full Changelog: [v1.1.4...v1.1.5](https://github.com/qanapi/qanapi-sdk-kotlin/compare/v1.1.4...v1.1.5)
