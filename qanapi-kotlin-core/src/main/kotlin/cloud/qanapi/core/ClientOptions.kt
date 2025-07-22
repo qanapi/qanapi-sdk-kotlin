@@ -225,9 +225,15 @@ private constructor(
         fun timeout(): Timeout = timeout
 
         fun fromEnv() = apply {
-            System.getenv("QANAPI_BASE_URL")?.let { baseUrl(it) }
-            System.getenv("QANAPI_API_KEY")?.let { apiKey(it) }
-            System.getenv("QANAPI_SUBDOMAIN")?.let { subdomain(it) }
+            (System.getProperty("qanapi.baseUrl") ?: System.getenv("QANAPI_BASE_URL"))?.let {
+                baseUrl(it)
+            }
+            (System.getProperty("qanapi.apiKey") ?: System.getenv("QANAPI_API_KEY"))?.let {
+                apiKey(it)
+            }
+            (System.getProperty("qanapi.subdomain") ?: System.getenv("QANAPI_SUBDOMAIN"))?.let {
+                subdomain(it)
+            }
         }
 
         /**
