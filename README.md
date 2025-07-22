@@ -51,7 +51,8 @@ import cloud.qanapi.client.okhttp.QanapiOkHttpClient
 import cloud.qanapi.models.auth.AuthLoginParams
 import cloud.qanapi.models.auth.AuthLoginResponse
 
-// Configures using the `QANAPI_API_KEY`, `QANAPI_SUBDOMAIN` and `QANAPI_BASE_URL` environment variables
+// Configures using the `qanapi.apiKey`, `qanapi.subdomain` and `qanapi.baseUrl` system properties
+// Or configures using the `QANAPI_API_KEY`, `QANAPI_SUBDOMAIN` and `QANAPI_BASE_URL` environment variables
 val client: QanapiClient = QanapiOkHttpClient.fromEnv()
 
 val params: AuthLoginParams = AuthLoginParams.builder()
@@ -63,13 +64,14 @@ val response: AuthLoginResponse = client.auth().login(params)
 
 ## Client configuration
 
-Configure the client using environment variables:
+Configure the client using system properties or environment variables:
 
 ```kotlin
 import cloud.qanapi.client.QanapiClient
 import cloud.qanapi.client.okhttp.QanapiOkHttpClient
 
-// Configures using the `QANAPI_API_KEY`, `QANAPI_SUBDOMAIN` and `QANAPI_BASE_URL` environment variables
+// Configures using the `qanapi.apiKey`, `qanapi.subdomain` and `qanapi.baseUrl` system properties
+// Or configures using the `QANAPI_API_KEY`, `QANAPI_SUBDOMAIN` and `QANAPI_BASE_URL` environment variables
 val client: QanapiClient = QanapiOkHttpClient.fromEnv()
 ```
 
@@ -92,7 +94,8 @@ import cloud.qanapi.client.QanapiClient
 import cloud.qanapi.client.okhttp.QanapiOkHttpClient
 
 val client: QanapiClient = QanapiOkHttpClient.builder()
-    // Configures using the `QANAPI_API_KEY`, `QANAPI_SUBDOMAIN` and `QANAPI_BASE_URL` environment variables
+    // Configures using the `qanapi.apiKey`, `qanapi.subdomain` and `qanapi.baseUrl` system properties
+    Or configures using the `QANAPI_API_KEY`, `QANAPI_SUBDOMAIN` and `QANAPI_BASE_URL` environment variables
     .fromEnv()
     .bearerToken("My Bearer Token")
     .build()
@@ -100,11 +103,13 @@ val client: QanapiClient = QanapiOkHttpClient.builder()
 
 See this table for the available options:
 
-| Setter      | Environment variable | Required | Default value                               |
-| ----------- | -------------------- | -------- | ------------------------------------------- |
-| `apiKey`    | `QANAPI_API_KEY`     | true     | -                                           |
-| `subdomain` | `QANAPI_SUBDOMAIN`   | true     | -                                           |
-| `baseUrl`   | `QANAPI_BASE_URL`    | true     | `"https://{subdomain}.qanapi.cloud/api/v2"` |
+| Setter      | System property    | Environment variable | Required | Default value                               |
+| ----------- | ------------------ | -------------------- | -------- | ------------------------------------------- |
+| `apiKey`    | `qanapi.apiKey`    | `QANAPI_API_KEY`     | true     | -                                           |
+| `subdomain` | `qanapi.subdomain` | `QANAPI_SUBDOMAIN`   | true     | -                                           |
+| `baseUrl`   | `qanapi.baseUrl`   | `QANAPI_BASE_URL`    | true     | `"https://{subdomain}.qanapi.cloud/api/v2"` |
+
+System properties take precedence over environment variables.
 
 > [!TIP]
 > Don't create more than one client in the same application. Each client has a connection pool and
@@ -149,7 +154,8 @@ import cloud.qanapi.client.okhttp.QanapiOkHttpClient
 import cloud.qanapi.models.auth.AuthLoginParams
 import cloud.qanapi.models.auth.AuthLoginResponse
 
-// Configures using the `QANAPI_API_KEY`, `QANAPI_SUBDOMAIN` and `QANAPI_BASE_URL` environment variables
+// Configures using the `qanapi.apiKey`, `qanapi.subdomain` and `qanapi.baseUrl` system properties
+// Or configures using the `QANAPI_API_KEY`, `QANAPI_SUBDOMAIN` and `QANAPI_BASE_URL` environment variables
 val client: QanapiClient = QanapiOkHttpClient.fromEnv()
 
 val params: AuthLoginParams = AuthLoginParams.builder()
@@ -167,7 +173,8 @@ import cloud.qanapi.client.okhttp.QanapiOkHttpClientAsync
 import cloud.qanapi.models.auth.AuthLoginParams
 import cloud.qanapi.models.auth.AuthLoginResponse
 
-// Configures using the `QANAPI_API_KEY`, `QANAPI_SUBDOMAIN` and `QANAPI_BASE_URL` environment variables
+// Configures using the `qanapi.apiKey`, `qanapi.subdomain` and `qanapi.baseUrl` system properties
+// Or configures using the `QANAPI_API_KEY`, `QANAPI_SUBDOMAIN` and `QANAPI_BASE_URL` environment variables
 val client: QanapiClientAsync = QanapiOkHttpClientAsync.fromEnv()
 
 val params: AuthLoginParams = AuthLoginParams.builder()
