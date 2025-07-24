@@ -138,7 +138,7 @@ private constructor(
             DecryptDecryptPayloadResponse(unionMember1 = unionMember1)
 
         fun ofJsonValues(jsonValues: List<JsonValue>) =
-            DecryptDecryptPayloadResponse(jsonValues = jsonValues)
+            DecryptDecryptPayloadResponse(jsonValues = jsonValues.toImmutable())
     }
 
     /**

@@ -153,7 +153,7 @@ private constructor(
             EncryptEncryptDataResponse(unionMember2 = unionMember2)
 
         fun ofJsonValues(jsonValues: List<JsonValue>) =
-            EncryptEncryptDataResponse(jsonValues = jsonValues)
+            EncryptEncryptDataResponse(jsonValues = jsonValues.toImmutable())
     }
 
     /**
