@@ -843,7 +843,8 @@ private constructor(
 
             fun ofUnionMember2(unionMember2: UnionMember2) = Data(unionMember2 = unionMember2)
 
-            fun ofJsonValues(jsonValues: List<JsonValue>) = Data(jsonValues = jsonValues)
+            fun ofJsonValues(jsonValues: List<JsonValue>) =
+                Data(jsonValues = jsonValues.toImmutable())
         }
 
         /** An interface that defines how to map each variant of [Data] to a value of type [T]. */
