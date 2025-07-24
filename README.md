@@ -95,7 +95,7 @@ import cloud.qanapi.client.okhttp.QanapiOkHttpClient
 
 val client: QanapiClient = QanapiOkHttpClient.builder()
     // Configures using the `qanapi.apiKey`, `qanapi.subdomain` and `qanapi.baseUrl` system properties
-    Or configures using the `QANAPI_API_KEY`, `QANAPI_SUBDOMAIN` and `QANAPI_BASE_URL` environment variables
+    // Or configures using the `QANAPI_API_KEY`, `QANAPI_SUBDOMAIN` and `QANAPI_BASE_URL` environment variables
     .fromEnv()
     .bearerToken("My Bearer Token")
     .build()
