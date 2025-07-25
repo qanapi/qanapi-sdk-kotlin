@@ -43,7 +43,7 @@ interface AuthServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AuthLogoutResponse
 
-    /** @see [logout] */
+    /** @see logout */
     suspend fun logout(requestOptions: RequestOptions): AuthLogoutResponse =
         logout(AuthLogoutParams.none(), requestOptions)
 
@@ -53,7 +53,7 @@ interface AuthServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AuthRefreshTokenResponse
 
-    /** @see [refreshToken] */
+    /** @see refreshToken */
     suspend fun refreshToken(requestOptions: RequestOptions): AuthRefreshTokenResponse =
         refreshToken(AuthRefreshTokenParams.none(), requestOptions)
 
@@ -63,7 +63,7 @@ interface AuthServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AuthRetrieveUserDetailsResponse
 
-    /** @see [retrieveUserDetails] */
+    /** @see retrieveUserDetails */
     suspend fun retrieveUserDetails(
         requestOptions: RequestOptions
     ): AuthRetrieveUserDetailsResponse =
@@ -75,7 +75,7 @@ interface AuthServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AuthRevokeTokenResponse
 
-    /** @see [revokeToken] */
+    /** @see revokeToken */
     suspend fun revokeToken(requestOptions: RequestOptions): AuthRevokeTokenResponse =
         revokeToken(AuthRevokeTokenParams.none(), requestOptions)
 
@@ -109,7 +109,7 @@ interface AuthServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AuthLogoutResponse>
 
-        /** @see [logout] */
+        /** @see logout */
         @MustBeClosed
         suspend fun logout(requestOptions: RequestOptions): HttpResponseFor<AuthLogoutResponse> =
             logout(AuthLogoutParams.none(), requestOptions)
@@ -124,7 +124,7 @@ interface AuthServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AuthRefreshTokenResponse>
 
-        /** @see [refreshToken] */
+        /** @see refreshToken */
         @MustBeClosed
         suspend fun refreshToken(
             requestOptions: RequestOptions
@@ -141,7 +141,7 @@ interface AuthServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AuthRetrieveUserDetailsResponse>
 
-        /** @see [retrieveUserDetails] */
+        /** @see retrieveUserDetails */
         @MustBeClosed
         suspend fun retrieveUserDetails(
             requestOptions: RequestOptions
@@ -158,7 +158,7 @@ interface AuthServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AuthRevokeTokenResponse>
 
-        /** @see [revokeToken] */
+        /** @see revokeToken */
         @MustBeClosed
         suspend fun revokeToken(
             requestOptions: RequestOptions

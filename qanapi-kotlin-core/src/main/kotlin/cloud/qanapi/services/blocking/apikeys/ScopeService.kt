@@ -37,13 +37,13 @@ interface ScopeService {
     ): List<ScopeRetrieveResponse> =
         retrieve(params.toBuilder().apiKey(apiKey).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: ScopeRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): List<ScopeRetrieveResponse>
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(apiKey: Long, requestOptions: RequestOptions): List<ScopeRetrieveResponse> =
         retrieve(apiKey, ScopeRetrieveParams.none(), requestOptions)
 
@@ -54,7 +54,7 @@ interface ScopeService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ScopeAttachResponse = attach(params.toBuilder().apiKey(apiKey).build(), requestOptions)
 
-    /** @see [attach] */
+    /** @see attach */
     fun attach(
         params: ScopeAttachParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -67,7 +67,7 @@ interface ScopeService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ScopeDetachResponse = detach(params.toBuilder().apiKey(apiKey).build(), requestOptions)
 
-    /** @see [detach] */
+    /** @see detach */
     fun detach(
         params: ScopeDetachParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -80,7 +80,7 @@ interface ScopeService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ScopeSyncResponse = sync(params.toBuilder().apiKey(apiKey).build(), requestOptions)
 
-    /** @see [sync] */
+    /** @see sync */
     fun sync(
         params: ScopeSyncParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -108,14 +108,14 @@ interface ScopeService {
         ): HttpResponseFor<List<ScopeRetrieveResponse>> =
             retrieve(params.toBuilder().apiKey(apiKey).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: ScopeRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<List<ScopeRetrieveResponse>>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             apiKey: Long,
@@ -135,7 +135,7 @@ interface ScopeService {
         ): HttpResponseFor<ScopeAttachResponse> =
             attach(params.toBuilder().apiKey(apiKey).build(), requestOptions)
 
-        /** @see [attach] */
+        /** @see attach */
         @MustBeClosed
         fun attach(
             params: ScopeAttachParams,
@@ -154,7 +154,7 @@ interface ScopeService {
         ): HttpResponseFor<ScopeDetachResponse> =
             detach(params.toBuilder().apiKey(apiKey).build(), requestOptions)
 
-        /** @see [detach] */
+        /** @see detach */
         @MustBeClosed
         fun detach(
             params: ScopeDetachParams,
@@ -173,7 +173,7 @@ interface ScopeService {
         ): HttpResponseFor<ScopeSyncResponse> =
             sync(params.toBuilder().apiKey(apiKey).build(), requestOptions)
 
-        /** @see [sync] */
+        /** @see sync */
         @MustBeClosed
         fun sync(
             params: ScopeSyncParams,

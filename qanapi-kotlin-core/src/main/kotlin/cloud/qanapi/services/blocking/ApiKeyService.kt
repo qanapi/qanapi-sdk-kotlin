@@ -35,13 +35,13 @@ interface ApiKeyService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ApiKeyRevokeResponse = revoke(params.toBuilder().apiKey(apiKey).build(), requestOptions)
 
-    /** @see [revoke] */
+    /** @see revoke */
     fun revoke(
         params: ApiKeyRevokeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ApiKeyRevokeResponse
 
-    /** @see [revoke] */
+    /** @see revoke */
     fun revoke(apiKey: String, requestOptions: RequestOptions): ApiKeyRevokeResponse =
         revoke(apiKey, ApiKeyRevokeParams.none(), requestOptions)
 
@@ -52,13 +52,13 @@ interface ApiKeyService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ApiKeyRotateResponse = rotate(params.toBuilder().apiKey(apiKey).build(), requestOptions)
 
-    /** @see [rotate] */
+    /** @see rotate */
     fun rotate(
         params: ApiKeyRotateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ApiKeyRotateResponse
 
-    /** @see [rotate] */
+    /** @see rotate */
     fun rotate(apiKey: String, requestOptions: RequestOptions): ApiKeyRotateResponse =
         rotate(apiKey, ApiKeyRotateParams.none(), requestOptions)
 
@@ -86,14 +86,14 @@ interface ApiKeyService {
         ): HttpResponseFor<ApiKeyRevokeResponse> =
             revoke(params.toBuilder().apiKey(apiKey).build(), requestOptions)
 
-        /** @see [revoke] */
+        /** @see revoke */
         @MustBeClosed
         fun revoke(
             params: ApiKeyRevokeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ApiKeyRevokeResponse>
 
-        /** @see [revoke] */
+        /** @see revoke */
         @MustBeClosed
         fun revoke(
             apiKey: String,
@@ -113,14 +113,14 @@ interface ApiKeyService {
         ): HttpResponseFor<ApiKeyRotateResponse> =
             rotate(params.toBuilder().apiKey(apiKey).build(), requestOptions)
 
-        /** @see [rotate] */
+        /** @see rotate */
         @MustBeClosed
         fun rotate(
             params: ApiKeyRotateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ApiKeyRotateResponse>
 
-        /** @see [rotate] */
+        /** @see rotate */
         @MustBeClosed
         fun rotate(
             apiKey: String,

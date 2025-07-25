@@ -43,7 +43,7 @@ interface AuthService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AuthLogoutResponse
 
-    /** @see [logout] */
+    /** @see logout */
     fun logout(requestOptions: RequestOptions): AuthLogoutResponse =
         logout(AuthLogoutParams.none(), requestOptions)
 
@@ -53,7 +53,7 @@ interface AuthService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AuthRefreshTokenResponse
 
-    /** @see [refreshToken] */
+    /** @see refreshToken */
     fun refreshToken(requestOptions: RequestOptions): AuthRefreshTokenResponse =
         refreshToken(AuthRefreshTokenParams.none(), requestOptions)
 
@@ -63,7 +63,7 @@ interface AuthService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AuthRetrieveUserDetailsResponse
 
-    /** @see [retrieveUserDetails] */
+    /** @see retrieveUserDetails */
     fun retrieveUserDetails(requestOptions: RequestOptions): AuthRetrieveUserDetailsResponse =
         retrieveUserDetails(AuthRetrieveUserDetailsParams.none(), requestOptions)
 
@@ -73,7 +73,7 @@ interface AuthService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AuthRevokeTokenResponse
 
-    /** @see [revokeToken] */
+    /** @see revokeToken */
     fun revokeToken(requestOptions: RequestOptions): AuthRevokeTokenResponse =
         revokeToken(AuthRevokeTokenParams.none(), requestOptions)
 
@@ -107,7 +107,7 @@ interface AuthService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AuthLogoutResponse>
 
-        /** @see [logout] */
+        /** @see logout */
         @MustBeClosed
         fun logout(requestOptions: RequestOptions): HttpResponseFor<AuthLogoutResponse> =
             logout(AuthLogoutParams.none(), requestOptions)
@@ -122,7 +122,7 @@ interface AuthService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AuthRefreshTokenResponse>
 
-        /** @see [refreshToken] */
+        /** @see refreshToken */
         @MustBeClosed
         fun refreshToken(
             requestOptions: RequestOptions
@@ -139,7 +139,7 @@ interface AuthService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AuthRetrieveUserDetailsResponse>
 
-        /** @see [retrieveUserDetails] */
+        /** @see retrieveUserDetails */
         @MustBeClosed
         fun retrieveUserDetails(
             requestOptions: RequestOptions
@@ -156,7 +156,7 @@ interface AuthService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AuthRevokeTokenResponse>
 
-        /** @see [revokeToken] */
+        /** @see revokeToken */
         @MustBeClosed
         fun revokeToken(requestOptions: RequestOptions): HttpResponseFor<AuthRevokeTokenResponse> =
             revokeToken(AuthRevokeTokenParams.none(), requestOptions)
