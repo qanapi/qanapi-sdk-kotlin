@@ -7,6 +7,7 @@ import cloud.qanapi.client.QanapiClientImpl
 import cloud.qanapi.core.ClientOptions
 import cloud.qanapi.core.Timeout
 import cloud.qanapi.core.http.Headers
+import cloud.qanapi.core.http.HttpClient
 import cloud.qanapi.core.http.QueryParams
 import cloud.qanapi.core.jsonMapper
 import com.fasterxml.jackson.databind.json.JsonMapper
@@ -17,13 +18,22 @@ import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLSocketFactory
 import javax.net.ssl.X509TrustManager
 
+/**
+ * A class that allows building an instance of [QanapiClient] with [OkHttpClient] as the underlying
+ * [HttpClient].
+ */
 class QanapiOkHttpClient private constructor() {
 
     companion object {
 
-        /** Returns a mutable builder for constructing an instance of [QanapiOkHttpClient]. */
+        /** Returns a mutable builder for constructing an instance of [QanapiClient]. */
         fun builder() = Builder()
 
+        /**
+         * Returns a client configured using system properties and environment variables.
+         *
+         * @see ClientOptions.Builder.fromEnv
+         */
         fun fromEnv(): QanapiClient = builder().fromEnv().build()
     }
 
@@ -85,16 +95,46 @@ class QanapiOkHttpClient private constructor() {
             clientOptions.checkJacksonVersionCompatibility(checkJacksonVersionCompatibility)
         }
 
+        /**
+         * The Jackson JSON mapper to use for serializing and deserializing JSON.
+         *
+         * Defaults to [cloud.qanapi.core.jsonMapper]. The default is usually sufficient and rarely
+         * needs to be overridden.
+         */
         fun jsonMapper(jsonMapper: JsonMapper) = apply { clientOptions.jsonMapper(jsonMapper) }
 
+        /**
+         * The clock to use for operations that require timing, like retries.
+         *
+         * This is primarily useful for using a fake clock in tests.
+         *
+         * Defaults to [Clock.systemUTC].
+         */
         fun clock(clock: Clock) = apply { clientOptions.clock(clock) }
 
+        /**
+         * The base URL to use for every request.
+         *
+         * Defaults to the production environment: `https://{subdomain}.qanapi.cloud/api/v2`.
+         */
         fun baseUrl(baseUrl: String?) = apply { clientOptions.baseUrl(baseUrl) }
 
+        /**
+         * Whether to call `validate` on every response before returning it.
+         *
+         * Defaults to false, which means the shape of the response will not be validated upfront.
+         * Instead, validation will only occur for the parts of the response that are accessed.
+         */
         fun responseValidation(responseValidation: Boolean) = apply {
             clientOptions.responseValidation(responseValidation)
         }
 
+        /**
+         * Sets the maximum time allowed for various parts of an HTTP call's lifecycle, excluding
+         * retries.
+         *
+         * Defaults to [Timeout.default].
+         */
         fun timeout(timeout: Timeout) = apply { clientOptions.timeout(timeout) }
 
         /**
@@ -106,10 +146,27 @@ class QanapiOkHttpClient private constructor() {
          */
         fun timeout(timeout: Duration) = apply { clientOptions.timeout(timeout) }
 
+        /**
+         * The maximum number of times to retry failed requests, with a short exponential backoff
+         * between requests.
+         *
+         * Only the following error types are retried:
+         * - Connection errors (for example, due to a network connectivity problem)
+         * - 408 Request Timeout
+         * - 409 Conflict
+         * - 429 Rate Limit
+         * - 5xx Internal
+         *
+         * The API may also explicitly instruct the SDK to retry or not retry a request.
+         *
+         * Defaults to 2.
+         */
         fun maxRetries(maxRetries: Int) = apply { clientOptions.maxRetries(maxRetries) }
 
+        /** A valid API Key from a Qanapi Project */
         fun apiKey(apiKey: String) = apply { clientOptions.apiKey(apiKey) }
 
+        /** A subdomain from the Qanapi account Settings */
         fun subdomain(subdomain: String) = apply { clientOptions.subdomain(subdomain) }
 
         fun bearerToken(bearerToken: String?) = apply { clientOptions.bearerToken(bearerToken) }
@@ -194,6 +251,11 @@ class QanapiOkHttpClient private constructor() {
             clientOptions.removeAllQueryParams(keys)
         }
 
+        /**
+         * Updates configuration using system properties and environment variables.
+         *
+         * @see ClientOptions.Builder.fromEnv
+         */
         fun fromEnv() = apply { clientOptions.fromEnv() }
 
         /**
