@@ -1,5 +1,32 @@
 # Changelog
 
+## 1.2.0 (2025-07-25)
+
+Full Changelog: [v1.1.5...v1.2.0](https://github.com/qanapi/qanapi-sdk-kotlin/compare/v1.1.5...v1.2.0)
+
+### Features
+
+* **client:** add `{QueryParams,Headers}#put(String, JsonValue)` methods ([209954a](https://github.com/qanapi/qanapi-sdk-kotlin/commit/209954afa595d2c103d3551e2dc84a7db3edb7f9))
+* **client:** add https config options ([527ca81](https://github.com/qanapi/qanapi-sdk-kotlin/commit/527ca81d892d623ff57a51d9e50374a39b6ada52))
+* **client:** allow configuring env via system properties ([27dc783](https://github.com/qanapi/qanapi-sdk-kotlin/commit/27dc783919123293fb20818f7df7e126eea5c8b6))
+
+
+### Bug Fixes
+
+* **client:** accidental mutability of some classes ([4099123](https://github.com/qanapi/qanapi-sdk-kotlin/commit/4099123ff4d5fd96937a77d5132623840b55db9c))
+
+
+### Chores
+
+* **internal:** refactor delegating from client to options ([11430d7](https://github.com/qanapi/qanapi-sdk-kotlin/commit/11430d79d157f96750a9d0daa9bde37e64befbcd))
+* **internal:** remove unnecessary `[...]` in `[@see](https://github.com/see)` ([28a9bfb](https://github.com/qanapi/qanapi-sdk-kotlin/commit/28a9bfbbb68fdf118f887b3184075691c80219dc))
+
+
+### Documentation
+
+* fix missing readme comment ([3ed3edd](https://github.com/qanapi/qanapi-sdk-kotlin/commit/3ed3edd0d0d4fe200989802971e7a0f731d114d5))
+* more code comments ([496c3f5](https://github.com/qanapi/qanapi-sdk-kotlin/commit/496c3f5aadbd0a1898cefeba884f93523ebb9923))
+
 ## 1.1.5 (2025-07-18)
 
 Full Changelog: [v1.1.4...v1.1.5](https://github.com/qanapi/qanapi-sdk-kotlin/compare/v1.1.4...v1.1.5)
