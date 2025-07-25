@@ -44,13 +44,13 @@ interface ScopeService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ScopeRetrieveResponse = retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: ScopeRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ScopeRetrieveResponse
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(id: Long, requestOptions: RequestOptions): ScopeRetrieveResponse =
         retrieve(id, ScopeRetrieveParams.none(), requestOptions)
 
@@ -61,13 +61,13 @@ interface ScopeService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ScopeUpdateResponse = update(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     fun update(
         params: ScopeUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ScopeUpdateResponse
 
-    /** @see [update] */
+    /** @see update */
     fun update(id: Long, requestOptions: RequestOptions): ScopeUpdateResponse =
         update(id, ScopeUpdateParams.none(), requestOptions)
 
@@ -77,7 +77,7 @@ interface ScopeService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): List<ScopeListResponse>
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): List<ScopeListResponse> =
         list(ScopeListParams.none(), requestOptions)
 
@@ -88,13 +88,13 @@ interface ScopeService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ScopeDeleteResponse = delete(params.toBuilder().id(id).build(), requestOptions)
 
-    /** @see [delete] */
+    /** @see delete */
     fun delete(
         params: ScopeDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ScopeDeleteResponse
 
-    /** @see [delete] */
+    /** @see delete */
     fun delete(id: Long, requestOptions: RequestOptions): ScopeDeleteResponse =
         delete(id, ScopeDeleteParams.none(), requestOptions)
 
@@ -130,14 +130,14 @@ interface ScopeService {
         ): HttpResponseFor<ScopeRetrieveResponse> =
             retrieve(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: ScopeRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ScopeRetrieveResponse>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             id: Long,
@@ -157,14 +157,14 @@ interface ScopeService {
         ): HttpResponseFor<ScopeUpdateResponse> =
             update(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(
             params: ScopeUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ScopeUpdateResponse>
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(id: Long, requestOptions: RequestOptions): HttpResponseFor<ScopeUpdateResponse> =
             update(id, ScopeUpdateParams.none(), requestOptions)
@@ -179,7 +179,7 @@ interface ScopeService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<List<ScopeListResponse>>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<List<ScopeListResponse>> =
             list(ScopeListParams.none(), requestOptions)
@@ -196,14 +196,14 @@ interface ScopeService {
         ): HttpResponseFor<ScopeDeleteResponse> =
             delete(params.toBuilder().id(id).build(), requestOptions)
 
-        /** @see [delete] */
+        /** @see delete */
         @MustBeClosed
         fun delete(
             params: ScopeDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ScopeDeleteResponse>
 
-        /** @see [delete] */
+        /** @see delete */
         @MustBeClosed
         fun delete(id: Long, requestOptions: RequestOptions): HttpResponseFor<ScopeDeleteResponse> =
             delete(id, ScopeDeleteParams.none(), requestOptions)
