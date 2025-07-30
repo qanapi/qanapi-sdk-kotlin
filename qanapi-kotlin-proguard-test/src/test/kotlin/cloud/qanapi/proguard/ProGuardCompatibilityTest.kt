@@ -9,7 +9,6 @@ import cloud.qanapi.models.encrypt.EncryptEncryptDataResponse
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 internal class ProGuardCompatibilityTest {
@@ -46,7 +45,6 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.scopes()).isNotNull()
     }
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun authLoginResponseRoundtrip() {
         val jsonMapper = jsonMapper()
@@ -66,7 +64,6 @@ internal class ProGuardCompatibilityTest {
         assertThat(roundtrippedAuthLoginResponse).isEqualTo(authLoginResponse)
     }
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun encryptEncryptDataResponseRoundtrip() {
         val jsonMapper = jsonMapper()
