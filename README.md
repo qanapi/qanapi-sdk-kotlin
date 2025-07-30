@@ -235,6 +235,8 @@ The SDK throws custom unchecked exception types:
 
 - [`QanapiIoException`](qanapi-kotlin-core/src/main/kotlin/cloud/qanapi/errors/QanapiIoException.kt): I/O networking errors.
 
+- [`QanapiRetryableException`](qanapi-kotlin-core/src/main/kotlin/cloud/qanapi/errors/QanapiRetryableException.kt): Generic error indicating a failure that could be retried by the client.
+
 - [`QanapiInvalidDataException`](qanapi-kotlin-core/src/main/kotlin/cloud/qanapi/errors/QanapiInvalidDataException.kt): Failure to interpret successfully parsed data. For example, when accessing a property that's supposed to be required, but the API unexpectedly omitted it from the response.
 
 - [`QanapiException`](qanapi-kotlin-core/src/main/kotlin/cloud/qanapi/errors/QanapiException.kt): Base class for all exceptions. Most errors will result in one of the previously mentioned ones, but completely generic errors may be thrown using the base class.
