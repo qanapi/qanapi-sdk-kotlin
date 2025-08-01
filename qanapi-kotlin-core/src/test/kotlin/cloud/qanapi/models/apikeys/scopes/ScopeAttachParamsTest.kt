@@ -3,18 +3,15 @@
 package cloud.qanapi.models.apikeys.scopes
 
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 internal class ScopeAttachParamsTest {
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun create() {
         ScopeAttachParams.builder().apiKey(0L).addScopeId(25L).build()
     }
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun pathParams() {
         val params = ScopeAttachParams.builder().apiKey(0L).addScopeId(25L).build()
@@ -24,7 +21,6 @@ internal class ScopeAttachParamsTest {
         assertThat(params._pathParam(1)).isEqualTo("")
     }
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun body() {
         val params = ScopeAttachParams.builder().apiKey(0L).addScopeId(25L).build()

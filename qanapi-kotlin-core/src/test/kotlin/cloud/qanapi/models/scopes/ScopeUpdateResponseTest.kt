@@ -6,12 +6,10 @@ import cloud.qanapi.core.jsonMapper
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 internal class ScopeUpdateResponseTest {
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun create() {
         val scopeUpdateResponse =
@@ -32,7 +30,6 @@ internal class ScopeUpdateResponseTest {
             .isEqualTo(OffsetDateTime.parse("2025-06-05T15:47:13.000000Z"))
     }
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()

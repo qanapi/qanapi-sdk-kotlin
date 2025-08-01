@@ -4,12 +4,10 @@ package cloud.qanapi.models.decrypt
 
 import cloud.qanapi.core.JsonValue
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 internal class DecryptDecryptPayloadParamsTest {
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun create() {
         DecryptDecryptPayloadParams.builder()
@@ -22,7 +20,6 @@ internal class DecryptDecryptPayloadParamsTest {
             .build()
     }
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun body() {
         val params =
@@ -48,7 +45,6 @@ internal class DecryptDecryptPayloadParamsTest {
         assertThat(body.sensitiveFields()).containsExactly("password")
     }
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun bodyWithoutOptionalFields() {
         val params =
