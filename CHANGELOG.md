@@ -1,5 +1,26 @@
 # Changelog
 
+## 1.3.0 (2025-08-01)
+
+Full Changelog: [v1.2.0...v1.3.0](https://github.com/qanapi/qanapi-sdk-kotlin/compare/v1.2.0...v1.3.0)
+
+### Features
+
+* add retryable exception ([db68744](https://github.com/qanapi/qanapi-sdk-kotlin/commit/db687444c1961bb0c7115937f27f397e092be541))
+* **client:** ensure compat with proguard ([a807834](https://github.com/qanapi/qanapi-sdk-kotlin/commit/a8078344cb59c13e495f99927e121748c80111c2))
+
+
+### Bug Fixes
+
+* **client:** r8 support ([4f7ae13](https://github.com/qanapi/qanapi-sdk-kotlin/commit/4f7ae13f81f2f7ef44204b7886d1aecea0debdb3))
+
+
+### Chores
+
+* **internal:** bump ci test timeout ([08cd772](https://github.com/qanapi/qanapi-sdk-kotlin/commit/08cd77237a39bb34416d994b9e2ee7d1622df839))
+* **internal:** reduce proguard ci logging ([94559e0](https://github.com/qanapi/qanapi-sdk-kotlin/commit/94559e0da46bd298e7876ffda38532a2839e5305))
+* **internal:** unskip some tests ([c2712e7](https://github.com/qanapi/qanapi-sdk-kotlin/commit/c2712e71e9af381b6877ae95427d9d73e1bbf8e4))
+
 ## 1.2.0 (2025-07-25)
 
 Full Changelog: [v1.1.5...v1.2.0](https://github.com/qanapi/qanapi-sdk-kotlin/compare/v1.1.5...v1.2.0)
