@@ -2,8 +2,8 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/cloud.qanapi/qanapi-kotlin)](https://central.sonatype.com/artifact/cloud.qanapi/qanapi-kotlin/1.2.0)
-[![javadoc](https://javadoc.io/badge2/cloud.qanapi/qanapi-kotlin/1.2.0/javadoc.svg)](https://javadoc.io/doc/cloud.qanapi/qanapi-kotlin/1.2.0)
+[![Maven Central](https://img.shields.io/maven-central/v/cloud.qanapi/qanapi-kotlin)](https://central.sonatype.com/artifact/cloud.qanapi/qanapi-kotlin/1.3.0)
+[![javadoc](https://javadoc.io/badge2/cloud.qanapi/qanapi-kotlin/1.3.0/javadoc.svg)](https://javadoc.io/doc/cloud.qanapi/qanapi-kotlin/1.3.0)
 
 <!-- x-release-please-end -->
 
@@ -13,7 +13,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 <!-- x-release-please-start-version -->
 
-The REST API documentation can be found on [www.qanapi.com](https://www.qanapi.com/docs). KDocs are available on [javadoc.io](https://javadoc.io/doc/cloud.qanapi/qanapi-kotlin/1.2.0).
+The REST API documentation can be found on [www.qanapi.com](https://www.qanapi.com/docs). KDocs are available on [javadoc.io](https://javadoc.io/doc/cloud.qanapi/qanapi-kotlin/1.3.0).
 
 <!-- x-release-please-end -->
 
@@ -24,7 +24,7 @@ The REST API documentation can be found on [www.qanapi.com](https://www.qanapi.c
 ### Gradle
 
 ```kotlin
-implementation("cloud.qanapi:qanapi-kotlin:1.2.0")
+implementation("cloud.qanapi:qanapi-kotlin:1.3.0")
 ```
 
 ### Maven
@@ -33,7 +33,7 @@ implementation("cloud.qanapi:qanapi-kotlin:1.2.0")
 <dependency>
   <groupId>cloud.qanapi</groupId>
   <artifactId>qanapi-kotlin</artifactId>
-  <version>1.2.0</version>
+  <version>1.3.0</version>
 </dependency>
 ```
 
