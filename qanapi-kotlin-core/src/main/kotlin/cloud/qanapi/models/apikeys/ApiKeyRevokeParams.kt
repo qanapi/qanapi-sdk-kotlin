@@ -207,10 +207,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ApiKeyRevokeParams && apiKey == other.apiKey && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return other is ApiKeyRevokeParams &&
+            apiKey == other.apiKey &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams &&
+            additionalBodyProperties == other.additionalBodyProperties
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(apiKey, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(apiKey, additionalHeaders, additionalQueryParams, additionalBodyProperties)
 
     override fun toString() =
         "ApiKeyRevokeParams{apiKey=$apiKey, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
