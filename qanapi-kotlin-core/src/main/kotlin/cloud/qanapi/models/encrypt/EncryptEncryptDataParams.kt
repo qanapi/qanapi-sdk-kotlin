@@ -700,12 +700,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Body && data == other.data && access == other.access && attributes == other.attributes && sensitiveFields == other.sensitiveFields && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Body &&
+                data == other.data &&
+                access == other.access &&
+                attributes == other.attributes &&
+                sensitiveFields == other.sensitiveFields &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(data, access, attributes, sensitiveFields, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(data, access, attributes, sensitiveFields, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -822,10 +827,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Data && string == other.string && double == other.double && unionMember2 == other.unionMember2 && jsonValues == other.jsonValues /* spotless:on */
+            return other is Data &&
+                string == other.string &&
+                double == other.double &&
+                unionMember2 == other.unionMember2 &&
+                jsonValues == other.jsonValues
         }
 
-        override fun hashCode(): Int = /* spotless:off */ Objects.hash(string, double, unionMember2, jsonValues) /* spotless:on */
+        override fun hashCode(): Int = Objects.hash(string, double, unionMember2, jsonValues)
 
         override fun toString(): String =
             when {
@@ -1018,12 +1027,10 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is UnionMember2 && additionalProperties == other.additionalProperties /* spotless:on */
+                return other is UnionMember2 && additionalProperties == other.additionalProperties
             }
 
-            /* spotless:off */
             private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-            /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
@@ -1175,12 +1182,12 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Access && acl == other.acl && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Access &&
+                acl == other.acl &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(acl, additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -1527,7 +1534,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Classification && value == other.value /* spotless:on */
+                return other is Classification && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -1540,12 +1547,16 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Attributes && classification == other.classification && owner == other.owner && tags == other.tags && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Attributes &&
+                classification == other.classification &&
+                owner == other.owner &&
+                tags == other.tags &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(classification, owner, tags, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(classification, owner, tags, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1558,10 +1569,13 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is EncryptEncryptDataParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is EncryptEncryptDataParams &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "EncryptEncryptDataParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

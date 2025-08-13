@@ -431,12 +431,12 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Body && scopeIds == other.scopeIds && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Body &&
+                scopeIds == other.scopeIds &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(scopeIds, additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -449,10 +449,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ScopeDetachParams && apiKey == other.apiKey && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is ScopeDetachParams &&
+            apiKey == other.apiKey &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(apiKey, body, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(apiKey, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "ScopeDetachParams{apiKey=$apiKey, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

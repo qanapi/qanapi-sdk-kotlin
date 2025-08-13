@@ -165,12 +165,13 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ApiKeyRotateResponse && apiKey == other.apiKey && message == other.message && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is ApiKeyRotateResponse &&
+            apiKey == other.apiKey &&
+            message == other.message &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
     private val hashCode: Int by lazy { Objects.hash(apiKey, message, additionalProperties) }
-    /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 

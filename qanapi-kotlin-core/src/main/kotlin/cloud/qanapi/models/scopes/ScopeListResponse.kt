@@ -271,12 +271,18 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ScopeListResponse && id == other.id && createdAt == other.createdAt && name == other.name && route == other.route && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is ScopeListResponse &&
+            id == other.id &&
+            createdAt == other.createdAt &&
+            name == other.name &&
+            route == other.route &&
+            updatedAt == other.updatedAt &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, createdAt, name, route, updatedAt, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(id, createdAt, name, route, updatedAt, additionalProperties)
+    }
 
     override fun hashCode(): Int = hashCode
 
