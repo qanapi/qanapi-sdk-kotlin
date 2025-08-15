@@ -8,7 +8,20 @@ repositories {
 
 allprojects {
     group = "cloud.qanapi"
-    version = "1.2.0" // x-release-please-version
+    version = "1.3.0" // x-release-please-version
+}
+
+subprojects {
+    // These are populated with dependencies by `buildSrc` scripts.
+    tasks.register("format") {
+        group = "Verification"
+        description = "Formats all source files."
+    }
+    tasks.register("lint") {
+        group = "Verification"
+        description = "Verifies all source files are formatted."
+    }
+    apply(plugin = "org.jetbrains.dokka")
 }
 
 subprojects {

@@ -128,10 +128,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is EncryptEncryptDataResponse && string == other.string && double == other.double && unionMember2 == other.unionMember2 && jsonValues == other.jsonValues /* spotless:on */
+        return other is EncryptEncryptDataResponse &&
+            string == other.string &&
+            double == other.double &&
+            unionMember2 == other.unionMember2 &&
+            jsonValues == other.jsonValues
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(string, double, unionMember2, jsonValues) /* spotless:on */
+    override fun hashCode(): Int = Objects.hash(string, double, unionMember2, jsonValues)
 
     override fun toString(): String =
         when {
@@ -327,12 +331,10 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is UnionMember2 && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is UnionMember2 && additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 

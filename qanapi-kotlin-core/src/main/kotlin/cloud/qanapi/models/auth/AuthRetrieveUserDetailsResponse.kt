@@ -354,12 +354,29 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is AuthRetrieveUserDetailsResponse && id == other.id && email == other.email && emailVerifiedAt == other.emailVerifiedAt && firstLogin == other.firstLogin && gravatarUrl == other.gravatarUrl && name == other.name && roles == other.roles && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is AuthRetrieveUserDetailsResponse &&
+            id == other.id &&
+            email == other.email &&
+            emailVerifiedAt == other.emailVerifiedAt &&
+            firstLogin == other.firstLogin &&
+            gravatarUrl == other.gravatarUrl &&
+            name == other.name &&
+            roles == other.roles &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, email, emailVerifiedAt, firstLogin, gravatarUrl, name, roles, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            email,
+            emailVerifiedAt,
+            firstLogin,
+            gravatarUrl,
+            name,
+            roles,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

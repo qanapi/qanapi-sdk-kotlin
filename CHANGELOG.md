@@ -1,5 +1,41 @@
 # Changelog
 
+## 1.3.0 (2025-08-15)
+
+Full Changelog: [v1.2.0...v1.3.0](https://github.com/qanapi/qanapi-sdk-kotlin/compare/v1.2.0...v1.3.0)
+
+### Features
+
+* add retryable exception ([db68744](https://github.com/qanapi/qanapi-sdk-kotlin/commit/db687444c1961bb0c7115937f27f397e092be541))
+* **client:** ensure compat with proguard ([a807834](https://github.com/qanapi/qanapi-sdk-kotlin/commit/a8078344cb59c13e495f99927e121748c80111c2))
+
+
+### Bug Fixes
+
+* **client:** r8 support ([4f7ae13](https://github.com/qanapi/qanapi-sdk-kotlin/commit/4f7ae13f81f2f7ef44204b7886d1aecea0debdb3))
+
+
+### Performance Improvements
+
+* **internal:** make formatting faster ([8894da5](https://github.com/qanapi/qanapi-sdk-kotlin/commit/8894da5ce359fe7e7bc242a9c86e0722c107aad7))
+
+
+### Chores
+
+* **ci:** add build job ([0f2a1c1](https://github.com/qanapi/qanapi-sdk-kotlin/commit/0f2a1c13de8538a65ee86dce974389801ff9d7d5))
+* **example:** fix run example comment ([49f5f6e](https://github.com/qanapi/qanapi-sdk-kotlin/commit/49f5f6edd401eddde5d21545fea635b17cd32716))
+* increase max gradle JVM heap to 8GB ([0d76f3f](https://github.com/qanapi/qanapi-sdk-kotlin/commit/0d76f3f7acea5940ea73006b09026ba4aa769b17))
+* **internal:** add lock helper ([7911405](https://github.com/qanapi/qanapi-sdk-kotlin/commit/7911405be96b2c1012bffb54b0bea2791d8ef207))
+* **internal:** bump ci test timeout ([08cd772](https://github.com/qanapi/qanapi-sdk-kotlin/commit/08cd77237a39bb34416d994b9e2ee7d1622df839))
+* **internal:** codegen related update ([9ff2dad](https://github.com/qanapi/qanapi-sdk-kotlin/commit/9ff2dad58f3adcb721435df5b55438c8d3dc47b2))
+* **internal:** codegen related update ([b0bf8db](https://github.com/qanapi/qanapi-sdk-kotlin/commit/b0bf8db3a7f782c35d4c225090bd138d0e103a0c))
+* **internal:** dynamically determine included projects ([321f4cb](https://github.com/qanapi/qanapi-sdk-kotlin/commit/321f4cb7c6ec7dce8dcf43859a5c4426c9805280))
+* **internal:** reduce proguard ci logging ([94559e0](https://github.com/qanapi/qanapi-sdk-kotlin/commit/94559e0da46bd298e7876ffda38532a2839e5305))
+* **internal:** support passing arguments to test script ([11d1377](https://github.com/qanapi/qanapi-sdk-kotlin/commit/11d1377dc4775b18b68a3c3356cfb5351b6903f6))
+* **internal:** unskip some tests ([c2712e7](https://github.com/qanapi/qanapi-sdk-kotlin/commit/c2712e71e9af381b6877ae95427d9d73e1bbf8e4))
+* **internal:** update comment in script ([9c7ea53](https://github.com/qanapi/qanapi-sdk-kotlin/commit/9c7ea5350b016a1776613e36439daa5fcd677745))
+* update @stainless-api/prism-cli to v5.15.0 ([7c7867a](https://github.com/qanapi/qanapi-sdk-kotlin/commit/7c7867a12972065b5e5e239a16bf389ad371f94e))
+
 ## 1.2.0 (2025-07-25)
 
 Full Changelog: [v1.1.5...v1.2.0](https://github.com/qanapi/qanapi-sdk-kotlin/compare/v1.1.5...v1.2.0)

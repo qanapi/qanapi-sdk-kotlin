@@ -6,12 +6,10 @@ import cloud.qanapi.core.JsonValue
 import cloud.qanapi.core.jsonMapper
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 internal class EncryptEncryptDataResponseTest {
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun ofString() {
         val string = "string"
@@ -24,7 +22,6 @@ internal class EncryptEncryptDataResponseTest {
         assertThat(encryptEncryptDataResponse.jsonValues()).isNull()
     }
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun ofStringRoundtrip() {
         val jsonMapper = jsonMapper()
@@ -39,7 +36,6 @@ internal class EncryptEncryptDataResponseTest {
         assertThat(roundtrippedEncryptEncryptDataResponse).isEqualTo(encryptEncryptDataResponse)
     }
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun ofDouble() {
         val double = 0.0
@@ -52,7 +48,6 @@ internal class EncryptEncryptDataResponseTest {
         assertThat(encryptEncryptDataResponse.jsonValues()).isNull()
     }
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun ofDoubleRoundtrip() {
         val jsonMapper = jsonMapper()
@@ -67,7 +62,6 @@ internal class EncryptEncryptDataResponseTest {
         assertThat(roundtrippedEncryptEncryptDataResponse).isEqualTo(encryptEncryptDataResponse)
     }
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun ofUnionMember2() {
         val unionMember2 =
@@ -83,7 +77,6 @@ internal class EncryptEncryptDataResponseTest {
         assertThat(encryptEncryptDataResponse.jsonValues()).isNull()
     }
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun ofUnionMember2Roundtrip() {
         val jsonMapper = jsonMapper()
@@ -103,7 +96,6 @@ internal class EncryptEncryptDataResponseTest {
         assertThat(roundtrippedEncryptEncryptDataResponse).isEqualTo(encryptEncryptDataResponse)
     }
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun ofJsonValues() {
         val jsonValues = listOf(JsonValue.from(mapOf<String, Any>()))
@@ -116,7 +108,6 @@ internal class EncryptEncryptDataResponseTest {
         assertThat(encryptEncryptDataResponse.jsonValues()).isEqualTo(jsonValues)
     }
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun ofJsonValuesRoundtrip() {
         val jsonMapper = jsonMapper()

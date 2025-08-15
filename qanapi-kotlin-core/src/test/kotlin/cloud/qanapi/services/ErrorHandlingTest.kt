@@ -26,7 +26,6 @@ import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.entry
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.parallel.ResourceLock
@@ -60,7 +59,6 @@ internal class ErrorHandlingTest {
                 .build()
     }
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun authLogin400() {
         val authService = client.auth()
@@ -86,7 +84,6 @@ internal class ErrorHandlingTest {
         assertThat(e.body()).isEqualTo(ERROR_JSON)
     }
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun authLogin400WithRawResponse() {
         val authService = client.auth().withRawResponse()
@@ -112,7 +109,6 @@ internal class ErrorHandlingTest {
         assertThat(e.body()).isEqualTo(ERROR_JSON)
     }
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun authLogin401() {
         val authService = client.auth()
@@ -138,7 +134,6 @@ internal class ErrorHandlingTest {
         assertThat(e.body()).isEqualTo(ERROR_JSON)
     }
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun authLogin401WithRawResponse() {
         val authService = client.auth().withRawResponse()
@@ -164,7 +159,6 @@ internal class ErrorHandlingTest {
         assertThat(e.body()).isEqualTo(ERROR_JSON)
     }
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun authLogin403() {
         val authService = client.auth()
@@ -190,7 +184,6 @@ internal class ErrorHandlingTest {
         assertThat(e.body()).isEqualTo(ERROR_JSON)
     }
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun authLogin403WithRawResponse() {
         val authService = client.auth().withRawResponse()
@@ -216,7 +209,6 @@ internal class ErrorHandlingTest {
         assertThat(e.body()).isEqualTo(ERROR_JSON)
     }
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun authLogin404() {
         val authService = client.auth()
@@ -242,7 +234,6 @@ internal class ErrorHandlingTest {
         assertThat(e.body()).isEqualTo(ERROR_JSON)
     }
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun authLogin404WithRawResponse() {
         val authService = client.auth().withRawResponse()
@@ -268,7 +259,6 @@ internal class ErrorHandlingTest {
         assertThat(e.body()).isEqualTo(ERROR_JSON)
     }
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun authLogin422() {
         val authService = client.auth()
@@ -294,7 +284,6 @@ internal class ErrorHandlingTest {
         assertThat(e.body()).isEqualTo(ERROR_JSON)
     }
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun authLogin422WithRawResponse() {
         val authService = client.auth().withRawResponse()
@@ -320,7 +309,6 @@ internal class ErrorHandlingTest {
         assertThat(e.body()).isEqualTo(ERROR_JSON)
     }
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun authLogin429() {
         val authService = client.auth()
@@ -346,7 +334,6 @@ internal class ErrorHandlingTest {
         assertThat(e.body()).isEqualTo(ERROR_JSON)
     }
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun authLogin429WithRawResponse() {
         val authService = client.auth().withRawResponse()
@@ -372,7 +359,6 @@ internal class ErrorHandlingTest {
         assertThat(e.body()).isEqualTo(ERROR_JSON)
     }
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun authLogin500() {
         val authService = client.auth()
@@ -398,7 +384,6 @@ internal class ErrorHandlingTest {
         assertThat(e.body()).isEqualTo(ERROR_JSON)
     }
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun authLogin500WithRawResponse() {
         val authService = client.auth().withRawResponse()
@@ -424,7 +409,6 @@ internal class ErrorHandlingTest {
         assertThat(e.body()).isEqualTo(ERROR_JSON)
     }
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun authLogin999() {
         val authService = client.auth()
@@ -450,7 +434,6 @@ internal class ErrorHandlingTest {
         assertThat(e.body()).isEqualTo(ERROR_JSON)
     }
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun authLogin999WithRawResponse() {
         val authService = client.auth().withRawResponse()
@@ -476,7 +459,6 @@ internal class ErrorHandlingTest {
         assertThat(e.body()).isEqualTo(ERROR_JSON)
     }
 
-    @Disabled("skipped: tests are disabled for the time being")
     @Test
     fun authLoginInvalidJsonBody() {
         val authService = client.auth()
