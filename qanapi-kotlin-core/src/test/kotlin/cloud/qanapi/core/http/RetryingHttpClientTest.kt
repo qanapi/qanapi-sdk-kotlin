@@ -2,6 +2,7 @@ package cloud.qanapi.core.http
 
 import cloud.qanapi.client.okhttp.OkHttpClient
 import cloud.qanapi.core.RequestOptions
+import cloud.qanapi.core.Sleeper
 import cloud.qanapi.errors.QanapiRetryableException
 import com.github.tomakehurst.wiremock.client.WireMock.*
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
@@ -289,11 +290,13 @@ internal class RetryingHttpClientTest {
                 .httpClient(failingHttpClient)
                 .maxRetries(2)
                 .sleeper(
-                    object : RetryingHttpClient.Sleeper {
+                    object : Sleeper {
 
                         override fun sleep(duration: Duration) {}
 
                         override suspend fun sleepAsync(duration: Duration) {}
+
+                        override fun close() {}
                     }
                 )
                 .build()
@@ -327,11 +330,13 @@ internal class RetryingHttpClientTest {
             .httpClient(httpClient)
             // Use a no-op `Sleeper` to make the test fast.
             .sleeper(
-                object : RetryingHttpClient.Sleeper {
+                object : Sleeper {
 
                     override fun sleep(duration: Duration) {}
 
                     override suspend fun sleepAsync(duration: Duration) {}
+
+                    override fun close() {}
                 }
             )
 
