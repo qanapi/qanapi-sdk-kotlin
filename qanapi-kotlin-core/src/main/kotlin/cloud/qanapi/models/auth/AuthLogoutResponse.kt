@@ -15,6 +15,7 @@ import java.util.Collections
 import java.util.Objects
 
 class AuthLogoutResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val message: JsonField<String>,
     private val user: JsonField<String>,

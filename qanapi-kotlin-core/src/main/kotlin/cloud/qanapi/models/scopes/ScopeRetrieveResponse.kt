@@ -16,6 +16,7 @@ import java.util.Collections
 import java.util.Objects
 
 class ScopeRetrieveResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<Long>,
     private val createdAt: JsonField<OffsetDateTime>,

@@ -16,6 +16,7 @@ import java.util.Collections
 import java.util.Objects
 
 class ScopeRetrieveResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<Long>,
     private val createdAt: JsonField<OffsetDateTime>,
@@ -297,6 +298,7 @@ private constructor(
             (if (updatedAt.asKnown() == null) 0 else 1)
 
     class Pivot
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val apiKeyId: JsonField<Long>,
         private val scopeId: JsonField<Long>,

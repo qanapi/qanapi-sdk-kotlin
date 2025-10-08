@@ -18,6 +18,7 @@ import java.util.Collections
 import java.util.Objects
 
 class AuthRetrieveUserDetailsResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<Long>,
     private val email: JsonField<String>,
