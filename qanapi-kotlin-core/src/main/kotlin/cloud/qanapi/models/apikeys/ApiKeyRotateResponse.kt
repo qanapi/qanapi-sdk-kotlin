@@ -15,6 +15,7 @@ import java.util.Collections
 import java.util.Objects
 
 class ApiKeyRotateResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val apiKey: JsonField<String>,
     private val message: JsonField<String>,

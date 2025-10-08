@@ -15,6 +15,7 @@ import java.util.Collections
 import java.util.Objects
 
 class AuthRefreshTokenResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val accessToken: JsonField<String>,
     private val expiresIn: JsonField<Long>,
