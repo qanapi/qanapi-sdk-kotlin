@@ -2,18 +2,18 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/cloud.qanapi/qanapi-kotlin)](https://central.sonatype.com/artifact/cloud.qanapi/qanapi-kotlin/1.3.0)
-[![javadoc](https://javadoc.io/badge2/cloud.qanapi/qanapi-kotlin/1.3.0/javadoc.svg)](https://javadoc.io/doc/cloud.qanapi/qanapi-kotlin/1.3.0)
+[![Maven Central](https://img.shields.io/maven-central/v/cloud.qanapi/qanapi-kotlin)](https://central.sonatype.com/artifact/cloud.qanapi/qanapi-kotlin/1.4.0)
+[![javadoc](https://javadoc.io/badge2/cloud.qanapi/qanapi-kotlin/1.4.0/javadoc.svg)](https://javadoc.io/doc/cloud.qanapi/qanapi-kotlin/1.4.0)
 
 <!-- x-release-please-end -->
 
-The Qanapi Kotlin SDK provides convenient access to the [Qanapi REST API](https://www.qanapi.com/docs) from applications written in Kotlin.
+The Qanapi Kotlin SDK provides convenient access to the [Qanapi REST API](https://docs.qanapi.com/) from applications written in Kotlin.
 
 It is generated with [Stainless](https://www.stainless.com/).
 
 <!-- x-release-please-start-version -->
 
-The REST API documentation can be found on [www.qanapi.com](https://www.qanapi.com/docs). KDocs are available on [javadoc.io](https://javadoc.io/doc/cloud.qanapi/qanapi-kotlin/1.3.0).
+The REST API documentation can be found on [docs.qanapi.com](https://docs.qanapi.com/). KDocs are available on [javadoc.io](https://javadoc.io/doc/cloud.qanapi/qanapi-kotlin/1.4.0).
 
 <!-- x-release-please-end -->
 
@@ -24,7 +24,7 @@ The REST API documentation can be found on [www.qanapi.com](https://www.qanapi.c
 ### Gradle
 
 ```kotlin
-implementation("cloud.qanapi:qanapi-kotlin:1.3.0")
+implementation("cloud.qanapi:qanapi-kotlin:1.4.0")
 ```
 
 ### Maven
@@ -33,7 +33,7 @@ implementation("cloud.qanapi:qanapi-kotlin:1.3.0")
 <dependency>
   <groupId>cloud.qanapi</groupId>
   <artifactId>qanapi-kotlin</artifactId>
-  <version>1.3.0</version>
+  <version>1.4.0</version>
 </dependency>
 ```
 
@@ -243,18 +243,29 @@ The SDK throws custom unchecked exception types:
 
 ## Logging
 
-The SDK uses the standard [OkHttp logging interceptor](https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor).
-
 Enable logging by setting the `QANAPI_LOG` environment variable to `info`:
 
 ```sh
-$ export QANAPI_LOG=info
+export QANAPI_LOG=info
 ```
 
 Or to `debug` for more verbose logging:
 
 ```sh
-$ export QANAPI_LOG=debug
+export QANAPI_LOG=debug
+```
+
+Or configure the client manually using the `logLevel` method:
+
+```kotlin
+import cloud.qanapi.client.QanapiClient
+import cloud.qanapi.client.okhttp.QanapiOkHttpClient
+import cloud.qanapi.core.LogLevel
+
+val client: QanapiClient = QanapiOkHttpClient.builder()
+    .fromEnv()
+    .logLevel(LogLevel.INFO)
+    .build()
 ```
 
 ## ProGuard and R8
@@ -273,6 +284,8 @@ If the SDK threw an exception, but you're _certain_ the version is compatible, t
 
 > [!CAUTION]
 > We make no guarantee that the SDK works correctly when the Jackson version check is disabled.
+
+Also note that there are bugs in older Jackson versions that can affect the SDK. We don't work around all Jackson bugs ([example](https://github.com/FasterXML/jackson-databind/issues/3240)) and expect users to upgrade Jackson for those instead.
 
 ## Network options
 
@@ -348,6 +361,40 @@ val client: QanapiClient = QanapiOkHttpClient.builder()
     ))
     .build()
 ```
+
+If the proxy responds with `407 Proxy Authentication Required`, supply credentials by also configuring `proxyAuthenticator`:
+
+```kotlin
+import cloud.qanapi.client.QanapiClient
+import cloud.qanapi.client.okhttp.QanapiOkHttpClient
+import cloud.qanapi.core.http.ProxyAuthenticator
+
+val client: QanapiClient = QanapiOkHttpClient.builder()
+    .fromEnv()
+    .proxy(...)
+    // Or a custom implementation of `ProxyAuthenticator`.
+    .proxyAuthenticator(ProxyAuthenticator.basic("username", "password"))
+    .build()
+```
+
+### Connection pooling
+
+To customize the underlying OkHttp connection pool, configure the client using the `maxIdleConnections` and `keepAliveDuration` methods:
+
+```kotlin
+import cloud.qanapi.client.QanapiClient
+import cloud.qanapi.client.okhttp.QanapiOkHttpClient
+import java.time.Duration
+
+val client: QanapiClient = QanapiOkHttpClient.builder()
+    .fromEnv()
+    // If `maxIdleConnections` is set, then `keepAliveDuration` must be set, and vice versa.
+    .maxIdleConnections(10)
+    .keepAliveDuration(Duration.ofMinutes(2))
+    .build()
+```
+
+If both options are unset, OkHttp's default connection pool settings are used.
 
 ### HTTPS
 
@@ -552,7 +599,9 @@ In rare cases, the API may return a response that doesn't match the expected typ
 
 By default, the SDK will not throw an exception in this case. It will throw [`QanapiInvalidDataException`](qanapi-kotlin-core/src/main/kotlin/cloud/qanapi/errors/QanapiInvalidDataException.kt) only if you directly access the property.
 
-If you would prefer to check that the response is completely well-typed upfront, then either call `validate()`:
+Validating the response is _not_ forwards compatible with new types from the API for existing fields.
+
+If you would still prefer to check that the response is completely well-typed upfront, then either call `validate()`:
 
 ```kotlin
 import cloud.qanapi.models.auth.AuthLoginResponse

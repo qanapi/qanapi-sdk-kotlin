@@ -5,10 +5,14 @@ package cloud.qanapi.errors
 import cloud.qanapi.core.JsonValue
 import cloud.qanapi.core.checkRequired
 import cloud.qanapi.core.http.Headers
+import cloud.qanapi.core.jsonMapper
 
 class RateLimitException
 private constructor(private val headers: Headers, private val body: JsonValue, cause: Throwable?) :
-    QanapiServiceException("429: $body", cause) {
+    QanapiServiceException(
+        "429: ${if (body.isMissing()) "Unknown" else jsonMapper().writeValueAsString(body)}",
+        cause,
+    ) {
 
     override fun statusCode(): Int = 429
 

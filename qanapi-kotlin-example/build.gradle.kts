@@ -4,7 +4,8 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":qanapi-kotlin"))
+    implementation(project(":qanapi-kotlin-core"))
+    implementation(project(":qanapi-kotlin-client-okhttp"))
 }
 
 application {

@@ -2,25 +2,18 @@
 
 package cloud.qanapi.services.async
 
-import cloud.qanapi.TestServerExtension
 import cloud.qanapi.client.okhttp.QanapiOkHttpClientAsync
 import cloud.qanapi.models.auth.AuthLoginParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class AuthServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun login() {
         val client =
-            QanapiOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .subdomain("My-Subdomain")
-                .build()
+            QanapiOkHttpClientAsync.builder().apiKey("My API Key").subdomain("My-Subdomain").build()
         val authServiceAsync = client.auth()
 
         val response =
@@ -31,15 +24,11 @@ internal class AuthServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun logout() {
         val client =
-            QanapiOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .subdomain("My-Subdomain")
-                .build()
+            QanapiOkHttpClientAsync.builder().apiKey("My API Key").subdomain("My-Subdomain").build()
         val authServiceAsync = client.auth()
 
         val response = authServiceAsync.logout()
@@ -47,15 +36,11 @@ internal class AuthServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun refreshToken() {
         val client =
-            QanapiOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .subdomain("My-Subdomain")
-                .build()
+            QanapiOkHttpClientAsync.builder().apiKey("My API Key").subdomain("My-Subdomain").build()
         val authServiceAsync = client.auth()
 
         val response = authServiceAsync.refreshToken()
@@ -63,15 +48,11 @@ internal class AuthServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun retrieveUserDetails() {
         val client =
-            QanapiOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .subdomain("My-Subdomain")
-                .build()
+            QanapiOkHttpClientAsync.builder().apiKey("My API Key").subdomain("My-Subdomain").build()
         val authServiceAsync = client.auth()
 
         val response = authServiceAsync.retrieveUserDetails()
@@ -79,15 +60,11 @@ internal class AuthServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun revokeToken() {
         val client =
-            QanapiOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .subdomain("My-Subdomain")
-                .build()
+            QanapiOkHttpClientAsync.builder().apiKey("My API Key").subdomain("My-Subdomain").build()
         val authServiceAsync = client.auth()
 
         val response = authServiceAsync.revokeToken()

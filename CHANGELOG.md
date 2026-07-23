@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.4.0 (2026-07-23)
+
+Full Changelog: [v1.3.0...v1.4.0](https://github.com/qanapi/qanapi-sdk-kotlin/compare/v1.3.0...v1.4.0)
+
+### Features
+
+* **api:** remove scopes entity ([b28da8b](https://github.com/qanapi/qanapi-sdk-kotlin/commit/b28da8b90f07f92dd23969765c1f81dd368ab31f))
+
+
+### Chores
+
+* remove custom code ([8ab5ec0](https://github.com/qanapi/qanapi-sdk-kotlin/commit/8ab5ec0f0c94fccb04b77c33d8bf15861bcc2aef))
+
 ## 1.3.0 (2025-11-14)
 
 Full Changelog: [v1.2.0...v1.3.0](https://github.com/qanapi/qanapi-sdk-kotlin/compare/v1.2.0...v1.3.0)
