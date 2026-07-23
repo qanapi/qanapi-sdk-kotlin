@@ -16,6 +16,7 @@ import java.util.Collections
 import java.util.Objects
 
 class ScopeRetrieveResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<Long>,
     private val createdAt: JsonField<OffsetDateTime>,
@@ -271,12 +272,18 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ScopeRetrieveResponse && id == other.id && createdAt == other.createdAt && name == other.name && route == other.route && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is ScopeRetrieveResponse &&
+            id == other.id &&
+            createdAt == other.createdAt &&
+            name == other.name &&
+            route == other.route &&
+            updatedAt == other.updatedAt &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, createdAt, name, route, updatedAt, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(id, createdAt, name, route, updatedAt, additionalProperties)
+    }
 
     override fun hashCode(): Int = hashCode
 

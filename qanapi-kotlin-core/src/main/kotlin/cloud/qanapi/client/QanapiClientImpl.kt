@@ -59,7 +59,7 @@ class QanapiClientImpl(private val clientOptions: ClientOptions) : QanapiClient 
 
     override fun scopes(): ScopeService = scopes
 
-    override fun close() = clientOptions.httpClient.close()
+    override fun close() = clientOptions.close()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         QanapiClient.WithRawResponse {
