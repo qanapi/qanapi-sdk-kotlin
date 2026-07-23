@@ -4,9 +4,11 @@ package cloud.qanapi.models.encrypt
 
 import cloud.qanapi.core.JsonValue
 import cloud.qanapi.core.jsonMapper
+import cloud.qanapi.errors.QanapiInvalidDataException
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 internal class EncryptEncryptDataResponseTest {
 
@@ -121,5 +123,15 @@ internal class EncryptEncryptDataResponseTest {
             )
 
         assertThat(roundtrippedEncryptEncryptDataResponse).isEqualTo(encryptEncryptDataResponse)
+    }
+
+    @Test
+    fun incompatibleJsonShapeDeserializesToUnknown() {
+        val value = JsonValue.from(false)
+        val encryptEncryptDataResponse =
+            jsonMapper().convertValue(value, jacksonTypeRef<EncryptEncryptDataResponse>())
+
+        val e = assertThrows<QanapiInvalidDataException> { encryptEncryptDataResponse.validate() }
+        assertThat(e).hasMessageStartingWith("Unknown ")
     }
 }

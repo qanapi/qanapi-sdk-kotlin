@@ -12,8 +12,6 @@ import cloud.qanapi.services.async.DecryptServiceAsync
 import cloud.qanapi.services.async.DecryptServiceAsyncImpl
 import cloud.qanapi.services.async.EncryptServiceAsync
 import cloud.qanapi.services.async.EncryptServiceAsyncImpl
-import cloud.qanapi.services.async.ScopeServiceAsync
-import cloud.qanapi.services.async.ScopeServiceAsyncImpl
 
 class QanapiClientAsyncImpl(private val clientOptions: ClientOptions) : QanapiClientAsync {
 
@@ -46,10 +44,6 @@ class QanapiClientAsyncImpl(private val clientOptions: ClientOptions) : QanapiCl
         ApiKeyServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
-    private val scopes: ScopeServiceAsync by lazy {
-        ScopeServiceAsyncImpl(clientOptionsWithUserAgent)
-    }
-
     override fun sync(): QanapiClient = sync
 
     override fun withRawResponse(): QanapiClientAsync.WithRawResponse = withRawResponse
@@ -64,8 +58,6 @@ class QanapiClientAsyncImpl(private val clientOptions: ClientOptions) : QanapiCl
     override fun decrypt(): DecryptServiceAsync = decrypt
 
     override fun apiKeys(): ApiKeyServiceAsync = apiKeys
-
-    override fun scopes(): ScopeServiceAsync = scopes
 
     override fun close() = clientOptions.close()
 
@@ -88,10 +80,6 @@ class QanapiClientAsyncImpl(private val clientOptions: ClientOptions) : QanapiCl
             ApiKeyServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val scopes: ScopeServiceAsync.WithRawResponse by lazy {
-            ScopeServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
         override fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
         ): QanapiClientAsync.WithRawResponse =
@@ -106,7 +94,5 @@ class QanapiClientAsyncImpl(private val clientOptions: ClientOptions) : QanapiCl
         override fun decrypt(): DecryptServiceAsync.WithRawResponse = decrypt
 
         override fun apiKeys(): ApiKeyServiceAsync.WithRawResponse = apiKeys
-
-        override fun scopes(): ScopeServiceAsync.WithRawResponse = scopes
     }
 }

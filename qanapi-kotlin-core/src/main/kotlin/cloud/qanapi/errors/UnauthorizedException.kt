@@ -5,10 +5,14 @@ package cloud.qanapi.errors
 import cloud.qanapi.core.JsonValue
 import cloud.qanapi.core.checkRequired
 import cloud.qanapi.core.http.Headers
+import cloud.qanapi.core.jsonMapper
 
 class UnauthorizedException
 private constructor(private val headers: Headers, private val body: JsonValue, cause: Throwable?) :
-    QanapiServiceException("401: $body", cause) {
+    QanapiServiceException(
+        "401: ${if (body.isMissing()) "Unknown" else jsonMapper().writeValueAsString(body)}",
+        cause,
+    ) {
 
     override fun statusCode(): Int = 401
 

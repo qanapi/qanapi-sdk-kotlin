@@ -56,6 +56,30 @@ private constructor(
 
     fun _json(): JsonValue? = _json
 
+    /**
+     * Maps this instance's current variant to a value of type [T] using the given [visitor].
+     *
+     * Note that this method is _not_ forwards compatible with new variants from the API, unless
+     * [visitor] overrides [Visitor.unknown]. To handle variants not known to this version of the
+     * SDK gracefully, consider overriding [Visitor.unknown]:
+     * ```kotlin
+     * import cloud.qanapi.core.JsonValue
+     *
+     * val result: String? = decryptDecryptPayloadResponse.accept(object : DecryptDecryptPayloadResponse.Visitor<String?> {
+     *     override fun visitString(string: String): String? = string.toString()
+     *
+     *     // ...
+     *
+     *     override fun unknown(json: JsonValue?): String? {
+     *         // Or inspect the `json`.
+     *         return null
+     *     }
+     * })
+     * ```
+     *
+     * @throws QanapiInvalidDataException if [Visitor.unknown] is not overridden in [visitor] and
+     *   the current variant is unknown.
+     */
     fun <T> accept(visitor: Visitor<T>): T =
         when {
             string != null -> visitor.visitString(string)
@@ -66,6 +90,14 @@ private constructor(
 
     private var validated: Boolean = false
 
+    /**
+     * Validates that the types of all values in this object match their expected types recursively.
+     *
+     * This method is _not_ forwards compatible with new types from the API for existing fields.
+     *
+     * @throws QanapiInvalidDataException if any value type in this object doesn't match its
+     *   expected type.
+     */
     fun validate(): DecryptDecryptPayloadResponse = apply {
         if (validated) {
             return@apply
@@ -194,7 +226,7 @@ private constructor(
                     .toList()
             return when (bestMatches.size) {
                 // This can happen if what we're deserializing is completely incompatible with all
-                // the possible variants.
+                // the possible variants (e.g. deserializing from boolean).
                 0 -> DecryptDecryptPayloadResponse(_json = json)
                 1 -> bestMatches.single()
                 // If there's more than one match with the highest validity, then use the first
@@ -279,6 +311,15 @@ private constructor(
 
         private var validated: Boolean = false
 
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws QanapiInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
         fun validate(): UnionMember1 = apply {
             if (validated) {
                 return@apply

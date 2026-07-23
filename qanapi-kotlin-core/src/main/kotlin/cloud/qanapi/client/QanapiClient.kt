@@ -7,7 +7,6 @@ import cloud.qanapi.services.blocking.ApiKeyService
 import cloud.qanapi.services.blocking.AuthService
 import cloud.qanapi.services.blocking.DecryptService
 import cloud.qanapi.services.blocking.EncryptService
-import cloud.qanapi.services.blocking.ScopeService
 
 /**
  * A client for interacting with the Qanapi REST API synchronously. You can also switch to
@@ -53,8 +52,6 @@ interface QanapiClient {
 
     fun apiKeys(): ApiKeyService
 
-    fun scopes(): ScopeService
-
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -85,7 +82,5 @@ interface QanapiClient {
         fun decrypt(): DecryptService.WithRawResponse
 
         fun apiKeys(): ApiKeyService.WithRawResponse
-
-        fun scopes(): ScopeService.WithRawResponse
     }
 }

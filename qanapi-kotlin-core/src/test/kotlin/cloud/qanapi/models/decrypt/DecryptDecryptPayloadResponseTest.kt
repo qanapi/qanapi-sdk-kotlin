@@ -4,9 +4,13 @@ package cloud.qanapi.models.decrypt
 
 import cloud.qanapi.core.JsonValue
 import cloud.qanapi.core.jsonMapper
+import cloud.qanapi.errors.QanapiInvalidDataException
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.EnumSource
 
 internal class DecryptDecryptPayloadResponseTest {
 
@@ -96,5 +100,23 @@ internal class DecryptDecryptPayloadResponseTest {
 
         assertThat(roundtrippedDecryptDecryptPayloadResponse)
             .isEqualTo(decryptDecryptPayloadResponse)
+    }
+
+    enum class IncompatibleJsonShapeTestCase(val value: JsonValue) {
+        BOOLEAN(JsonValue.from(false)),
+        INTEGER(JsonValue.from(-1)),
+        FLOAT(JsonValue.from(3.14)),
+    }
+
+    @ParameterizedTest
+    @EnumSource
+    fun incompatibleJsonShapeDeserializesToUnknown(testCase: IncompatibleJsonShapeTestCase) {
+        val decryptDecryptPayloadResponse =
+            jsonMapper()
+                .convertValue(testCase.value, jacksonTypeRef<DecryptDecryptPayloadResponse>())
+
+        val e =
+            assertThrows<QanapiInvalidDataException> { decryptDecryptPayloadResponse.validate() }
+        assertThat(e).hasMessageStartingWith("Unknown ")
     }
 }

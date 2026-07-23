@@ -9,7 +9,6 @@ import cloud.qanapi.models.apikeys.ApiKeyRevokeParams
 import cloud.qanapi.models.apikeys.ApiKeyRevokeResponse
 import cloud.qanapi.models.apikeys.ApiKeyRotateParams
 import cloud.qanapi.models.apikeys.ApiKeyRotateResponse
-import cloud.qanapi.services.async.apikeys.ScopeServiceAsync
 import com.google.errorprone.annotations.MustBeClosed
 
 interface ApiKeyServiceAsync {
@@ -25,8 +24,6 @@ interface ApiKeyServiceAsync {
      * The original service is not modified.
      */
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ApiKeyServiceAsync
-
-    fun scopes(): ScopeServiceAsync
 
     /** Revoke an API Key */
     suspend fun revoke(
@@ -75,8 +72,6 @@ interface ApiKeyServiceAsync {
         fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
         ): ApiKeyServiceAsync.WithRawResponse
-
-        fun scopes(): ScopeServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `patch /api-keys/{apiKey}/revoke`, but is otherwise the
