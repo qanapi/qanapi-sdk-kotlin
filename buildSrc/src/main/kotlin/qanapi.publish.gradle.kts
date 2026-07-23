@@ -7,6 +7,17 @@ plugins {
     id("com.vanniktech.maven.publish")
 }
 
+publishing {
+  repositories {
+      if (project.hasProperty("publishLocal")) {
+          maven {
+              name = "LocalFileSystem"
+              url = uri("${rootProject.layout.buildDirectory.get()}/local-maven-repo")
+          }
+      }
+  }
+}
+
 repositories {
     gradlePluginPortal()
     mavenCentral()
@@ -17,8 +28,10 @@ extra["signingInMemoryKeyId"] = System.getenv("GPG_SIGNING_KEY_ID")
 extra["signingInMemoryKeyPassword"] = System.getenv("GPG_SIGNING_PASSWORD")
 
 configure<MavenPublishBaseExtension> {
-    signAllPublications()
-    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+    if (!project.hasProperty("publishLocal")) {
+        signAllPublications()
+        publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+    }
 
     coordinates(project.group.toString(), project.name, project.version.toString())
     configure(
@@ -30,8 +43,8 @@ configure<MavenPublishBaseExtension> {
 
     pom {
         name.set("Qanapi")
-        description.set("Secure API with enforced JWT and API Key headers. All endpoints are scoped and\nrequire proper authentication.")
-        url.set("https://www.qanapi.com/docs")
+        description.set("Secure API with enforced JWT and API Key headers. All endpoints require proper\nauthentication.")
+        url.set("https://docs.qanapi.com/")
 
         licenses {
             license {

@@ -20,8 +20,6 @@ import cloud.qanapi.models.apikeys.ApiKeyRevokeParams
 import cloud.qanapi.models.apikeys.ApiKeyRevokeResponse
 import cloud.qanapi.models.apikeys.ApiKeyRotateParams
 import cloud.qanapi.models.apikeys.ApiKeyRotateResponse
-import cloud.qanapi.services.async.apikeys.ScopeServiceAsync
-import cloud.qanapi.services.async.apikeys.ScopeServiceAsyncImpl
 
 class ApiKeyServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     ApiKeyServiceAsync {
@@ -30,14 +28,10 @@ class ApiKeyServiceAsyncImpl internal constructor(private val clientOptions: Cli
         WithRawResponseImpl(clientOptions)
     }
 
-    private val scopes: ScopeServiceAsync by lazy { ScopeServiceAsyncImpl(clientOptions) }
-
     override fun withRawResponse(): ApiKeyServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ApiKeyServiceAsync =
         ApiKeyServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
-
-    override fun scopes(): ScopeServiceAsync = scopes
 
     override suspend fun revoke(
         params: ApiKeyRevokeParams,
@@ -59,18 +53,12 @@ class ApiKeyServiceAsyncImpl internal constructor(private val clientOptions: Cli
         private val errorHandler: Handler<HttpResponse> =
             errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
-        private val scopes: ScopeServiceAsync.WithRawResponse by lazy {
-            ScopeServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
         override fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
         ): ApiKeyServiceAsync.WithRawResponse =
             ApiKeyServiceAsyncImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier).build()
             )
-
-        override fun scopes(): ScopeServiceAsync.WithRawResponse = scopes
 
         private val revokeHandler: Handler<ApiKeyRevokeResponse> =
             jsonHandler<ApiKeyRevokeResponse>(clientOptions.jsonMapper)

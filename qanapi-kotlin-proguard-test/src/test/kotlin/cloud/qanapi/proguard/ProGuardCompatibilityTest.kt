@@ -53,7 +53,6 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.encrypt()).isNotNull()
         assertThat(client.decrypt()).isNotNull()
         assertThat(client.apiKeys()).isNotNull()
-        assertThat(client.scopes()).isNotNull()
     }
 
     @Test

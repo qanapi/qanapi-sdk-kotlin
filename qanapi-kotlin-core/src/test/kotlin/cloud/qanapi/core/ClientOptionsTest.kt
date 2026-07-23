@@ -31,6 +31,34 @@ internal class ClientOptionsTest {
     }
 
     @Test
+    fun putHeader_canOverwriteDefaultHeader() {
+        val clientOptions =
+            ClientOptions.builder()
+                .httpClient(httpClient)
+                .putHeader("User-Agent", "My User Agent")
+                .apiKey("My API Key")
+                .subdomain("My-Subdomain")
+                .build()
+
+        assertThat(clientOptions.headers.values("User-Agent")).containsExactly("My User Agent")
+    }
+
+    @Test
+    fun toBuilder_apiKeyAuthCanBeUpdated() {
+        var clientOptions =
+            ClientOptions.builder()
+                .httpClient(httpClient)
+                .apiKey("My API Key")
+                .subdomain("My-Subdomain")
+                .build()
+
+        clientOptions = clientOptions.toBuilder().apiKey("another My API Key").build()
+
+        assertThat(clientOptions.headers.values("x-qanapi-authorization"))
+            .containsExactly("another My API Key")
+    }
+
+    @Test
     fun toBuilder_whenOriginalClientOptionsGarbageCollected_doesNotCloseOriginalClient() {
         var clientOptions =
             ClientOptions.builder()
