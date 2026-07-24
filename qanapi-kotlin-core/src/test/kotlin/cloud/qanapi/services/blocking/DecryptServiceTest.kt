@@ -21,7 +21,8 @@ internal class DecryptServiceTest {
             decryptService.decryptPayload(
                 DecryptDecryptPayloadParams.builder()
                     .data(
-                        DecryptDecryptPayloadParams.Data.UnionMember1.builder()
+                        DecryptDecryptPayloadParams.Data.DecryptDecryptPayloadResponseVariant1
+                            .builder()
                             .putAdditionalProperty("password", JsonValue.from("bar"))
                             .build()
                     )
