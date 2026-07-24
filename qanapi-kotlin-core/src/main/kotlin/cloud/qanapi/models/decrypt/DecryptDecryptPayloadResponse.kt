@@ -31,26 +31,26 @@ import java.util.Objects
 class DecryptDecryptPayloadResponse
 private constructor(
     private val string: String? = null,
-    private val unionMember1: UnionMember1? = null,
+    private val variant1: DecryptDecryptPayloadResponseVariant1? = null,
     private val jsonValues: List<JsonValue>? = null,
     private val _json: JsonValue? = null,
 ) {
 
     fun string(): String? = string
 
-    fun unionMember1(): UnionMember1? = unionMember1
+    fun variant1(): DecryptDecryptPayloadResponseVariant1? = variant1
 
     fun jsonValues(): List<JsonValue>? = jsonValues
 
     fun isString(): Boolean = string != null
 
-    fun isUnionMember1(): Boolean = unionMember1 != null
+    fun isVariant1(): Boolean = variant1 != null
 
     fun isJsonValues(): Boolean = jsonValues != null
 
     fun asString(): String = string.getOrThrow("string")
 
-    fun asUnionMember1(): UnionMember1 = unionMember1.getOrThrow("unionMember1")
+    fun asVariant1(): DecryptDecryptPayloadResponseVariant1 = variant1.getOrThrow("variant1")
 
     fun asJsonValues(): List<JsonValue> = jsonValues.getOrThrow("jsonValues")
 
@@ -83,7 +83,7 @@ private constructor(
     fun <T> accept(visitor: Visitor<T>): T =
         when {
             string != null -> visitor.visitString(string)
-            unionMember1 != null -> visitor.visitUnionMember1(unionMember1)
+            variant1 != null -> visitor.visitVariant1(variant1)
             jsonValues != null -> visitor.visitJsonValues(jsonValues)
             else -> visitor.unknown(_json)
         }
@@ -107,8 +107,8 @@ private constructor(
             object : Visitor<Unit> {
                 override fun visitString(string: String) {}
 
-                override fun visitUnionMember1(unionMember1: UnionMember1) {
-                    unionMember1.validate()
+                override fun visitVariant1(variant1: DecryptDecryptPayloadResponseVariant1) {
+                    variant1.validate()
                 }
 
                 override fun visitJsonValues(jsonValues: List<JsonValue>) {}
@@ -135,7 +135,8 @@ private constructor(
             object : Visitor<Int> {
                 override fun visitString(string: String) = 1
 
-                override fun visitUnionMember1(unionMember1: UnionMember1) = unionMember1.validity()
+                override fun visitVariant1(variant1: DecryptDecryptPayloadResponseVariant1) =
+                    variant1.validity()
 
                 override fun visitJsonValues(jsonValues: List<JsonValue>) = jsonValues.size
 
@@ -150,16 +151,16 @@ private constructor(
 
         return other is DecryptDecryptPayloadResponse &&
             string == other.string &&
-            unionMember1 == other.unionMember1 &&
+            variant1 == other.variant1 &&
             jsonValues == other.jsonValues
     }
 
-    override fun hashCode(): Int = Objects.hash(string, unionMember1, jsonValues)
+    override fun hashCode(): Int = Objects.hash(string, variant1, jsonValues)
 
     override fun toString(): String =
         when {
             string != null -> "DecryptDecryptPayloadResponse{string=$string}"
-            unionMember1 != null -> "DecryptDecryptPayloadResponse{unionMember1=$unionMember1}"
+            variant1 != null -> "DecryptDecryptPayloadResponse{variant1=$variant1}"
             jsonValues != null -> "DecryptDecryptPayloadResponse{jsonValues=$jsonValues}"
             _json != null -> "DecryptDecryptPayloadResponse{_unknown=$_json}"
             else -> throw IllegalStateException("Invalid DecryptDecryptPayloadResponse")
@@ -169,8 +170,8 @@ private constructor(
 
         fun ofString(string: String) = DecryptDecryptPayloadResponse(string = string)
 
-        fun ofUnionMember1(unionMember1: UnionMember1) =
-            DecryptDecryptPayloadResponse(unionMember1 = unionMember1)
+        fun ofVariant1(variant1: DecryptDecryptPayloadResponseVariant1) =
+            DecryptDecryptPayloadResponse(variant1 = variant1)
 
         fun ofJsonValues(jsonValues: List<JsonValue>) =
             DecryptDecryptPayloadResponse(jsonValues = jsonValues.toImmutable())
@@ -184,7 +185,7 @@ private constructor(
 
         fun visitString(string: String): T
 
-        fun visitUnionMember1(unionMember1: UnionMember1): T
+        fun visitVariant1(variant1: DecryptDecryptPayloadResponseVariant1): T
 
         fun visitJsonValues(jsonValues: List<JsonValue>): T
 
@@ -211,9 +212,11 @@ private constructor(
 
             val bestMatches =
                 sequenceOf(
-                        tryDeserialize(node, jacksonTypeRef<UnionMember1>())?.let {
-                            DecryptDecryptPayloadResponse(unionMember1 = it, _json = json)
-                        },
+                        tryDeserialize(
+                                node,
+                                jacksonTypeRef<DecryptDecryptPayloadResponseVariant1>(),
+                            )
+                            ?.let { DecryptDecryptPayloadResponse(variant1 = it, _json = json) },
                         tryDeserialize(node, jacksonTypeRef<String>())?.let {
                             DecryptDecryptPayloadResponse(string = it, _json = json)
                         },
@@ -246,7 +249,7 @@ private constructor(
         ) {
             when {
                 value.string != null -> generator.writeObject(value.string)
-                value.unionMember1 != null -> generator.writeObject(value.unionMember1)
+                value.variant1 != null -> generator.writeObject(value.variant1)
                 value.jsonValues != null -> generator.writeObject(value.jsonValues)
                 value._json != null -> generator.writeObject(value._json)
                 else -> throw IllegalStateException("Invalid DecryptDecryptPayloadResponse")
@@ -254,7 +257,7 @@ private constructor(
         }
     }
 
-    class UnionMember1
+    class DecryptDecryptPayloadResponseVariant1
     @JsonCreator
     private constructor(
         @com.fasterxml.jackson.annotation.JsonValue
@@ -269,17 +272,23 @@ private constructor(
 
         companion object {
 
-            /** Returns a mutable builder for constructing an instance of [UnionMember1]. */
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [DecryptDecryptPayloadResponseVariant1].
+             */
             fun builder() = Builder()
         }
 
-        /** A builder for [UnionMember1]. */
+        /** A builder for [DecryptDecryptPayloadResponseVariant1]. */
         class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(unionMember1: UnionMember1) = apply {
-                additionalProperties = unionMember1.additionalProperties.toMutableMap()
+            internal fun from(
+                decryptDecryptPayloadResponseVariant1: DecryptDecryptPayloadResponseVariant1
+            ) = apply {
+                additionalProperties =
+                    decryptDecryptPayloadResponseVariant1.additionalProperties.toMutableMap()
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -302,11 +311,12 @@ private constructor(
             }
 
             /**
-             * Returns an immutable instance of [UnionMember1].
+             * Returns an immutable instance of [DecryptDecryptPayloadResponseVariant1].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): UnionMember1 = UnionMember1(additionalProperties.toImmutable())
+            fun build(): DecryptDecryptPayloadResponseVariant1 =
+                DecryptDecryptPayloadResponseVariant1(additionalProperties.toImmutable())
         }
 
         private var validated: Boolean = false
@@ -320,7 +330,7 @@ private constructor(
          * @throws QanapiInvalidDataException if any value type in this object doesn't match its
          *   expected type.
          */
-        fun validate(): UnionMember1 = apply {
+        fun validate(): DecryptDecryptPayloadResponseVariant1 = apply {
             if (validated) {
                 return@apply
             }
@@ -350,13 +360,15 @@ private constructor(
                 return true
             }
 
-            return other is UnionMember1 && additionalProperties == other.additionalProperties
+            return other is DecryptDecryptPayloadResponseVariant1 &&
+                additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "UnionMember1{additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "DecryptDecryptPayloadResponseVariant1{additionalProperties=$additionalProperties}"
     }
 }

@@ -12,7 +12,7 @@ internal class DecryptDecryptPayloadParamsTest {
     fun create() {
         DecryptDecryptPayloadParams.builder()
             .data(
-                DecryptDecryptPayloadParams.Data.UnionMember1.builder()
+                DecryptDecryptPayloadParams.Data.DecryptDecryptPayloadResponseVariant1.builder()
                     .putAdditionalProperty("password", JsonValue.from("bar"))
                     .build()
             )
@@ -25,7 +25,7 @@ internal class DecryptDecryptPayloadParamsTest {
         val params =
             DecryptDecryptPayloadParams.builder()
                 .data(
-                    DecryptDecryptPayloadParams.Data.UnionMember1.builder()
+                    DecryptDecryptPayloadParams.Data.DecryptDecryptPayloadResponseVariant1.builder()
                         .putAdditionalProperty("password", JsonValue.from("bar"))
                         .build()
                 )
@@ -36,8 +36,8 @@ internal class DecryptDecryptPayloadParamsTest {
 
         assertThat(body.data())
             .isEqualTo(
-                DecryptDecryptPayloadParams.Data.ofUnionMember1(
-                    DecryptDecryptPayloadParams.Data.UnionMember1.builder()
+                DecryptDecryptPayloadParams.Data.ofDecryptDecryptPayloadResponseVariant1(
+                    DecryptDecryptPayloadParams.Data.DecryptDecryptPayloadResponseVariant1.builder()
                         .putAdditionalProperty("password", JsonValue.from("bar"))
                         .build()
                 )
@@ -50,7 +50,7 @@ internal class DecryptDecryptPayloadParamsTest {
         val params =
             DecryptDecryptPayloadParams.builder()
                 .data(
-                    DecryptDecryptPayloadParams.Data.UnionMember1.builder()
+                    DecryptDecryptPayloadParams.Data.DecryptDecryptPayloadResponseVariant1.builder()
                         .putAdditionalProperty("password", JsonValue.from("bar"))
                         .build()
                 )
@@ -60,8 +60,8 @@ internal class DecryptDecryptPayloadParamsTest {
 
         assertThat(body.data())
             .isEqualTo(
-                DecryptDecryptPayloadParams.Data.ofUnionMember1(
-                    DecryptDecryptPayloadParams.Data.UnionMember1.builder()
+                DecryptDecryptPayloadParams.Data.ofDecryptDecryptPayloadResponseVariant1(
+                    DecryptDecryptPayloadParams.Data.DecryptDecryptPayloadResponseVariant1.builder()
                         .putAdditionalProperty("password", JsonValue.from("bar"))
                         .build()
                 )
