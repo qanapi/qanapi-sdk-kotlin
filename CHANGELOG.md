@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.5.0 (2026-07-24)
+
+Full Changelog: [v1.4.0...v1.5.0](https://github.com/qanapi/qanapi-sdk-kotlin/compare/v1.4.0...v1.5.0)
+
+### Features
+
+* **api:** auto fix kotlin ([afddd8a](https://github.com/qanapi/qanapi-sdk-kotlin/commit/afddd8af9e31825e796410373c13e8e645aa8f57))
+* **api:** kotlin auto fixes ([a552184](https://github.com/qanapi/qanapi-sdk-kotlin/commit/a55218467d41c3cd47dde05a93df3b73415dfc19))
+
 ## 1.4.0 (2026-07-23)
 
 Full Changelog: [v1.3.0...v1.4.0](https://github.com/qanapi/qanapi-sdk-kotlin/compare/v1.3.0...v1.4.0)
