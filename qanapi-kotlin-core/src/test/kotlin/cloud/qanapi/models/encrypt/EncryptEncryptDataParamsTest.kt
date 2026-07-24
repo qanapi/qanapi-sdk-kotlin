@@ -12,7 +12,7 @@ internal class EncryptEncryptDataParamsTest {
     fun create() {
         EncryptEncryptDataParams.builder()
             .data(
-                EncryptEncryptDataParams.Data.UnionMember2.builder()
+                EncryptEncryptDataParams.Data.EncryptEncryptDataResponseVariant2.builder()
                     .putAdditionalProperty("password", JsonValue.from("bar"))
                     .build()
             )
@@ -33,7 +33,7 @@ internal class EncryptEncryptDataParamsTest {
         val params =
             EncryptEncryptDataParams.builder()
                 .data(
-                    EncryptEncryptDataParams.Data.UnionMember2.builder()
+                    EncryptEncryptDataParams.Data.EncryptEncryptDataResponseVariant2.builder()
                         .putAdditionalProperty("password", JsonValue.from("bar"))
                         .build()
                 )
@@ -54,8 +54,8 @@ internal class EncryptEncryptDataParamsTest {
 
         assertThat(body.data())
             .isEqualTo(
-                EncryptEncryptDataParams.Data.ofUnionMember2(
-                    EncryptEncryptDataParams.Data.UnionMember2.builder()
+                EncryptEncryptDataParams.Data.ofEncryptEncryptDataResponseVariant2(
+                    EncryptEncryptDataParams.Data.EncryptEncryptDataResponseVariant2.builder()
                         .putAdditionalProperty("password", JsonValue.from("bar"))
                         .build()
                 )
@@ -78,7 +78,7 @@ internal class EncryptEncryptDataParamsTest {
         val params =
             EncryptEncryptDataParams.builder()
                 .data(
-                    EncryptEncryptDataParams.Data.UnionMember2.builder()
+                    EncryptEncryptDataParams.Data.EncryptEncryptDataResponseVariant2.builder()
                         .putAdditionalProperty("password", JsonValue.from("bar"))
                         .build()
                 )
@@ -88,8 +88,8 @@ internal class EncryptEncryptDataParamsTest {
 
         assertThat(body.data())
             .isEqualTo(
-                EncryptEncryptDataParams.Data.ofUnionMember2(
-                    EncryptEncryptDataParams.Data.UnionMember2.builder()
+                EncryptEncryptDataParams.Data.ofEncryptEncryptDataResponseVariant2(
+                    EncryptEncryptDataParams.Data.EncryptEncryptDataResponseVariant2.builder()
                         .putAdditionalProperty("password", JsonValue.from("bar"))
                         .build()
                 )

@@ -20,7 +20,7 @@ internal class EncryptEncryptDataResponseTest {
 
         assertThat(encryptEncryptDataResponse.string()).isEqualTo(string)
         assertThat(encryptEncryptDataResponse.double()).isNull()
-        assertThat(encryptEncryptDataResponse.unionMember2()).isNull()
+        assertThat(encryptEncryptDataResponse.variant2()).isNull()
         assertThat(encryptEncryptDataResponse.jsonValues()).isNull()
     }
 
@@ -46,7 +46,7 @@ internal class EncryptEncryptDataResponseTest {
 
         assertThat(encryptEncryptDataResponse.string()).isNull()
         assertThat(encryptEncryptDataResponse.double()).isEqualTo(double)
-        assertThat(encryptEncryptDataResponse.unionMember2()).isNull()
+        assertThat(encryptEncryptDataResponse.variant2()).isNull()
         assertThat(encryptEncryptDataResponse.jsonValues()).isNull()
     }
 
@@ -65,26 +65,26 @@ internal class EncryptEncryptDataResponseTest {
     }
 
     @Test
-    fun ofUnionMember2() {
-        val unionMember2 =
-            EncryptEncryptDataResponse.UnionMember2.builder()
+    fun ofVariant2() {
+        val variant2 =
+            EncryptEncryptDataResponse.EncryptEncryptDataResponseVariant2.builder()
                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                 .build()
 
-        val encryptEncryptDataResponse = EncryptEncryptDataResponse.ofUnionMember2(unionMember2)
+        val encryptEncryptDataResponse = EncryptEncryptDataResponse.ofVariant2(variant2)
 
         assertThat(encryptEncryptDataResponse.string()).isNull()
         assertThat(encryptEncryptDataResponse.double()).isNull()
-        assertThat(encryptEncryptDataResponse.unionMember2()).isEqualTo(unionMember2)
+        assertThat(encryptEncryptDataResponse.variant2()).isEqualTo(variant2)
         assertThat(encryptEncryptDataResponse.jsonValues()).isNull()
     }
 
     @Test
-    fun ofUnionMember2Roundtrip() {
+    fun ofVariant2Roundtrip() {
         val jsonMapper = jsonMapper()
         val encryptEncryptDataResponse =
-            EncryptEncryptDataResponse.ofUnionMember2(
-                EncryptEncryptDataResponse.UnionMember2.builder()
+            EncryptEncryptDataResponse.ofVariant2(
+                EncryptEncryptDataResponse.EncryptEncryptDataResponseVariant2.builder()
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                     .build()
             )
@@ -106,7 +106,7 @@ internal class EncryptEncryptDataResponseTest {
 
         assertThat(encryptEncryptDataResponse.string()).isNull()
         assertThat(encryptEncryptDataResponse.double()).isNull()
-        assertThat(encryptEncryptDataResponse.unionMember2()).isNull()
+        assertThat(encryptEncryptDataResponse.variant2()).isNull()
         assertThat(encryptEncryptDataResponse.jsonValues()).isEqualTo(jsonValues)
     }
 

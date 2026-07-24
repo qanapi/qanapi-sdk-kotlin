@@ -32,7 +32,7 @@ class EncryptEncryptDataResponse
 private constructor(
     private val string: String? = null,
     private val double: Double? = null,
-    private val unionMember2: UnionMember2? = null,
+    private val variant2: EncryptEncryptDataResponseVariant2? = null,
     private val jsonValues: List<JsonValue>? = null,
     private val _json: JsonValue? = null,
 ) {
@@ -41,7 +41,7 @@ private constructor(
 
     fun double(): Double? = double
 
-    fun unionMember2(): UnionMember2? = unionMember2
+    fun variant2(): EncryptEncryptDataResponseVariant2? = variant2
 
     fun jsonValues(): List<JsonValue>? = jsonValues
 
@@ -49,7 +49,7 @@ private constructor(
 
     fun isDouble(): Boolean = double != null
 
-    fun isUnionMember2(): Boolean = unionMember2 != null
+    fun isVariant2(): Boolean = variant2 != null
 
     fun isJsonValues(): Boolean = jsonValues != null
 
@@ -57,7 +57,7 @@ private constructor(
 
     fun asDouble(): Double = double.getOrThrow("double")
 
-    fun asUnionMember2(): UnionMember2 = unionMember2.getOrThrow("unionMember2")
+    fun asVariant2(): EncryptEncryptDataResponseVariant2 = variant2.getOrThrow("variant2")
 
     fun asJsonValues(): List<JsonValue> = jsonValues.getOrThrow("jsonValues")
 
@@ -91,7 +91,7 @@ private constructor(
         when {
             string != null -> visitor.visitString(string)
             double != null -> visitor.visitDouble(double)
-            unionMember2 != null -> visitor.visitUnionMember2(unionMember2)
+            variant2 != null -> visitor.visitVariant2(variant2)
             jsonValues != null -> visitor.visitJsonValues(jsonValues)
             else -> visitor.unknown(_json)
         }
@@ -117,8 +117,8 @@ private constructor(
 
                 override fun visitDouble(double: Double) {}
 
-                override fun visitUnionMember2(unionMember2: UnionMember2) {
-                    unionMember2.validate()
+                override fun visitVariant2(variant2: EncryptEncryptDataResponseVariant2) {
+                    variant2.validate()
                 }
 
                 override fun visitJsonValues(jsonValues: List<JsonValue>) {}
@@ -147,7 +147,8 @@ private constructor(
 
                 override fun visitDouble(double: Double) = 1
 
-                override fun visitUnionMember2(unionMember2: UnionMember2) = unionMember2.validity()
+                override fun visitVariant2(variant2: EncryptEncryptDataResponseVariant2) =
+                    variant2.validity()
 
                 override fun visitJsonValues(jsonValues: List<JsonValue>) = jsonValues.size
 
@@ -163,17 +164,17 @@ private constructor(
         return other is EncryptEncryptDataResponse &&
             string == other.string &&
             double == other.double &&
-            unionMember2 == other.unionMember2 &&
+            variant2 == other.variant2 &&
             jsonValues == other.jsonValues
     }
 
-    override fun hashCode(): Int = Objects.hash(string, double, unionMember2, jsonValues)
+    override fun hashCode(): Int = Objects.hash(string, double, variant2, jsonValues)
 
     override fun toString(): String =
         when {
             string != null -> "EncryptEncryptDataResponse{string=$string}"
             double != null -> "EncryptEncryptDataResponse{double=$double}"
-            unionMember2 != null -> "EncryptEncryptDataResponse{unionMember2=$unionMember2}"
+            variant2 != null -> "EncryptEncryptDataResponse{variant2=$variant2}"
             jsonValues != null -> "EncryptEncryptDataResponse{jsonValues=$jsonValues}"
             _json != null -> "EncryptEncryptDataResponse{_unknown=$_json}"
             else -> throw IllegalStateException("Invalid EncryptEncryptDataResponse")
@@ -185,8 +186,8 @@ private constructor(
 
         fun ofDouble(double: Double) = EncryptEncryptDataResponse(double = double)
 
-        fun ofUnionMember2(unionMember2: UnionMember2) =
-            EncryptEncryptDataResponse(unionMember2 = unionMember2)
+        fun ofVariant2(variant2: EncryptEncryptDataResponseVariant2) =
+            EncryptEncryptDataResponse(variant2 = variant2)
 
         fun ofJsonValues(jsonValues: List<JsonValue>) =
             EncryptEncryptDataResponse(jsonValues = jsonValues.toImmutable())
@@ -202,7 +203,7 @@ private constructor(
 
         fun visitDouble(double: Double): T
 
-        fun visitUnionMember2(unionMember2: UnionMember2): T
+        fun visitVariant2(variant2: EncryptEncryptDataResponseVariant2): T
 
         fun visitJsonValues(jsonValues: List<JsonValue>): T
 
@@ -229,9 +230,8 @@ private constructor(
 
             val bestMatches =
                 sequenceOf(
-                        tryDeserialize(node, jacksonTypeRef<UnionMember2>())?.let {
-                            EncryptEncryptDataResponse(unionMember2 = it, _json = json)
-                        },
+                        tryDeserialize(node, jacksonTypeRef<EncryptEncryptDataResponseVariant2>())
+                            ?.let { EncryptEncryptDataResponse(variant2 = it, _json = json) },
                         tryDeserialize(node, jacksonTypeRef<String>())?.let {
                             EncryptEncryptDataResponse(string = it, _json = json)
                         },
@@ -268,7 +268,7 @@ private constructor(
             when {
                 value.string != null -> generator.writeObject(value.string)
                 value.double != null -> generator.writeObject(value.double)
-                value.unionMember2 != null -> generator.writeObject(value.unionMember2)
+                value.variant2 != null -> generator.writeObject(value.variant2)
                 value.jsonValues != null -> generator.writeObject(value.jsonValues)
                 value._json != null -> generator.writeObject(value._json)
                 else -> throw IllegalStateException("Invalid EncryptEncryptDataResponse")
@@ -276,7 +276,7 @@ private constructor(
         }
     }
 
-    class UnionMember2
+    class EncryptEncryptDataResponseVariant2
     @JsonCreator
     private constructor(
         @com.fasterxml.jackson.annotation.JsonValue
@@ -291,17 +291,23 @@ private constructor(
 
         companion object {
 
-            /** Returns a mutable builder for constructing an instance of [UnionMember2]. */
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [EncryptEncryptDataResponseVariant2].
+             */
             fun builder() = Builder()
         }
 
-        /** A builder for [UnionMember2]. */
+        /** A builder for [EncryptEncryptDataResponseVariant2]. */
         class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(unionMember2: UnionMember2) = apply {
-                additionalProperties = unionMember2.additionalProperties.toMutableMap()
+            internal fun from(
+                encryptEncryptDataResponseVariant2: EncryptEncryptDataResponseVariant2
+            ) = apply {
+                additionalProperties =
+                    encryptEncryptDataResponseVariant2.additionalProperties.toMutableMap()
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -324,11 +330,12 @@ private constructor(
             }
 
             /**
-             * Returns an immutable instance of [UnionMember2].
+             * Returns an immutable instance of [EncryptEncryptDataResponseVariant2].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): UnionMember2 = UnionMember2(additionalProperties.toImmutable())
+            fun build(): EncryptEncryptDataResponseVariant2 =
+                EncryptEncryptDataResponseVariant2(additionalProperties.toImmutable())
         }
 
         private var validated: Boolean = false
@@ -342,7 +349,7 @@ private constructor(
          * @throws QanapiInvalidDataException if any value type in this object doesn't match its
          *   expected type.
          */
-        fun validate(): UnionMember2 = apply {
+        fun validate(): EncryptEncryptDataResponseVariant2 = apply {
             if (validated) {
                 return@apply
             }
@@ -372,13 +379,15 @@ private constructor(
                 return true
             }
 
-            return other is UnionMember2 && additionalProperties == other.additionalProperties
+            return other is EncryptEncryptDataResponseVariant2 &&
+                additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "UnionMember2{additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "EncryptEncryptDataResponseVariant2{additionalProperties=$additionalProperties}"
     }
 }
