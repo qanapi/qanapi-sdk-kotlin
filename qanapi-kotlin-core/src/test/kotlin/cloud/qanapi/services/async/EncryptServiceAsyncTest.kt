@@ -21,7 +21,7 @@ internal class EncryptServiceAsyncTest {
             encryptServiceAsync.encryptData(
                 EncryptEncryptDataParams.builder()
                     .data(
-                        EncryptEncryptDataParams.Data.UnionMember2.builder()
+                        EncryptEncryptDataParams.Data.EncryptEncryptDataResponseVariant2.builder()
                             .putAdditionalProperty("password", JsonValue.from("bar"))
                             .build()
                     )
