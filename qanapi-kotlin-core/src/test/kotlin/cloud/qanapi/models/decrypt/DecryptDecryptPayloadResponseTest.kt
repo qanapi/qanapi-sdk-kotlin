@@ -21,7 +21,7 @@ internal class DecryptDecryptPayloadResponseTest {
         val decryptDecryptPayloadResponse = DecryptDecryptPayloadResponse.ofString(string)
 
         assertThat(decryptDecryptPayloadResponse.string()).isEqualTo(string)
-        assertThat(decryptDecryptPayloadResponse.unionMember1()).isNull()
+        assertThat(decryptDecryptPayloadResponse.variant1()).isNull()
         assertThat(decryptDecryptPayloadResponse.jsonValues()).isNull()
     }
 
@@ -41,26 +41,25 @@ internal class DecryptDecryptPayloadResponseTest {
     }
 
     @Test
-    fun ofUnionMember1() {
-        val unionMember1 =
-            DecryptDecryptPayloadResponse.UnionMember1.builder()
+    fun ofVariant1() {
+        val variant1 =
+            DecryptDecryptPayloadResponse.DecryptDecryptPayloadResponseVariant1.builder()
                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                 .build()
 
-        val decryptDecryptPayloadResponse =
-            DecryptDecryptPayloadResponse.ofUnionMember1(unionMember1)
+        val decryptDecryptPayloadResponse = DecryptDecryptPayloadResponse.ofVariant1(variant1)
 
         assertThat(decryptDecryptPayloadResponse.string()).isNull()
-        assertThat(decryptDecryptPayloadResponse.unionMember1()).isEqualTo(unionMember1)
+        assertThat(decryptDecryptPayloadResponse.variant1()).isEqualTo(variant1)
         assertThat(decryptDecryptPayloadResponse.jsonValues()).isNull()
     }
 
     @Test
-    fun ofUnionMember1Roundtrip() {
+    fun ofVariant1Roundtrip() {
         val jsonMapper = jsonMapper()
         val decryptDecryptPayloadResponse =
-            DecryptDecryptPayloadResponse.ofUnionMember1(
-                DecryptDecryptPayloadResponse.UnionMember1.builder()
+            DecryptDecryptPayloadResponse.ofVariant1(
+                DecryptDecryptPayloadResponse.DecryptDecryptPayloadResponseVariant1.builder()
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                     .build()
             )
@@ -82,7 +81,7 @@ internal class DecryptDecryptPayloadResponseTest {
         val decryptDecryptPayloadResponse = DecryptDecryptPayloadResponse.ofJsonValues(jsonValues)
 
         assertThat(decryptDecryptPayloadResponse.string()).isNull()
-        assertThat(decryptDecryptPayloadResponse.unionMember1()).isNull()
+        assertThat(decryptDecryptPayloadResponse.variant1()).isNull()
         assertThat(decryptDecryptPayloadResponse.jsonValues()).isEqualTo(jsonValues)
     }
 
