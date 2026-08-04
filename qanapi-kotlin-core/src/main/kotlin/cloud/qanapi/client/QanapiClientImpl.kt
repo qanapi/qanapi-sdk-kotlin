@@ -4,14 +4,8 @@ package cloud.qanapi.client
 
 import cloud.qanapi.core.ClientOptions
 import cloud.qanapi.core.getPackageVersion
-import cloud.qanapi.services.blocking.ApiKeyService
-import cloud.qanapi.services.blocking.ApiKeyServiceImpl
-import cloud.qanapi.services.blocking.AuthService
-import cloud.qanapi.services.blocking.AuthServiceImpl
-import cloud.qanapi.services.blocking.DecryptService
-import cloud.qanapi.services.blocking.DecryptServiceImpl
-import cloud.qanapi.services.blocking.EncryptService
-import cloud.qanapi.services.blocking.EncryptServiceImpl
+import cloud.qanapi.services.blocking.V2Service
+import cloud.qanapi.services.blocking.V2ServiceImpl
 
 class QanapiClientImpl(private val clientOptions: ClientOptions) : QanapiClient {
 
@@ -30,13 +24,7 @@ class QanapiClientImpl(private val clientOptions: ClientOptions) : QanapiClient 
         WithRawResponseImpl(clientOptions)
     }
 
-    private val auth: AuthService by lazy { AuthServiceImpl(clientOptionsWithUserAgent) }
-
-    private val encrypt: EncryptService by lazy { EncryptServiceImpl(clientOptionsWithUserAgent) }
-
-    private val decrypt: DecryptService by lazy { DecryptServiceImpl(clientOptionsWithUserAgent) }
-
-    private val apiKeys: ApiKeyService by lazy { ApiKeyServiceImpl(clientOptionsWithUserAgent) }
+    private val v2: V2Service by lazy { V2ServiceImpl(clientOptionsWithUserAgent) }
 
     override fun async(): QanapiClientAsync = async
 
@@ -45,33 +33,15 @@ class QanapiClientImpl(private val clientOptions: ClientOptions) : QanapiClient 
     override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): QanapiClient =
         QanapiClientImpl(clientOptions.toBuilder().apply(modifier).build())
 
-    override fun auth(): AuthService = auth
-
-    override fun encrypt(): EncryptService = encrypt
-
-    override fun decrypt(): DecryptService = decrypt
-
-    override fun apiKeys(): ApiKeyService = apiKeys
+    override fun v2(): V2Service = v2
 
     override fun close() = clientOptions.close()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         QanapiClient.WithRawResponse {
 
-        private val auth: AuthService.WithRawResponse by lazy {
-            AuthServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val encrypt: EncryptService.WithRawResponse by lazy {
-            EncryptServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val decrypt: DecryptService.WithRawResponse by lazy {
-            DecryptServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val apiKeys: ApiKeyService.WithRawResponse by lazy {
-            ApiKeyServiceImpl.WithRawResponseImpl(clientOptions)
+        private val v2: V2Service.WithRawResponse by lazy {
+            V2ServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         override fun withOptions(
@@ -79,12 +49,6 @@ class QanapiClientImpl(private val clientOptions: ClientOptions) : QanapiClient 
         ): QanapiClient.WithRawResponse =
             QanapiClientImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
 
-        override fun auth(): AuthService.WithRawResponse = auth
-
-        override fun encrypt(): EncryptService.WithRawResponse = encrypt
-
-        override fun decrypt(): DecryptService.WithRawResponse = decrypt
-
-        override fun apiKeys(): ApiKeyService.WithRawResponse = apiKeys
+        override fun v2(): V2Service.WithRawResponse = v2
     }
 }

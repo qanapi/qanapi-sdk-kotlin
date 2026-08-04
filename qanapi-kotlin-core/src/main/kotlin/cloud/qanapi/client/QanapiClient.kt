@@ -3,10 +3,7 @@
 package cloud.qanapi.client
 
 import cloud.qanapi.core.ClientOptions
-import cloud.qanapi.services.blocking.ApiKeyService
-import cloud.qanapi.services.blocking.AuthService
-import cloud.qanapi.services.blocking.DecryptService
-import cloud.qanapi.services.blocking.EncryptService
+import cloud.qanapi.services.blocking.V2Service
 
 /**
  * A client for interacting with the Qanapi REST API synchronously. You can also switch to
@@ -44,13 +41,7 @@ interface QanapiClient {
      */
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): QanapiClient
 
-    fun auth(): AuthService
-
-    fun encrypt(): EncryptService
-
-    fun decrypt(): DecryptService
-
-    fun apiKeys(): ApiKeyService
+    fun v2(): V2Service
 
     /**
      * Closes this client, relinquishing any underlying resources.
@@ -75,12 +66,6 @@ interface QanapiClient {
          */
         fun withOptions(modifier: (ClientOptions.Builder) -> Unit): QanapiClient.WithRawResponse
 
-        fun auth(): AuthService.WithRawResponse
-
-        fun encrypt(): EncryptService.WithRawResponse
-
-        fun decrypt(): DecryptService.WithRawResponse
-
-        fun apiKeys(): ApiKeyService.WithRawResponse
+        fun v2(): V2Service.WithRawResponse
     }
 }

@@ -16,7 +16,7 @@ import cloud.qanapi.errors.RateLimitException
 import cloud.qanapi.errors.UnauthorizedException
 import cloud.qanapi.errors.UnexpectedStatusCodeException
 import cloud.qanapi.errors.UnprocessableEntityException
-import cloud.qanapi.models.auth.AuthLoginParams
+import cloud.qanapi.models.v2.auth.AuthLoginParams
 import com.github.tomakehurst.wiremock.client.WireMock.anyUrl
 import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.github.tomakehurst.wiremock.client.WireMock.status
@@ -61,7 +61,7 @@ internal class ErrorHandlingTest {
 
     @Test
     fun authLogin400() {
-        val authService = client.auth()
+        val authService = client.v2().auth()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -86,7 +86,7 @@ internal class ErrorHandlingTest {
 
     @Test
     fun authLogin400WithRawResponse() {
-        val authService = client.auth().withRawResponse()
+        val authService = client.v2().auth().withRawResponse()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -111,7 +111,7 @@ internal class ErrorHandlingTest {
 
     @Test
     fun authLogin401() {
-        val authService = client.auth()
+        val authService = client.v2().auth()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -136,7 +136,7 @@ internal class ErrorHandlingTest {
 
     @Test
     fun authLogin401WithRawResponse() {
-        val authService = client.auth().withRawResponse()
+        val authService = client.v2().auth().withRawResponse()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -161,7 +161,7 @@ internal class ErrorHandlingTest {
 
     @Test
     fun authLogin403() {
-        val authService = client.auth()
+        val authService = client.v2().auth()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -186,7 +186,7 @@ internal class ErrorHandlingTest {
 
     @Test
     fun authLogin403WithRawResponse() {
-        val authService = client.auth().withRawResponse()
+        val authService = client.v2().auth().withRawResponse()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -211,7 +211,7 @@ internal class ErrorHandlingTest {
 
     @Test
     fun authLogin404() {
-        val authService = client.auth()
+        val authService = client.v2().auth()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -236,7 +236,7 @@ internal class ErrorHandlingTest {
 
     @Test
     fun authLogin404WithRawResponse() {
-        val authService = client.auth().withRawResponse()
+        val authService = client.v2().auth().withRawResponse()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -261,7 +261,7 @@ internal class ErrorHandlingTest {
 
     @Test
     fun authLogin422() {
-        val authService = client.auth()
+        val authService = client.v2().auth()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -286,7 +286,7 @@ internal class ErrorHandlingTest {
 
     @Test
     fun authLogin422WithRawResponse() {
-        val authService = client.auth().withRawResponse()
+        val authService = client.v2().auth().withRawResponse()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -311,7 +311,7 @@ internal class ErrorHandlingTest {
 
     @Test
     fun authLogin429() {
-        val authService = client.auth()
+        val authService = client.v2().auth()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -336,7 +336,7 @@ internal class ErrorHandlingTest {
 
     @Test
     fun authLogin429WithRawResponse() {
-        val authService = client.auth().withRawResponse()
+        val authService = client.v2().auth().withRawResponse()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -361,7 +361,7 @@ internal class ErrorHandlingTest {
 
     @Test
     fun authLogin500() {
-        val authService = client.auth()
+        val authService = client.v2().auth()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -386,7 +386,7 @@ internal class ErrorHandlingTest {
 
     @Test
     fun authLogin500WithRawResponse() {
-        val authService = client.auth().withRawResponse()
+        val authService = client.v2().auth().withRawResponse()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -411,7 +411,7 @@ internal class ErrorHandlingTest {
 
     @Test
     fun authLogin999() {
-        val authService = client.auth()
+        val authService = client.v2().auth()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -436,7 +436,7 @@ internal class ErrorHandlingTest {
 
     @Test
     fun authLogin999WithRawResponse() {
-        val authService = client.auth().withRawResponse()
+        val authService = client.v2().auth().withRawResponse()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -461,7 +461,7 @@ internal class ErrorHandlingTest {
 
     @Test
     fun authLoginInvalidJsonBody() {
-        val authService = client.auth()
+        val authService = client.v2().auth()
         stubFor(
             post(anyUrl())
                 .willReturn(status(200).withHeader(HEADER_NAME, HEADER_VALUE).withBody(NOT_JSON))

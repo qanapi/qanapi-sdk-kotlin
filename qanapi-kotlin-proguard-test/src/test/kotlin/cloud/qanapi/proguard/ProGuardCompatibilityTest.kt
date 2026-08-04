@@ -4,8 +4,8 @@ package cloud.qanapi.proguard
 
 import cloud.qanapi.client.okhttp.QanapiOkHttpClient
 import cloud.qanapi.core.jsonMapper
-import cloud.qanapi.models.auth.AuthLoginResponse
-import cloud.qanapi.models.encrypt.EncryptEncryptDataResponse
+import cloud.qanapi.models.v2.auth.AuthLoginResponse
+import cloud.qanapi.models.v2.encrypt.EncryptEncryptDataResponse
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import kotlin.reflect.full.memberFunctions
 import kotlin.reflect.jvm.javaMethod
@@ -49,10 +49,7 @@ internal class ProGuardCompatibilityTest {
             QanapiOkHttpClient.builder().apiKey("My API Key").subdomain("My-Subdomain").build()
 
         assertThat(client).isNotNull()
-        assertThat(client.auth()).isNotNull()
-        assertThat(client.encrypt()).isNotNull()
-        assertThat(client.decrypt()).isNotNull()
-        assertThat(client.apiKeys()).isNotNull()
+        assertThat(client.v2()).isNotNull()
     }
 
     @Test

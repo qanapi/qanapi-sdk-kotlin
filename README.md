@@ -48,8 +48,8 @@ This library requires Java 8 or later.
 ```kotlin
 import cloud.qanapi.client.QanapiClient
 import cloud.qanapi.client.okhttp.QanapiOkHttpClient
-import cloud.qanapi.models.auth.AuthLoginParams
-import cloud.qanapi.models.auth.AuthLoginResponse
+import cloud.qanapi.models.v2.auth.AuthLoginParams
+import cloud.qanapi.models.v2.auth.AuthLoginResponse
 
 // Configures using the `qanapi.apiKey`, `qanapi.subdomain` and `qanapi.baseUrl` system properties
 // Or configures using the `QANAPI_API_KEY`, `QANAPI_SUBDOMAIN` and `QANAPI_BASE_URL` environment variables
@@ -59,7 +59,7 @@ val params: AuthLoginParams = AuthLoginParams.builder()
     .email("valid@email.com")
     .password("secret1234")
     .build()
-val response: AuthLoginResponse = client.auth().login(params)
+val response: AuthLoginResponse = client.v2().auth().login(params)
 ```
 
 ## Client configuration
@@ -134,7 +134,7 @@ The `withOptions()` method does not affect the original client or service.
 
 To send a request to the Qanapi API, build an instance of some `Params` class and pass it to the corresponding client method. When the response is received, it will be deserialized into an instance of a Kotlin class.
 
-For example, `client.auth().login(...)` should be called with an instance of `AuthLoginParams`, and it will return an instance of `AuthLoginResponse`.
+For example, `client.v2().auth().login(...)` should be called with an instance of `AuthLoginParams`, and it will return an instance of `AuthLoginResponse`.
 
 ## Immutability
 
@@ -151,8 +151,8 @@ The default client is synchronous. To switch to asynchronous execution, call the
 ```kotlin
 import cloud.qanapi.client.QanapiClient
 import cloud.qanapi.client.okhttp.QanapiOkHttpClient
-import cloud.qanapi.models.auth.AuthLoginParams
-import cloud.qanapi.models.auth.AuthLoginResponse
+import cloud.qanapi.models.v2.auth.AuthLoginParams
+import cloud.qanapi.models.v2.auth.AuthLoginResponse
 
 // Configures using the `qanapi.apiKey`, `qanapi.subdomain` and `qanapi.baseUrl` system properties
 // Or configures using the `QANAPI_API_KEY`, `QANAPI_SUBDOMAIN` and `QANAPI_BASE_URL` environment variables
@@ -162,7 +162,7 @@ val params: AuthLoginParams = AuthLoginParams.builder()
     .email("valid@email.com")
     .password("secret1234")
     .build()
-val response: AuthLoginResponse = client.async().auth().login(params)
+val response: AuthLoginResponse = client.async().v2().auth().login(params)
 ```
 
 Or create an asynchronous client from the beginning:
@@ -170,8 +170,8 @@ Or create an asynchronous client from the beginning:
 ```kotlin
 import cloud.qanapi.client.QanapiClientAsync
 import cloud.qanapi.client.okhttp.QanapiOkHttpClientAsync
-import cloud.qanapi.models.auth.AuthLoginParams
-import cloud.qanapi.models.auth.AuthLoginResponse
+import cloud.qanapi.models.v2.auth.AuthLoginParams
+import cloud.qanapi.models.v2.auth.AuthLoginResponse
 
 // Configures using the `qanapi.apiKey`, `qanapi.subdomain` and `qanapi.baseUrl` system properties
 // Or configures using the `QANAPI_API_KEY`, `QANAPI_SUBDOMAIN` and `QANAPI_BASE_URL` environment variables
@@ -181,7 +181,7 @@ val params: AuthLoginParams = AuthLoginParams.builder()
     .email("valid@email.com")
     .password("secret1234")
     .build()
-val response: AuthLoginResponse = client.auth().login(params)
+val response: AuthLoginResponse = client.v2().auth().login(params)
 ```
 
 The asynchronous client supports the same options as the synchronous one, except most methods are [suspending](https://kotlinlang.org/docs/coroutines-guide.html).
@@ -195,14 +195,14 @@ To access this data, prefix any HTTP method call on a client or service with `wi
 ```kotlin
 import cloud.qanapi.core.http.Headers
 import cloud.qanapi.core.http.HttpResponseFor
-import cloud.qanapi.models.auth.AuthLoginParams
-import cloud.qanapi.models.auth.AuthLoginResponse
+import cloud.qanapi.models.v2.auth.AuthLoginParams
+import cloud.qanapi.models.v2.auth.AuthLoginResponse
 
 val params: AuthLoginParams = AuthLoginParams.builder()
     .email("valid@email.com")
     .password("secret1234")
     .build()
-val response: HttpResponseFor<AuthLoginResponse> = client.auth().withRawResponse().login(params)
+val response: HttpResponseFor<AuthLoginResponse> = client.v2().auth().withRawResponse().login(params)
 
 val statusCode: Int = response.statusCode()
 val headers: Headers = response.headers()
@@ -211,7 +211,7 @@ val headers: Headers = response.headers()
 You can still deserialize the response into an instance of a Kotlin class if needed:
 
 ```kotlin
-import cloud.qanapi.models.auth.AuthLoginResponse
+import cloud.qanapi.models.v2.auth.AuthLoginResponse
 
 val parsedResponse: AuthLoginResponse = response.parse()
 ```
@@ -322,9 +322,9 @@ Requests time out after 1 minute by default.
 To set a custom timeout, configure the method call using the `timeout` method:
 
 ```kotlin
-import cloud.qanapi.models.auth.AuthLoginResponse
+import cloud.qanapi.models.v2.auth.AuthLoginResponse
 
-val response: AuthLoginResponse = client.auth().login(
+val response: AuthLoginResponse = client.v2().auth().login(
   params, RequestOptions.builder().timeout(Duration.ofSeconds(30)).build()
 )
 ```
@@ -463,7 +463,7 @@ To set undocumented parameters, call the `putAdditionalHeader`, `putAdditionalQu
 
 ```kotlin
 import cloud.qanapi.core.JsonValue
-import cloud.qanapi.models.auth.AuthLoginParams
+import cloud.qanapi.models.v2.auth.AuthLoginParams
 
 val params: AuthLoginParams = AuthLoginParams.builder()
     .putAdditionalHeader("Secret-Header", "42")
@@ -478,7 +478,7 @@ To set undocumented parameters on _nested_ headers, query params, or body classe
 
 ```kotlin
 import cloud.qanapi.core.JsonValue
-import cloud.qanapi.models.encrypt.EncryptEncryptDataParams
+import cloud.qanapi.models.v2.encrypt.EncryptEncryptDataParams
 
 val params: EncryptEncryptDataParams = EncryptEncryptDataParams.builder()
     .access(EncryptEncryptDataParams.Access.builder()
@@ -493,7 +493,7 @@ To set a documented parameter or property to an undocumented or not yet supporte
 
 ```kotlin
 import cloud.qanapi.core.JsonValue
-import cloud.qanapi.models.auth.AuthLoginParams
+import cloud.qanapi.models.v2.auth.AuthLoginParams
 
 val params: AuthLoginParams = AuthLoginParams.builder()
     .email(JsonValue.from(42))
@@ -542,7 +542,7 @@ To forcibly omit a required parameter or property, pass [`JsonMissing`](qanapi-k
 
 ```kotlin
 import cloud.qanapi.core.JsonMissing
-import cloud.qanapi.models.auth.AuthLoginParams
+import cloud.qanapi.models.v2.auth.AuthLoginParams
 
 val params: AuthLoginParams = AuthLoginParams.builder()
     .password("secret1234")
@@ -560,7 +560,7 @@ import cloud.qanapi.core.JsonNull
 import cloud.qanapi.core.JsonNumber
 import cloud.qanapi.core.JsonValue
 
-val additionalProperties: Map<String, JsonValue> = client.auth().login(params)._additionalProperties()
+val additionalProperties: Map<String, JsonValue> = client.v2().auth().login(params)._additionalProperties()
 val secretPropertyValue: JsonValue = additionalProperties.get("secretProperty")
 
 val result = when (secretPropertyValue) {
@@ -577,7 +577,7 @@ To access a property's raw JSON value, which may be undocumented, call its `_` p
 ```kotlin
 import cloud.qanapi.core.JsonField
 
-val email: JsonField<String> = client.auth().login(params)._email()
+val email: JsonField<String> = client.v2().auth().login(params)._email()
 
 if (email.isMissing()) {
   // The property is absent from the JSON response
@@ -604,17 +604,17 @@ Validating the response is _not_ forwards compatible with new types from the API
 If you would still prefer to check that the response is completely well-typed upfront, then either call `validate()`:
 
 ```kotlin
-import cloud.qanapi.models.auth.AuthLoginResponse
+import cloud.qanapi.models.v2.auth.AuthLoginResponse
 
-val response: AuthLoginResponse = client.auth().login(params).validate()
+val response: AuthLoginResponse = client.v2().auth().login(params).validate()
 ```
 
 Or configure the method call to validate the response using the `responseValidation` method:
 
 ```kotlin
-import cloud.qanapi.models.auth.AuthLoginResponse
+import cloud.qanapi.models.v2.auth.AuthLoginResponse
 
-val response: AuthLoginResponse = client.auth().login(
+val response: AuthLoginResponse = client.v2().auth().login(
   params, RequestOptions.builder().responseValidation(true).build()
 )
 ```
