@@ -5,7 +5,7 @@ package cloud.qanapi.services
 import cloud.qanapi.client.QanapiClient
 import cloud.qanapi.client.okhttp.QanapiOkHttpClient
 import cloud.qanapi.core.JsonValue
-import cloud.qanapi.models.auth.AuthLoginParams
+import cloud.qanapi.models.v2.auth.AuthLoginParams
 import com.github.tomakehurst.wiremock.client.WireMock.anyUrl
 import com.github.tomakehurst.wiremock.client.WireMock.equalTo
 import com.github.tomakehurst.wiremock.client.WireMock.matchingJsonPath
@@ -40,7 +40,7 @@ internal class ServiceParamsTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun login() {
-        val authService = client.auth()
+        val authService = client.v2().auth()
         stubFor(post(anyUrl()).willReturn(ok("{}")))
 
         authService.login(
