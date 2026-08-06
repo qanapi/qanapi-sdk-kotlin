@@ -4,6 +4,7 @@ package cloud.qanapi.client
 
 import cloud.qanapi.core.ClientOptions
 import cloud.qanapi.services.async.V2ServiceAsync
+import cloud.qanapi.services.async.V3ServiceAsync
 
 /**
  * A client for interacting with the Qanapi REST API asynchronously. You can also switch to
@@ -43,6 +44,8 @@ interface QanapiClientAsync {
 
     fun v2(): V2ServiceAsync
 
+    fun v3(): V3ServiceAsync
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -69,5 +72,7 @@ interface QanapiClientAsync {
         ): QanapiClientAsync.WithRawResponse
 
         fun v2(): V2ServiceAsync.WithRawResponse
+
+        fun v3(): V3ServiceAsync.WithRawResponse
     }
 }
