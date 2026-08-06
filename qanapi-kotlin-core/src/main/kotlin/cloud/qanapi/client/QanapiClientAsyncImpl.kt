@@ -6,6 +6,8 @@ import cloud.qanapi.core.ClientOptions
 import cloud.qanapi.core.getPackageVersion
 import cloud.qanapi.services.async.V2ServiceAsync
 import cloud.qanapi.services.async.V2ServiceAsyncImpl
+import cloud.qanapi.services.async.V3ServiceAsync
+import cloud.qanapi.services.async.V3ServiceAsyncImpl
 
 class QanapiClientAsyncImpl(private val clientOptions: ClientOptions) : QanapiClientAsync {
 
@@ -26,6 +28,8 @@ class QanapiClientAsyncImpl(private val clientOptions: ClientOptions) : QanapiCl
 
     private val v2: V2ServiceAsync by lazy { V2ServiceAsyncImpl(clientOptionsWithUserAgent) }
 
+    private val v3: V3ServiceAsync by lazy { V3ServiceAsyncImpl(clientOptionsWithUserAgent) }
+
     override fun sync(): QanapiClient = sync
 
     override fun withRawResponse(): QanapiClientAsync.WithRawResponse = withRawResponse
@@ -34,6 +38,8 @@ class QanapiClientAsyncImpl(private val clientOptions: ClientOptions) : QanapiCl
         QanapiClientAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
 
     override fun v2(): V2ServiceAsync = v2
+
+    override fun v3(): V3ServiceAsync = v3
 
     override fun close() = clientOptions.close()
 
@@ -44,6 +50,10 @@ class QanapiClientAsyncImpl(private val clientOptions: ClientOptions) : QanapiCl
             V2ServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val v3: V3ServiceAsync.WithRawResponse by lazy {
+            V3ServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
         ): QanapiClientAsync.WithRawResponse =
@@ -52,5 +62,7 @@ class QanapiClientAsyncImpl(private val clientOptions: ClientOptions) : QanapiCl
             )
 
         override fun v2(): V2ServiceAsync.WithRawResponse = v2
+
+        override fun v3(): V3ServiceAsync.WithRawResponse = v3
     }
 }

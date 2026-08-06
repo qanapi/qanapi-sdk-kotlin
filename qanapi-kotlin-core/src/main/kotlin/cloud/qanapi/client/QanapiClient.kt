@@ -4,6 +4,7 @@ package cloud.qanapi.client
 
 import cloud.qanapi.core.ClientOptions
 import cloud.qanapi.services.blocking.V2Service
+import cloud.qanapi.services.blocking.V3Service
 
 /**
  * A client for interacting with the Qanapi REST API synchronously. You can also switch to
@@ -43,6 +44,8 @@ interface QanapiClient {
 
     fun v2(): V2Service
 
+    fun v3(): V3Service
+
     /**
      * Closes this client, relinquishing any underlying resources.
      *
@@ -67,5 +70,7 @@ interface QanapiClient {
         fun withOptions(modifier: (ClientOptions.Builder) -> Unit): QanapiClient.WithRawResponse
 
         fun v2(): V2Service.WithRawResponse
+
+        fun v3(): V3Service.WithRawResponse
     }
 }
