@@ -27,7 +27,7 @@ internal class ClientOptionsTest {
 
         val baseUrl = clientOptions.baseUrl()
 
-        assertThat(baseUrl).isEqualTo("https://My-Subdomain.qanapi.cloud/api/v2")
+        assertThat(baseUrl).isEqualTo("https://My-Subdomain.qanapi.cloud/api")
     }
 
     @Test

@@ -38,35 +38,35 @@ class AuthServiceImpl internal constructor(private val clientOptions: ClientOpti
         AuthServiceImpl(clientOptions.toBuilder().apply(modifier).build())
 
     override fun login(params: AuthLoginParams, requestOptions: RequestOptions): AuthLoginResponse =
-        // post /auth/login
+        // post /v2/auth/login
         withRawResponse().login(params, requestOptions).parse()
 
     override fun logout(
         params: AuthLogoutParams,
         requestOptions: RequestOptions,
     ): AuthLogoutResponse =
-        // post /auth/logout
+        // post /v2/auth/logout
         withRawResponse().logout(params, requestOptions).parse()
 
     override fun refreshToken(
         params: AuthRefreshTokenParams,
         requestOptions: RequestOptions,
     ): AuthRefreshTokenResponse =
-        // post /auth/refresh
+        // post /v2/auth/refresh
         withRawResponse().refreshToken(params, requestOptions).parse()
 
     override fun retrieveUserDetails(
         params: AuthRetrieveUserDetailsParams,
         requestOptions: RequestOptions,
     ): AuthRetrieveUserDetailsResponse =
-        // get /auth/userdetails
+        // get /v2/auth/userdetails
         withRawResponse().retrieveUserDetails(params, requestOptions).parse()
 
     override fun revokeToken(
         params: AuthRevokeTokenParams,
         requestOptions: RequestOptions,
     ): AuthRevokeTokenResponse =
-        // post /auth/revoke
+        // post /v2/auth/revoke
         withRawResponse().revokeToken(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -91,7 +91,7 @@ class AuthServiceImpl internal constructor(private val clientOptions: ClientOpti
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("auth", "login")
+                    .addPathSegments("v2", "auth", "login")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
@@ -119,7 +119,7 @@ class AuthServiceImpl internal constructor(private val clientOptions: ClientOpti
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("auth", "logout")
+                    .addPathSegments("v2", "auth", "logout")
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepare(clientOptions, params)
@@ -147,7 +147,7 @@ class AuthServiceImpl internal constructor(private val clientOptions: ClientOpti
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("auth", "refresh")
+                    .addPathSegments("v2", "auth", "refresh")
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepare(clientOptions, params)
@@ -175,7 +175,7 @@ class AuthServiceImpl internal constructor(private val clientOptions: ClientOpti
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("auth", "userdetails")
+                    .addPathSegments("v2", "auth", "userdetails")
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -202,7 +202,7 @@ class AuthServiceImpl internal constructor(private val clientOptions: ClientOpti
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("auth", "revoke")
+                    .addPathSegments("v2", "auth", "revoke")
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepare(clientOptions, params)

@@ -40,7 +40,7 @@ interface DecryptService {
         fun withOptions(modifier: (ClientOptions.Builder) -> Unit): DecryptService.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `post /decrypt`, but is otherwise the same as
+         * Returns a raw HTTP response for `post /v2/decrypt`, but is otherwise the same as
          * [DecryptService.decryptPayload].
          */
         @MustBeClosed

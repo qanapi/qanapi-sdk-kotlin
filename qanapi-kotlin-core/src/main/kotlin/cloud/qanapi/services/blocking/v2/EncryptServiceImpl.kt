@@ -34,7 +34,7 @@ class EncryptServiceImpl internal constructor(private val clientOptions: ClientO
         params: EncryptEncryptDataParams,
         requestOptions: RequestOptions,
     ): EncryptEncryptDataResponse =
-        // post /encrypt
+        // post /v2/encrypt
         withRawResponse().encryptData(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -61,7 +61,7 @@ class EncryptServiceImpl internal constructor(private val clientOptions: ClientO
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("encrypt")
+                    .addPathSegments("v2", "encrypt")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)

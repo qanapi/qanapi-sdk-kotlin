@@ -44,7 +44,7 @@ interface EncryptServiceAsync {
         ): EncryptServiceAsync.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `post /encrypt`, but is otherwise the same as
+         * Returns a raw HTTP response for `post /v2/encrypt`, but is otherwise the same as
          * [EncryptServiceAsync.encryptData].
          */
         @MustBeClosed

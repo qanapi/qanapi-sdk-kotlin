@@ -74,8 +74,8 @@ interface ApiKeyServiceAsync {
         ): ApiKeyServiceAsync.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `patch /api-keys/{apiKey}/revoke`, but is otherwise the
-         * same as [ApiKeyServiceAsync.revoke].
+         * Returns a raw HTTP response for `patch /v2/api-keys/{apiKey}/revoke`, but is otherwise
+         * the same as [ApiKeyServiceAsync.revoke].
          */
         @MustBeClosed
         suspend fun revoke(
@@ -101,8 +101,8 @@ interface ApiKeyServiceAsync {
             revoke(apiKey, ApiKeyRevokeParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `patch /api-keys/{apiKey}/rotate`, but is otherwise the
-         * same as [ApiKeyServiceAsync.rotate].
+         * Returns a raw HTTP response for `patch /v2/api-keys/{apiKey}/rotate`, but is otherwise
+         * the same as [ApiKeyServiceAsync.rotate].
          */
         @MustBeClosed
         suspend fun rotate(
