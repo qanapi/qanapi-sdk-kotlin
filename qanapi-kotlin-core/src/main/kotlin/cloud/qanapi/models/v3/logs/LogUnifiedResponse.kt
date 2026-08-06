@@ -610,7 +610,7 @@ private constructor(
         private val causerEmail: JsonField<String>,
         private val configuration: JsonField<Configuration>,
         private val description: JsonField<String>,
-        private val details: JsonValue,
+        private val details: JsonField<String>,
         private val fullLog: JsonField<FullLog>,
         private val logType: JsonField<LogType>,
         private val requestId: JsonField<String>,
@@ -632,7 +632,7 @@ private constructor(
             @JsonProperty("description")
             @ExcludeMissing
             description: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("details") @ExcludeMissing details: JsonValue = JsonMissing.of(),
+            @JsonProperty("details") @ExcludeMissing details: JsonField<String> = JsonMissing.of(),
             @JsonProperty("full_log")
             @ExcludeMissing
             fullLog: JsonField<FullLog> = JsonMissing.of(),
@@ -689,12 +689,10 @@ private constructor(
         fun description(): String? = description.getNullable("description")
 
         /**
-         * This arbitrary value can be deserialized into a custom type using the `convert` method:
-         * ```kotlin
-         * val myObject: MyClass = data.details().convert(MyClass::class.java)
-         * ```
+         * @throws QanapiInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
          */
-        @JsonProperty("details") @ExcludeMissing fun _details(): JsonValue = details
+        fun details(): String? = details.getNullable("details")
 
         /**
          * @throws QanapiInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -768,6 +766,13 @@ private constructor(
         fun _description(): JsonField<String> = description
 
         /**
+         * Returns the raw JSON value of [details].
+         *
+         * Unlike [details], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("details") @ExcludeMissing fun _details(): JsonField<String> = details
+
+        /**
          * Returns the raw JSON value of [fullLog].
          *
          * Unlike [fullLog], this method doesn't throw if the JSON field has an unexpected type.
@@ -836,7 +841,7 @@ private constructor(
             private var causerEmail: JsonField<String> = JsonMissing.of()
             private var configuration: JsonField<Configuration> = JsonMissing.of()
             private var description: JsonField<String> = JsonMissing.of()
-            private var details: JsonValue = JsonMissing.of()
+            private var details: JsonField<String> = JsonMissing.of()
             private var fullLog: JsonField<FullLog> = JsonMissing.of()
             private var logType: JsonField<LogType> = JsonMissing.of()
             private var requestId: JsonField<String> = JsonMissing.of()
@@ -911,7 +916,16 @@ private constructor(
                 this.description = description
             }
 
-            fun details(details: JsonValue) = apply { this.details = details }
+            fun details(details: String?) = details(JsonField.ofNullable(details))
+
+            /**
+             * Sets [Builder.details] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.details] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun details(details: JsonField<String>) = apply { this.details = details }
 
             fun fullLog(fullLog: FullLog) = fullLog(JsonField.of(fullLog))
 
@@ -1059,6 +1073,7 @@ private constructor(
             causerEmail()
             configuration()?.validate()
             description()
+            details()
             fullLog()?.validate()
             logType()?.validate()
             requestId()
@@ -1087,6 +1102,7 @@ private constructor(
                 (if (causerEmail.asKnown() == null) 0 else 1) +
                 (configuration.asKnown()?.validity() ?: 0) +
                 (if (description.asKnown() == null) 0 else 1) +
+                (if (details.asKnown() == null) 0 else 1) +
                 (fullLog.asKnown()?.validity() ?: 0) +
                 (logType.asKnown()?.validity() ?: 0) +
                 (if (requestId.asKnown() == null) 0 else 1) +
