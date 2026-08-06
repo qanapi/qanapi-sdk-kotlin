@@ -6,15 +6,12 @@ import cloud.qanapi.core.ClientOptions
 import cloud.qanapi.core.RequestOptions
 import cloud.qanapi.core.http.HttpResponse
 import cloud.qanapi.core.http.HttpResponseFor
+import cloud.qanapi.models.v3.Configuration
 import cloud.qanapi.models.v3.configurations.ConfigurationCreateParams
-import cloud.qanapi.models.v3.configurations.ConfigurationCreateResponse
 import cloud.qanapi.models.v3.configurations.ConfigurationDeleteParams
 import cloud.qanapi.models.v3.configurations.ConfigurationListParams
-import cloud.qanapi.models.v3.configurations.ConfigurationListResponse
 import cloud.qanapi.models.v3.configurations.ConfigurationShowParams
-import cloud.qanapi.models.v3.configurations.ConfigurationShowResponse
 import cloud.qanapi.models.v3.configurations.ConfigurationUpdateParams
-import cloud.qanapi.models.v3.configurations.ConfigurationUpdateResponse
 import com.google.errorprone.annotations.MustBeClosed
 
 interface ConfigurationServiceAsync {
@@ -35,30 +32,30 @@ interface ConfigurationServiceAsync {
     suspend fun create(
         params: ConfigurationCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ConfigurationCreateResponse
+    ): Configuration
 
     /** Update configuration */
     suspend fun update(
         configuration: String,
         params: ConfigurationUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ConfigurationUpdateResponse =
+    ): Configuration =
         update(params.toBuilder().configuration(configuration).build(), requestOptions)
 
     /** @see update */
     suspend fun update(
         params: ConfigurationUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ConfigurationUpdateResponse
+    ): Configuration
 
     /** List configurations */
     suspend fun list(
         params: ConfigurationListParams = ConfigurationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): List<ConfigurationListResponse>
+    ): List<Configuration>
 
     /** @see list */
-    suspend fun list(requestOptions: RequestOptions): List<ConfigurationListResponse> =
+    suspend fun list(requestOptions: RequestOptions): List<Configuration> =
         list(ConfigurationListParams.none(), requestOptions)
 
     /** Delete configuration */
@@ -83,20 +80,16 @@ interface ConfigurationServiceAsync {
         configuration: String,
         params: ConfigurationShowParams = ConfigurationShowParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ConfigurationShowResponse =
-        show(params.toBuilder().configuration(configuration).build(), requestOptions)
+    ): Configuration = show(params.toBuilder().configuration(configuration).build(), requestOptions)
 
     /** @see show */
     suspend fun show(
         params: ConfigurationShowParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ConfigurationShowResponse
+    ): Configuration
 
     /** @see show */
-    suspend fun show(
-        configuration: String,
-        requestOptions: RequestOptions,
-    ): ConfigurationShowResponse =
+    suspend fun show(configuration: String, requestOptions: RequestOptions): Configuration =
         show(configuration, ConfigurationShowParams.none(), requestOptions)
 
     /**
@@ -122,7 +115,7 @@ interface ConfigurationServiceAsync {
         suspend fun create(
             params: ConfigurationCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ConfigurationCreateResponse>
+        ): HttpResponseFor<Configuration>
 
         /**
          * Returns a raw HTTP response for `put /v3/configurations/{configuration}`, but is
@@ -133,7 +126,7 @@ interface ConfigurationServiceAsync {
             configuration: String,
             params: ConfigurationUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ConfigurationUpdateResponse> =
+        ): HttpResponseFor<Configuration> =
             update(params.toBuilder().configuration(configuration).build(), requestOptions)
 
         /** @see update */
@@ -141,7 +134,7 @@ interface ConfigurationServiceAsync {
         suspend fun update(
             params: ConfigurationUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ConfigurationUpdateResponse>
+        ): HttpResponseFor<Configuration>
 
         /**
          * Returns a raw HTTP response for `get /v3/configurations`, but is otherwise the same as
@@ -151,13 +144,11 @@ interface ConfigurationServiceAsync {
         suspend fun list(
             params: ConfigurationListParams = ConfigurationListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<List<ConfigurationListResponse>>
+        ): HttpResponseFor<List<Configuration>>
 
         /** @see list */
         @MustBeClosed
-        suspend fun list(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<List<ConfigurationListResponse>> =
+        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<List<Configuration>> =
             list(ConfigurationListParams.none(), requestOptions)
 
         /**
@@ -193,7 +184,7 @@ interface ConfigurationServiceAsync {
             configuration: String,
             params: ConfigurationShowParams = ConfigurationShowParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ConfigurationShowResponse> =
+        ): HttpResponseFor<Configuration> =
             show(params.toBuilder().configuration(configuration).build(), requestOptions)
 
         /** @see show */
@@ -201,14 +192,14 @@ interface ConfigurationServiceAsync {
         suspend fun show(
             params: ConfigurationShowParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ConfigurationShowResponse>
+        ): HttpResponseFor<Configuration>
 
         /** @see show */
         @MustBeClosed
         suspend fun show(
             configuration: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ConfigurationShowResponse> =
+        ): HttpResponseFor<Configuration> =
             show(configuration, ConfigurationShowParams.none(), requestOptions)
     }
 }

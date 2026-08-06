@@ -76,8 +76,8 @@ internal class ConfigurationServiceTest {
             QanapiOkHttpClient.builder().apiKey("My API Key").subdomain("My-Subdomain").build()
         val configurationService = client.v3().configurations()
 
-        val response = configurationService.show("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        val configuration = configurationService.show("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
 
-        response.validate()
+        configuration.validate()
     }
 }

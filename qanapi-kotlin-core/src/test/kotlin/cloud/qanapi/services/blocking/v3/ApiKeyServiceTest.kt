@@ -49,8 +49,8 @@ internal class ApiKeyServiceTest {
             QanapiOkHttpClient.builder().apiKey("My API Key").subdomain("My-Subdomain").build()
         val apiKeyService = client.v3().apiKeys()
 
-        val response = apiKeyService.show(0L)
+        val apiKey = apiKeyService.show(0L)
 
-        response.validate()
+        apiKey.validate()
     }
 }

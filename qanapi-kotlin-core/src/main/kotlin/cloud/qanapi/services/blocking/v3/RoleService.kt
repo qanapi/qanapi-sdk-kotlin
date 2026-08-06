@@ -5,8 +5,8 @@ package cloud.qanapi.services.blocking.v3
 import cloud.qanapi.core.ClientOptions
 import cloud.qanapi.core.RequestOptions
 import cloud.qanapi.core.http.HttpResponseFor
+import cloud.qanapi.models.v3.Role
 import cloud.qanapi.models.v3.roles.RoleListParams
-import cloud.qanapi.models.v3.roles.RoleListResponse
 import com.google.errorprone.annotations.MustBeClosed
 
 interface RoleService {
@@ -27,10 +27,10 @@ interface RoleService {
     fun list(
         params: RoleListParams = RoleListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): List<RoleListResponse>
+    ): List<Role>
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): List<RoleListResponse> =
+    fun list(requestOptions: RequestOptions): List<Role> =
         list(RoleListParams.none(), requestOptions)
 
     /** A view of [RoleService] that provides access to raw HTTP responses for each method. */
@@ -51,11 +51,11 @@ interface RoleService {
         fun list(
             params: RoleListParams = RoleListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<List<RoleListResponse>>
+        ): HttpResponseFor<List<Role>>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<List<RoleListResponse>> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<List<Role>> =
             list(RoleListParams.none(), requestOptions)
     }
 }

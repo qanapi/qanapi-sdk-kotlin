@@ -14,8 +14,8 @@ import cloud.qanapi.core.http.HttpResponse.Handler
 import cloud.qanapi.core.http.HttpResponseFor
 import cloud.qanapi.core.http.parseable
 import cloud.qanapi.core.prepare
+import cloud.qanapi.models.v3.Role
 import cloud.qanapi.models.v3.roles.RoleListParams
-import cloud.qanapi.models.v3.roles.RoleListResponse
 
 class RoleServiceImpl internal constructor(private val clientOptions: ClientOptions) : RoleService {
 
@@ -28,10 +28,7 @@ class RoleServiceImpl internal constructor(private val clientOptions: ClientOpti
     override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): RoleService =
         RoleServiceImpl(clientOptions.toBuilder().apply(modifier).build())
 
-    override fun list(
-        params: RoleListParams,
-        requestOptions: RequestOptions,
-    ): List<RoleListResponse> =
+    override fun list(params: RoleListParams, requestOptions: RequestOptions): List<Role> =
         // get /v3/roles
         withRawResponse().list(params, requestOptions).parse()
 
@@ -46,13 +43,13 @@ class RoleServiceImpl internal constructor(private val clientOptions: ClientOpti
         ): RoleService.WithRawResponse =
             RoleServiceImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
 
-        private val listHandler: Handler<List<RoleListResponse>> =
-            jsonHandler<List<RoleListResponse>>(clientOptions.jsonMapper)
+        private val listHandler: Handler<List<Role>> =
+            jsonHandler<List<Role>>(clientOptions.jsonMapper)
 
         override fun list(
             params: RoleListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<List<RoleListResponse>> {
+        ): HttpResponseFor<List<Role>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)

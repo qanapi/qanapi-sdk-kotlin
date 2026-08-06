@@ -17,13 +17,12 @@ import cloud.qanapi.core.http.HttpResponseFor
 import cloud.qanapi.core.http.json
 import cloud.qanapi.core.http.parseable
 import cloud.qanapi.core.prepare
+import cloud.qanapi.models.v3.ApiKey
 import cloud.qanapi.models.v3.apikeys.ApiKeyListParams
-import cloud.qanapi.models.v3.apikeys.ApiKeyListResponse
 import cloud.qanapi.models.v3.apikeys.ApiKeyRevokeParams
 import cloud.qanapi.models.v3.apikeys.ApiKeyRotateParams
 import cloud.qanapi.models.v3.apikeys.ApiKeyRotateResponse
 import cloud.qanapi.models.v3.apikeys.ApiKeyShowParams
-import cloud.qanapi.models.v3.apikeys.ApiKeyShowResponse
 
 class ApiKeyServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ApiKeyService {
@@ -37,10 +36,7 @@ class ApiKeyServiceImpl internal constructor(private val clientOptions: ClientOp
     override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ApiKeyService =
         ApiKeyServiceImpl(clientOptions.toBuilder().apply(modifier).build())
 
-    override fun list(
-        params: ApiKeyListParams,
-        requestOptions: RequestOptions,
-    ): List<ApiKeyListResponse> =
+    override fun list(params: ApiKeyListParams, requestOptions: RequestOptions): List<ApiKey> =
         // get /v3/api-keys
         withRawResponse().list(params, requestOptions).parse()
 
@@ -56,10 +52,7 @@ class ApiKeyServiceImpl internal constructor(private val clientOptions: ClientOp
         // post /v3/api-keys/{apiKey}/rotate
         withRawResponse().rotate(params, requestOptions).parse()
 
-    override fun show(
-        params: ApiKeyShowParams,
-        requestOptions: RequestOptions,
-    ): ApiKeyShowResponse =
+    override fun show(params: ApiKeyShowParams, requestOptions: RequestOptions): ApiKey =
         // get /v3/api-keys/{apiKey}
         withRawResponse().show(params, requestOptions).parse()
 
@@ -74,13 +67,13 @@ class ApiKeyServiceImpl internal constructor(private val clientOptions: ClientOp
         ): ApiKeyService.WithRawResponse =
             ApiKeyServiceImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
 
-        private val listHandler: Handler<List<ApiKeyListResponse>> =
-            jsonHandler<List<ApiKeyListResponse>>(clientOptions.jsonMapper)
+        private val listHandler: Handler<List<ApiKey>> =
+            jsonHandler<List<ApiKey>>(clientOptions.jsonMapper)
 
         override fun list(
             params: ApiKeyListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<List<ApiKeyListResponse>> {
+        ): HttpResponseFor<List<ApiKey>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -156,13 +149,12 @@ class ApiKeyServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val showHandler: Handler<ApiKeyShowResponse> =
-            jsonHandler<ApiKeyShowResponse>(clientOptions.jsonMapper)
+        private val showHandler: Handler<ApiKey> = jsonHandler<ApiKey>(clientOptions.jsonMapper)
 
         override fun show(
             params: ApiKeyShowParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ApiKeyShowResponse> {
+        ): HttpResponseFor<ApiKey> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("apiKey", params.apiKey())

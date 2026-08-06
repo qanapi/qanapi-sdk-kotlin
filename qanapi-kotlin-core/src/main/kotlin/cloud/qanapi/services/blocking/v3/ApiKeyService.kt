@@ -6,13 +6,12 @@ import cloud.qanapi.core.ClientOptions
 import cloud.qanapi.core.RequestOptions
 import cloud.qanapi.core.http.HttpResponse
 import cloud.qanapi.core.http.HttpResponseFor
+import cloud.qanapi.models.v3.ApiKey
 import cloud.qanapi.models.v3.apikeys.ApiKeyListParams
-import cloud.qanapi.models.v3.apikeys.ApiKeyListResponse
 import cloud.qanapi.models.v3.apikeys.ApiKeyRevokeParams
 import cloud.qanapi.models.v3.apikeys.ApiKeyRotateParams
 import cloud.qanapi.models.v3.apikeys.ApiKeyRotateResponse
 import cloud.qanapi.models.v3.apikeys.ApiKeyShowParams
-import cloud.qanapi.models.v3.apikeys.ApiKeyShowResponse
 import com.google.errorprone.annotations.MustBeClosed
 
 interface ApiKeyService {
@@ -33,10 +32,10 @@ interface ApiKeyService {
     fun list(
         params: ApiKeyListParams = ApiKeyListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): List<ApiKeyListResponse>
+    ): List<ApiKey>
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): List<ApiKeyListResponse> =
+    fun list(requestOptions: RequestOptions): List<ApiKey> =
         list(ApiKeyListParams.none(), requestOptions)
 
     /** Revoke API Key */
@@ -75,16 +74,16 @@ interface ApiKeyService {
         apiKey: Long,
         params: ApiKeyShowParams = ApiKeyShowParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ApiKeyShowResponse = show(params.toBuilder().apiKey(apiKey).build(), requestOptions)
+    ): ApiKey = show(params.toBuilder().apiKey(apiKey).build(), requestOptions)
 
     /** @see show */
     fun show(
         params: ApiKeyShowParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ApiKeyShowResponse
+    ): ApiKey
 
     /** @see show */
-    fun show(apiKey: Long, requestOptions: RequestOptions): ApiKeyShowResponse =
+    fun show(apiKey: Long, requestOptions: RequestOptions): ApiKey =
         show(apiKey, ApiKeyShowParams.none(), requestOptions)
 
     /** A view of [ApiKeyService] that provides access to raw HTTP responses for each method. */
@@ -105,11 +104,11 @@ interface ApiKeyService {
         fun list(
             params: ApiKeyListParams = ApiKeyListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<List<ApiKeyListResponse>>
+        ): HttpResponseFor<List<ApiKey>>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<List<ApiKeyListResponse>> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<List<ApiKey>> =
             list(ApiKeyListParams.none(), requestOptions)
 
         /**
@@ -171,22 +170,18 @@ interface ApiKeyService {
             apiKey: Long,
             params: ApiKeyShowParams = ApiKeyShowParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ApiKeyShowResponse> =
-            show(params.toBuilder().apiKey(apiKey).build(), requestOptions)
+        ): HttpResponseFor<ApiKey> = show(params.toBuilder().apiKey(apiKey).build(), requestOptions)
 
         /** @see show */
         @MustBeClosed
         fun show(
             params: ApiKeyShowParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ApiKeyShowResponse>
+        ): HttpResponseFor<ApiKey>
 
         /** @see show */
         @MustBeClosed
-        fun show(
-            apiKey: Long,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<ApiKeyShowResponse> =
+        fun show(apiKey: Long, requestOptions: RequestOptions): HttpResponseFor<ApiKey> =
             show(apiKey, ApiKeyShowParams.none(), requestOptions)
     }
 }

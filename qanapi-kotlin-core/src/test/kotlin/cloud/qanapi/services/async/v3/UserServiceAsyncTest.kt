@@ -5,7 +5,6 @@ package cloud.qanapi.services.async.v3
 import cloud.qanapi.client.okhttp.QanapiOkHttpClientAsync
 import cloud.qanapi.models.v3.users.UserCreateParams
 import cloud.qanapi.models.v3.users.UserPatchParams
-import cloud.qanapi.models.v3.users.UserRestoreParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -55,9 +54,9 @@ internal class UserServiceAsyncTest {
             QanapiOkHttpClientAsync.builder().apiKey("My API Key").subdomain("My-Subdomain").build()
         val userServiceAsync = client.v3().users()
 
-        val response = userServiceAsync.me()
+        val user = userServiceAsync.me()
 
-        response.validate()
+        user.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -67,7 +66,7 @@ internal class UserServiceAsyncTest {
             QanapiOkHttpClientAsync.builder().apiKey("My API Key").subdomain("My-Subdomain").build()
         val userServiceAsync = client.v3().users()
 
-        val response =
+        val user =
             userServiceAsync.patch(
                 UserPatchParams.builder()
                     .user(0L)
@@ -78,7 +77,7 @@ internal class UserServiceAsyncTest {
                     .build()
             )
 
-        response.validate()
+        user.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -88,18 +87,9 @@ internal class UserServiceAsyncTest {
             QanapiOkHttpClientAsync.builder().apiKey("My API Key").subdomain("My-Subdomain").build()
         val userServiceAsync = client.v3().users()
 
-        val response =
-            userServiceAsync.restore(
-                UserRestoreParams.builder()
-                    .user(0L)
-                    .email("dev@stainless.com")
-                    .name("name")
-                    .role("role")
-                    .twoFactorEnabled(true)
-                    .build()
-            )
+        val user = userServiceAsync.restore(0L)
 
-        response.validate()
+        user.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -109,8 +99,8 @@ internal class UserServiceAsyncTest {
             QanapiOkHttpClientAsync.builder().apiKey("My API Key").subdomain("My-Subdomain").build()
         val userServiceAsync = client.v3().users()
 
-        val response = userServiceAsync.show(0L)
+        val user = userServiceAsync.show(0L)
 
-        response.validate()
+        user.validate()
     }
 }

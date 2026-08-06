@@ -4,6 +4,11 @@ package cloud.qanapi.models.v3.logs
 
 import cloud.qanapi.core.JsonValue
 import cloud.qanapi.core.jsonMapper
+import cloud.qanapi.models.v3.Configuration
+import cloud.qanapi.models.v3.Permission
+import cloud.qanapi.models.v3.Role
+import cloud.qanapi.models.v3.User
+import cloud.qanapi.models.v3.Value
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -21,16 +26,11 @@ internal class LogUnifiedResponseTest {
                         .action("action")
                         .causerEmail("dev@stainless.com")
                         .configuration(
-                            LogUnifiedResponse.Data.Configuration.builder()
+                            Configuration.builder()
                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .name("name")
                                 .type("type")
-                                .addValue(
-                                    LogUnifiedResponse.Data.Configuration.Value.builder()
-                                        .key("key")
-                                        .value("value")
-                                        .build()
-                                )
+                                .addValue(Value.builder().key("key").value("value").build())
                                 .build()
                         )
                         .description("description")
@@ -42,23 +42,17 @@ internal class LogUnifiedResponseTest {
                                 .ip("ip")
                                 .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .user(
-                                    LogUnifiedResponse.Data.FullLog.ActivityLog.User.builder()
+                                    User.builder()
                                         .id(0L)
                                         .email("dev@stainless.com")
                                         .name("name")
                                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .addRole(
-                                            LogUnifiedResponse.Data.FullLog.ActivityLog.User.Role
-                                                .builder()
+                                            Role.builder()
                                                 .name("name")
                                                 .description("description")
                                                 .addPermission(
-                                                    LogUnifiedResponse.Data.FullLog.ActivityLog.User
-                                                        .Role
-                                                        .Permission
-                                                        .builder()
-                                                        .name("name")
-                                                        .build()
+                                                    Permission.builder().name("name").build()
                                                 )
                                                 .build()
                                         )
@@ -74,20 +68,16 @@ internal class LogUnifiedResponseTest {
                         .statusCode(0L)
                         .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .user(
-                            LogUnifiedResponse.Data.User.builder()
+                            User.builder()
                                 .id(0L)
                                 .email("dev@stainless.com")
                                 .name("name")
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .addRole(
-                                    LogUnifiedResponse.Data.User.Role.builder()
+                                    Role.builder()
                                         .name("name")
                                         .description("description")
-                                        .addPermission(
-                                            LogUnifiedResponse.Data.User.Role.Permission.builder()
-                                                .name("name")
-                                                .build()
-                                        )
+                                        .addPermission(Permission.builder().name("name").build())
                                         .build()
                                 )
                                 .twoFactorEnabled(true)
@@ -123,16 +113,11 @@ internal class LogUnifiedResponseTest {
                     .action("action")
                     .causerEmail("dev@stainless.com")
                     .configuration(
-                        LogUnifiedResponse.Data.Configuration.builder()
+                        Configuration.builder()
                             .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .name("name")
                             .type("type")
-                            .addValue(
-                                LogUnifiedResponse.Data.Configuration.Value.builder()
-                                    .key("key")
-                                    .value("value")
-                                    .build()
-                            )
+                            .addValue(Value.builder().key("key").value("value").build())
                             .build()
                     )
                     .description("description")
@@ -144,23 +129,17 @@ internal class LogUnifiedResponseTest {
                             .ip("ip")
                             .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .user(
-                                LogUnifiedResponse.Data.FullLog.ActivityLog.User.builder()
+                                User.builder()
                                     .id(0L)
                                     .email("dev@stainless.com")
                                     .name("name")
                                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .addRole(
-                                        LogUnifiedResponse.Data.FullLog.ActivityLog.User.Role
-                                            .builder()
+                                        Role.builder()
                                             .name("name")
                                             .description("description")
                                             .addPermission(
-                                                LogUnifiedResponse.Data.FullLog.ActivityLog.User
-                                                    .Role
-                                                    .Permission
-                                                    .builder()
-                                                    .name("name")
-                                                    .build()
+                                                Permission.builder().name("name").build()
                                             )
                                             .build()
                                     )
@@ -176,20 +155,16 @@ internal class LogUnifiedResponseTest {
                     .statusCode(0L)
                     .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .user(
-                        LogUnifiedResponse.Data.User.builder()
+                        User.builder()
                             .id(0L)
                             .email("dev@stainless.com")
                             .name("name")
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .addRole(
-                                LogUnifiedResponse.Data.User.Role.builder()
+                                Role.builder()
                                     .name("name")
                                     .description("description")
-                                    .addPermission(
-                                        LogUnifiedResponse.Data.User.Role.Permission.builder()
-                                            .name("name")
-                                            .build()
-                                    )
+                                    .addPermission(Permission.builder().name("name").build())
                                     .build()
                             )
                             .twoFactorEnabled(true)
@@ -230,16 +205,11 @@ internal class LogUnifiedResponseTest {
                         .action("action")
                         .causerEmail("dev@stainless.com")
                         .configuration(
-                            LogUnifiedResponse.Data.Configuration.builder()
+                            Configuration.builder()
                                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                 .name("name")
                                 .type("type")
-                                .addValue(
-                                    LogUnifiedResponse.Data.Configuration.Value.builder()
-                                        .key("key")
-                                        .value("value")
-                                        .build()
-                                )
+                                .addValue(Value.builder().key("key").value("value").build())
                                 .build()
                         )
                         .description("description")
@@ -251,23 +221,17 @@ internal class LogUnifiedResponseTest {
                                 .ip("ip")
                                 .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .user(
-                                    LogUnifiedResponse.Data.FullLog.ActivityLog.User.builder()
+                                    User.builder()
                                         .id(0L)
                                         .email("dev@stainless.com")
                                         .name("name")
                                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .addRole(
-                                            LogUnifiedResponse.Data.FullLog.ActivityLog.User.Role
-                                                .builder()
+                                            Role.builder()
                                                 .name("name")
                                                 .description("description")
                                                 .addPermission(
-                                                    LogUnifiedResponse.Data.FullLog.ActivityLog.User
-                                                        .Role
-                                                        .Permission
-                                                        .builder()
-                                                        .name("name")
-                                                        .build()
+                                                    Permission.builder().name("name").build()
                                                 )
                                                 .build()
                                         )
@@ -283,20 +247,16 @@ internal class LogUnifiedResponseTest {
                         .statusCode(0L)
                         .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .user(
-                            LogUnifiedResponse.Data.User.builder()
+                            User.builder()
                                 .id(0L)
                                 .email("dev@stainless.com")
                                 .name("name")
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .addRole(
-                                    LogUnifiedResponse.Data.User.Role.builder()
+                                    Role.builder()
                                         .name("name")
                                         .description("description")
-                                        .addPermission(
-                                            LogUnifiedResponse.Data.User.Role.Permission.builder()
-                                                .name("name")
-                                                .build()
-                                        )
+                                        .addPermission(Permission.builder().name("name").build())
                                         .build()
                                 )
                                 .twoFactorEnabled(true)

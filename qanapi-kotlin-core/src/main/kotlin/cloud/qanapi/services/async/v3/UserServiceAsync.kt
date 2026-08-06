@@ -6,19 +6,14 @@ import cloud.qanapi.core.ClientOptions
 import cloud.qanapi.core.RequestOptions
 import cloud.qanapi.core.http.HttpResponse
 import cloud.qanapi.core.http.HttpResponseFor
+import cloud.qanapi.models.v3.User
 import cloud.qanapi.models.v3.users.UserCreateParams
-import cloud.qanapi.models.v3.users.UserCreateResponse
 import cloud.qanapi.models.v3.users.UserDeleteParams
 import cloud.qanapi.models.v3.users.UserListParams
-import cloud.qanapi.models.v3.users.UserListResponse
 import cloud.qanapi.models.v3.users.UserMeParams
-import cloud.qanapi.models.v3.users.UserMeResponse
 import cloud.qanapi.models.v3.users.UserPatchParams
-import cloud.qanapi.models.v3.users.UserPatchResponse
 import cloud.qanapi.models.v3.users.UserRestoreParams
-import cloud.qanapi.models.v3.users.UserRestoreResponse
 import cloud.qanapi.models.v3.users.UserShowParams
-import cloud.qanapi.models.v3.users.UserShowResponse
 import com.google.errorprone.annotations.MustBeClosed
 
 interface UserServiceAsync {
@@ -39,16 +34,16 @@ interface UserServiceAsync {
     suspend fun create(
         params: UserCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): UserCreateResponse
+    ): User
 
     /** List users */
     suspend fun list(
         params: UserListParams = UserListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): List<UserListResponse>
+    ): List<User>
 
     /** @see list */
-    suspend fun list(requestOptions: RequestOptions): List<UserListResponse> =
+    suspend fun list(requestOptions: RequestOptions): List<User> =
         list(UserListParams.none(), requestOptions)
 
     /** Delete user */
@@ -72,44 +67,43 @@ interface UserServiceAsync {
     suspend fun me(
         params: UserMeParams = UserMeParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): UserMeResponse
+    ): User
 
     /** @see me */
-    suspend fun me(requestOptions: RequestOptions): UserMeResponse =
-        me(UserMeParams.none(), requestOptions)
+    suspend fun me(requestOptions: RequestOptions): User = me(UserMeParams.none(), requestOptions)
 
     /** Update user */
     suspend fun patch(
         user: Long,
         params: UserPatchParams = UserPatchParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): UserPatchResponse = patch(params.toBuilder().user(user).build(), requestOptions)
+    ): User = patch(params.toBuilder().user(user).build(), requestOptions)
 
     /** @see patch */
     suspend fun patch(
         params: UserPatchParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): UserPatchResponse
+    ): User
 
     /** @see patch */
-    suspend fun patch(user: Long, requestOptions: RequestOptions): UserPatchResponse =
+    suspend fun patch(user: Long, requestOptions: RequestOptions): User =
         patch(user, UserPatchParams.none(), requestOptions)
 
-    /** Update user */
+    /** Restore user */
     suspend fun restore(
         user: Long,
         params: UserRestoreParams = UserRestoreParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): UserRestoreResponse = restore(params.toBuilder().user(user).build(), requestOptions)
+    ): User = restore(params.toBuilder().user(user).build(), requestOptions)
 
     /** @see restore */
     suspend fun restore(
         params: UserRestoreParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): UserRestoreResponse
+    ): User
 
     /** @see restore */
-    suspend fun restore(user: Long, requestOptions: RequestOptions): UserRestoreResponse =
+    suspend fun restore(user: Long, requestOptions: RequestOptions): User =
         restore(user, UserRestoreParams.none(), requestOptions)
 
     /** Get user */
@@ -117,16 +111,16 @@ interface UserServiceAsync {
         user: Long,
         params: UserShowParams = UserShowParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): UserShowResponse = show(params.toBuilder().user(user).build(), requestOptions)
+    ): User = show(params.toBuilder().user(user).build(), requestOptions)
 
     /** @see show */
     suspend fun show(
         params: UserShowParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): UserShowResponse
+    ): User
 
     /** @see show */
-    suspend fun show(user: Long, requestOptions: RequestOptions): UserShowResponse =
+    suspend fun show(user: Long, requestOptions: RequestOptions): User =
         show(user, UserShowParams.none(), requestOptions)
 
     /** A view of [UserServiceAsync] that provides access to raw HTTP responses for each method. */
@@ -147,7 +141,7 @@ interface UserServiceAsync {
         suspend fun create(
             params: UserCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<UserCreateResponse>
+        ): HttpResponseFor<User>
 
         /**
          * Returns a raw HTTP response for `get /v3/users`, but is otherwise the same as
@@ -157,11 +151,11 @@ interface UserServiceAsync {
         suspend fun list(
             params: UserListParams = UserListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<List<UserListResponse>>
+        ): HttpResponseFor<List<User>>
 
         /** @see list */
         @MustBeClosed
-        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<List<UserListResponse>> =
+        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<List<User>> =
             list(UserListParams.none(), requestOptions)
 
         /**
@@ -195,11 +189,11 @@ interface UserServiceAsync {
         suspend fun me(
             params: UserMeParams = UserMeParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<UserMeResponse>
+        ): HttpResponseFor<User>
 
         /** @see me */
         @MustBeClosed
-        suspend fun me(requestOptions: RequestOptions): HttpResponseFor<UserMeResponse> =
+        suspend fun me(requestOptions: RequestOptions): HttpResponseFor<User> =
             me(UserMeParams.none(), requestOptions)
 
         /**
@@ -211,48 +205,41 @@ interface UserServiceAsync {
             user: Long,
             params: UserPatchParams = UserPatchParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<UserPatchResponse> =
-            patch(params.toBuilder().user(user).build(), requestOptions)
+        ): HttpResponseFor<User> = patch(params.toBuilder().user(user).build(), requestOptions)
 
         /** @see patch */
         @MustBeClosed
         suspend fun patch(
             params: UserPatchParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<UserPatchResponse>
+        ): HttpResponseFor<User>
 
         /** @see patch */
         @MustBeClosed
-        suspend fun patch(
-            user: Long,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<UserPatchResponse> = patch(user, UserPatchParams.none(), requestOptions)
+        suspend fun patch(user: Long, requestOptions: RequestOptions): HttpResponseFor<User> =
+            patch(user, UserPatchParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `patch /v3/users/{user}`, but is otherwise the same as
-         * [UserServiceAsync.restore].
+         * Returns a raw HTTP response for `patch /v3/users/{user}/restore`, but is otherwise the
+         * same as [UserServiceAsync.restore].
          */
         @MustBeClosed
         suspend fun restore(
             user: Long,
             params: UserRestoreParams = UserRestoreParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<UserRestoreResponse> =
-            restore(params.toBuilder().user(user).build(), requestOptions)
+        ): HttpResponseFor<User> = restore(params.toBuilder().user(user).build(), requestOptions)
 
         /** @see restore */
         @MustBeClosed
         suspend fun restore(
             params: UserRestoreParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<UserRestoreResponse>
+        ): HttpResponseFor<User>
 
         /** @see restore */
         @MustBeClosed
-        suspend fun restore(
-            user: Long,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<UserRestoreResponse> =
+        suspend fun restore(user: Long, requestOptions: RequestOptions): HttpResponseFor<User> =
             restore(user, UserRestoreParams.none(), requestOptions)
 
         /**
@@ -264,21 +251,18 @@ interface UserServiceAsync {
             user: Long,
             params: UserShowParams = UserShowParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<UserShowResponse> =
-            show(params.toBuilder().user(user).build(), requestOptions)
+        ): HttpResponseFor<User> = show(params.toBuilder().user(user).build(), requestOptions)
 
         /** @see show */
         @MustBeClosed
         suspend fun show(
             params: UserShowParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<UserShowResponse>
+        ): HttpResponseFor<User>
 
         /** @see show */
         @MustBeClosed
-        suspend fun show(
-            user: Long,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<UserShowResponse> = show(user, UserShowParams.none(), requestOptions)
+        suspend fun show(user: Long, requestOptions: RequestOptions): HttpResponseFor<User> =
+            show(user, UserShowParams.none(), requestOptions)
     }
 }
