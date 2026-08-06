@@ -103,11 +103,11 @@ val client: QanapiClient = QanapiOkHttpClient.builder()
 
 See this table for the available options:
 
-| Setter      | System property    | Environment variable | Required | Default value                               |
-| ----------- | ------------------ | -------------------- | -------- | ------------------------------------------- |
-| `apiKey`    | `qanapi.apiKey`    | `QANAPI_API_KEY`     | true     | -                                           |
-| `subdomain` | `qanapi.subdomain` | `QANAPI_SUBDOMAIN`   | true     | -                                           |
-| `baseUrl`   | `qanapi.baseUrl`   | `QANAPI_BASE_URL`    | true     | `"https://{subdomain}.qanapi.cloud/api/v2"` |
+| Setter      | System property    | Environment variable | Required | Default value                            |
+| ----------- | ------------------ | -------------------- | -------- | ---------------------------------------- |
+| `apiKey`    | `qanapi.apiKey`    | `QANAPI_API_KEY`     | true     | -                                        |
+| `subdomain` | `qanapi.subdomain` | `QANAPI_SUBDOMAIN`   | true     | -                                        |
+| `baseUrl`   | `qanapi.baseUrl`   | `QANAPI_BASE_URL`    | true     | `"https://{subdomain}.qanapi.cloud/api"` |
 
 System properties take precedence over environment variables.
 

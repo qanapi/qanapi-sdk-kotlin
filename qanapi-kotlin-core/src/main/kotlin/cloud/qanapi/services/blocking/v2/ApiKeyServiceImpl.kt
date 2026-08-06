@@ -37,14 +37,14 @@ class ApiKeyServiceImpl internal constructor(private val clientOptions: ClientOp
         params: ApiKeyRevokeParams,
         requestOptions: RequestOptions,
     ): ApiKeyRevokeResponse =
-        // patch /api-keys/{apiKey}/revoke
+        // patch /v2/api-keys/{apiKey}/revoke
         withRawResponse().revoke(params, requestOptions).parse()
 
     override fun rotate(
         params: ApiKeyRotateParams,
         requestOptions: RequestOptions,
     ): ApiKeyRotateResponse =
-        // patch /api-keys/{apiKey}/rotate
+        // patch /v2/api-keys/{apiKey}/rotate
         withRawResponse().rotate(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -72,7 +72,7 @@ class ApiKeyServiceImpl internal constructor(private val clientOptions: ClientOp
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api-keys", params._pathParam(0), "revoke")
+                    .addPathSegments("v2", "api-keys", params._pathParam(0), "revoke")
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepare(clientOptions, params)
@@ -103,7 +103,7 @@ class ApiKeyServiceImpl internal constructor(private val clientOptions: ClientOp
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("api-keys", params._pathParam(0), "rotate")
+                    .addPathSegments("v2", "api-keys", params._pathParam(0), "rotate")
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepare(clientOptions, params)

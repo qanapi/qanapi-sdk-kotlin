@@ -34,7 +34,7 @@ class DecryptServiceImpl internal constructor(private val clientOptions: ClientO
         params: DecryptDecryptPayloadParams,
         requestOptions: RequestOptions,
     ): DecryptDecryptPayloadResponse =
-        // post /decrypt
+        // post /v2/decrypt
         withRawResponse().decryptPayload(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -61,7 +61,7 @@ class DecryptServiceImpl internal constructor(private val clientOptions: ClientO
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("decrypt")
+                    .addPathSegments("v2", "decrypt")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)

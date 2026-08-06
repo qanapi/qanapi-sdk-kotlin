@@ -88,7 +88,7 @@ interface AuthService {
         fun withOptions(modifier: (ClientOptions.Builder) -> Unit): AuthService.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `post /auth/login`, but is otherwise the same as
+         * Returns a raw HTTP response for `post /v2/auth/login`, but is otherwise the same as
          * [AuthService.login].
          */
         @MustBeClosed
@@ -98,7 +98,7 @@ interface AuthService {
         ): HttpResponseFor<AuthLoginResponse>
 
         /**
-         * Returns a raw HTTP response for `post /auth/logout`, but is otherwise the same as
+         * Returns a raw HTTP response for `post /v2/auth/logout`, but is otherwise the same as
          * [AuthService.logout].
          */
         @MustBeClosed
@@ -113,7 +113,7 @@ interface AuthService {
             logout(AuthLogoutParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /auth/refresh`, but is otherwise the same as
+         * Returns a raw HTTP response for `post /v2/auth/refresh`, but is otherwise the same as
          * [AuthService.refreshToken].
          */
         @MustBeClosed
@@ -130,7 +130,7 @@ interface AuthService {
             refreshToken(AuthRefreshTokenParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /auth/userdetails`, but is otherwise the same as
+         * Returns a raw HTTP response for `get /v2/auth/userdetails`, but is otherwise the same as
          * [AuthService.retrieveUserDetails].
          */
         @MustBeClosed
@@ -147,7 +147,7 @@ interface AuthService {
             retrieveUserDetails(AuthRetrieveUserDetailsParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /auth/revoke`, but is otherwise the same as
+         * Returns a raw HTTP response for `post /v2/auth/revoke`, but is otherwise the same as
          * [AuthService.revokeToken].
          */
         @MustBeClosed

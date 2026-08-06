@@ -184,7 +184,7 @@ class QanapiOkHttpClient private constructor() {
         /**
          * The base URL to use for every request.
          *
-         * Defaults to the production environment: `https://{subdomain}.qanapi.cloud/api/v2`.
+         * Defaults to the production environment: `https://{subdomain}.qanapi.cloud/api`.
          */
         fun baseUrl(baseUrl: String?) = apply { clientOptions.baseUrl(baseUrl) }
 

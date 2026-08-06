@@ -40,7 +40,7 @@ interface EncryptService {
         fun withOptions(modifier: (ClientOptions.Builder) -> Unit): EncryptService.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `post /encrypt`, but is otherwise the same as
+         * Returns a raw HTTP response for `post /v2/encrypt`, but is otherwise the same as
          * [EncryptService.encryptData].
          */
         @MustBeClosed

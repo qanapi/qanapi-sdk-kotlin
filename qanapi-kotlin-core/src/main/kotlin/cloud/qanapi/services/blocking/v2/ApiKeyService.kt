@@ -70,8 +70,8 @@ interface ApiKeyService {
         fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ApiKeyService.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `patch /api-keys/{apiKey}/revoke`, but is otherwise the
-         * same as [ApiKeyService.revoke].
+         * Returns a raw HTTP response for `patch /v2/api-keys/{apiKey}/revoke`, but is otherwise
+         * the same as [ApiKeyService.revoke].
          */
         @MustBeClosed
         fun revoke(
@@ -97,8 +97,8 @@ interface ApiKeyService {
             revoke(apiKey, ApiKeyRevokeParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `patch /api-keys/{apiKey}/rotate`, but is otherwise the
-         * same as [ApiKeyService.rotate].
+         * Returns a raw HTTP response for `patch /v2/api-keys/{apiKey}/rotate`, but is otherwise
+         * the same as [ApiKeyService.rotate].
          */
         @MustBeClosed
         fun rotate(
