@@ -16,7 +16,7 @@ import cloud.qanapi.errors.RateLimitException
 import cloud.qanapi.errors.UnauthorizedException
 import cloud.qanapi.errors.UnexpectedStatusCodeException
 import cloud.qanapi.errors.UnprocessableEntityException
-import cloud.qanapi.models.v2.auth.AuthLoginParams
+import cloud.qanapi.models.v3.encryption.EncryptionEncryptParams
 import com.github.tomakehurst.wiremock.client.WireMock.anyUrl
 import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.github.tomakehurst.wiremock.client.WireMock.status
@@ -60,8 +60,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun authLogin400() {
-        val authService = client.v2().auth()
+    fun encryptionEncrypt400() {
+        val encryptionService = client.v3().encryption()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -71,10 +71,20 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<BadRequestException> {
-                authService.login(
-                    AuthLoginParams.builder()
-                        .email("valid@email.com")
-                        .password("secret1234")
+                encryptionService.encrypt(
+                    EncryptionEncryptParams.builder()
+                        .proxy("proxy")
+                        .xQanapiFields("x-qanapi-fields")
+                        .xQanapiDestination("x-qanapi-destination")
+                        .body(
+                            EncryptionEncryptParams.Body.builder()
+                                .putAdditionalProperty("name", JsonValue.from("bar"))
+                                .putAdditionalProperty("email", JsonValue.from("bar"))
+                                .putAdditionalProperty("ssn", JsonValue.from("bar"))
+                                .putAdditionalProperty("dob", JsonValue.from("bar"))
+                                .putAdditionalProperty("address", JsonValue.from("bar"))
+                                .build()
+                        )
                         .build()
                 )
             }
@@ -85,8 +95,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun authLogin400WithRawResponse() {
-        val authService = client.v2().auth().withRawResponse()
+    fun encryptionEncrypt400WithRawResponse() {
+        val encryptionService = client.v3().encryption().withRawResponse()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -96,10 +106,20 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<BadRequestException> {
-                authService.login(
-                    AuthLoginParams.builder()
-                        .email("valid@email.com")
-                        .password("secret1234")
+                encryptionService.encrypt(
+                    EncryptionEncryptParams.builder()
+                        .proxy("proxy")
+                        .xQanapiFields("x-qanapi-fields")
+                        .xQanapiDestination("x-qanapi-destination")
+                        .body(
+                            EncryptionEncryptParams.Body.builder()
+                                .putAdditionalProperty("name", JsonValue.from("bar"))
+                                .putAdditionalProperty("email", JsonValue.from("bar"))
+                                .putAdditionalProperty("ssn", JsonValue.from("bar"))
+                                .putAdditionalProperty("dob", JsonValue.from("bar"))
+                                .putAdditionalProperty("address", JsonValue.from("bar"))
+                                .build()
+                        )
                         .build()
                 )
             }
@@ -110,8 +130,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun authLogin401() {
-        val authService = client.v2().auth()
+    fun encryptionEncrypt401() {
+        val encryptionService = client.v3().encryption()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -121,10 +141,20 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<UnauthorizedException> {
-                authService.login(
-                    AuthLoginParams.builder()
-                        .email("valid@email.com")
-                        .password("secret1234")
+                encryptionService.encrypt(
+                    EncryptionEncryptParams.builder()
+                        .proxy("proxy")
+                        .xQanapiFields("x-qanapi-fields")
+                        .xQanapiDestination("x-qanapi-destination")
+                        .body(
+                            EncryptionEncryptParams.Body.builder()
+                                .putAdditionalProperty("name", JsonValue.from("bar"))
+                                .putAdditionalProperty("email", JsonValue.from("bar"))
+                                .putAdditionalProperty("ssn", JsonValue.from("bar"))
+                                .putAdditionalProperty("dob", JsonValue.from("bar"))
+                                .putAdditionalProperty("address", JsonValue.from("bar"))
+                                .build()
+                        )
                         .build()
                 )
             }
@@ -135,8 +165,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun authLogin401WithRawResponse() {
-        val authService = client.v2().auth().withRawResponse()
+    fun encryptionEncrypt401WithRawResponse() {
+        val encryptionService = client.v3().encryption().withRawResponse()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -146,10 +176,20 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<UnauthorizedException> {
-                authService.login(
-                    AuthLoginParams.builder()
-                        .email("valid@email.com")
-                        .password("secret1234")
+                encryptionService.encrypt(
+                    EncryptionEncryptParams.builder()
+                        .proxy("proxy")
+                        .xQanapiFields("x-qanapi-fields")
+                        .xQanapiDestination("x-qanapi-destination")
+                        .body(
+                            EncryptionEncryptParams.Body.builder()
+                                .putAdditionalProperty("name", JsonValue.from("bar"))
+                                .putAdditionalProperty("email", JsonValue.from("bar"))
+                                .putAdditionalProperty("ssn", JsonValue.from("bar"))
+                                .putAdditionalProperty("dob", JsonValue.from("bar"))
+                                .putAdditionalProperty("address", JsonValue.from("bar"))
+                                .build()
+                        )
                         .build()
                 )
             }
@@ -160,8 +200,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun authLogin403() {
-        val authService = client.v2().auth()
+    fun encryptionEncrypt403() {
+        val encryptionService = client.v3().encryption()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -171,10 +211,20 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<PermissionDeniedException> {
-                authService.login(
-                    AuthLoginParams.builder()
-                        .email("valid@email.com")
-                        .password("secret1234")
+                encryptionService.encrypt(
+                    EncryptionEncryptParams.builder()
+                        .proxy("proxy")
+                        .xQanapiFields("x-qanapi-fields")
+                        .xQanapiDestination("x-qanapi-destination")
+                        .body(
+                            EncryptionEncryptParams.Body.builder()
+                                .putAdditionalProperty("name", JsonValue.from("bar"))
+                                .putAdditionalProperty("email", JsonValue.from("bar"))
+                                .putAdditionalProperty("ssn", JsonValue.from("bar"))
+                                .putAdditionalProperty("dob", JsonValue.from("bar"))
+                                .putAdditionalProperty("address", JsonValue.from("bar"))
+                                .build()
+                        )
                         .build()
                 )
             }
@@ -185,8 +235,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun authLogin403WithRawResponse() {
-        val authService = client.v2().auth().withRawResponse()
+    fun encryptionEncrypt403WithRawResponse() {
+        val encryptionService = client.v3().encryption().withRawResponse()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -196,10 +246,20 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<PermissionDeniedException> {
-                authService.login(
-                    AuthLoginParams.builder()
-                        .email("valid@email.com")
-                        .password("secret1234")
+                encryptionService.encrypt(
+                    EncryptionEncryptParams.builder()
+                        .proxy("proxy")
+                        .xQanapiFields("x-qanapi-fields")
+                        .xQanapiDestination("x-qanapi-destination")
+                        .body(
+                            EncryptionEncryptParams.Body.builder()
+                                .putAdditionalProperty("name", JsonValue.from("bar"))
+                                .putAdditionalProperty("email", JsonValue.from("bar"))
+                                .putAdditionalProperty("ssn", JsonValue.from("bar"))
+                                .putAdditionalProperty("dob", JsonValue.from("bar"))
+                                .putAdditionalProperty("address", JsonValue.from("bar"))
+                                .build()
+                        )
                         .build()
                 )
             }
@@ -210,8 +270,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun authLogin404() {
-        val authService = client.v2().auth()
+    fun encryptionEncrypt404() {
+        val encryptionService = client.v3().encryption()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -221,10 +281,20 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<NotFoundException> {
-                authService.login(
-                    AuthLoginParams.builder()
-                        .email("valid@email.com")
-                        .password("secret1234")
+                encryptionService.encrypt(
+                    EncryptionEncryptParams.builder()
+                        .proxy("proxy")
+                        .xQanapiFields("x-qanapi-fields")
+                        .xQanapiDestination("x-qanapi-destination")
+                        .body(
+                            EncryptionEncryptParams.Body.builder()
+                                .putAdditionalProperty("name", JsonValue.from("bar"))
+                                .putAdditionalProperty("email", JsonValue.from("bar"))
+                                .putAdditionalProperty("ssn", JsonValue.from("bar"))
+                                .putAdditionalProperty("dob", JsonValue.from("bar"))
+                                .putAdditionalProperty("address", JsonValue.from("bar"))
+                                .build()
+                        )
                         .build()
                 )
             }
@@ -235,8 +305,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun authLogin404WithRawResponse() {
-        val authService = client.v2().auth().withRawResponse()
+    fun encryptionEncrypt404WithRawResponse() {
+        val encryptionService = client.v3().encryption().withRawResponse()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -246,10 +316,20 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<NotFoundException> {
-                authService.login(
-                    AuthLoginParams.builder()
-                        .email("valid@email.com")
-                        .password("secret1234")
+                encryptionService.encrypt(
+                    EncryptionEncryptParams.builder()
+                        .proxy("proxy")
+                        .xQanapiFields("x-qanapi-fields")
+                        .xQanapiDestination("x-qanapi-destination")
+                        .body(
+                            EncryptionEncryptParams.Body.builder()
+                                .putAdditionalProperty("name", JsonValue.from("bar"))
+                                .putAdditionalProperty("email", JsonValue.from("bar"))
+                                .putAdditionalProperty("ssn", JsonValue.from("bar"))
+                                .putAdditionalProperty("dob", JsonValue.from("bar"))
+                                .putAdditionalProperty("address", JsonValue.from("bar"))
+                                .build()
+                        )
                         .build()
                 )
             }
@@ -260,8 +340,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun authLogin422() {
-        val authService = client.v2().auth()
+    fun encryptionEncrypt422() {
+        val encryptionService = client.v3().encryption()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -271,10 +351,20 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<UnprocessableEntityException> {
-                authService.login(
-                    AuthLoginParams.builder()
-                        .email("valid@email.com")
-                        .password("secret1234")
+                encryptionService.encrypt(
+                    EncryptionEncryptParams.builder()
+                        .proxy("proxy")
+                        .xQanapiFields("x-qanapi-fields")
+                        .xQanapiDestination("x-qanapi-destination")
+                        .body(
+                            EncryptionEncryptParams.Body.builder()
+                                .putAdditionalProperty("name", JsonValue.from("bar"))
+                                .putAdditionalProperty("email", JsonValue.from("bar"))
+                                .putAdditionalProperty("ssn", JsonValue.from("bar"))
+                                .putAdditionalProperty("dob", JsonValue.from("bar"))
+                                .putAdditionalProperty("address", JsonValue.from("bar"))
+                                .build()
+                        )
                         .build()
                 )
             }
@@ -285,8 +375,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun authLogin422WithRawResponse() {
-        val authService = client.v2().auth().withRawResponse()
+    fun encryptionEncrypt422WithRawResponse() {
+        val encryptionService = client.v3().encryption().withRawResponse()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -296,10 +386,20 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<UnprocessableEntityException> {
-                authService.login(
-                    AuthLoginParams.builder()
-                        .email("valid@email.com")
-                        .password("secret1234")
+                encryptionService.encrypt(
+                    EncryptionEncryptParams.builder()
+                        .proxy("proxy")
+                        .xQanapiFields("x-qanapi-fields")
+                        .xQanapiDestination("x-qanapi-destination")
+                        .body(
+                            EncryptionEncryptParams.Body.builder()
+                                .putAdditionalProperty("name", JsonValue.from("bar"))
+                                .putAdditionalProperty("email", JsonValue.from("bar"))
+                                .putAdditionalProperty("ssn", JsonValue.from("bar"))
+                                .putAdditionalProperty("dob", JsonValue.from("bar"))
+                                .putAdditionalProperty("address", JsonValue.from("bar"))
+                                .build()
+                        )
                         .build()
                 )
             }
@@ -310,8 +410,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun authLogin429() {
-        val authService = client.v2().auth()
+    fun encryptionEncrypt429() {
+        val encryptionService = client.v3().encryption()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -321,10 +421,20 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<RateLimitException> {
-                authService.login(
-                    AuthLoginParams.builder()
-                        .email("valid@email.com")
-                        .password("secret1234")
+                encryptionService.encrypt(
+                    EncryptionEncryptParams.builder()
+                        .proxy("proxy")
+                        .xQanapiFields("x-qanapi-fields")
+                        .xQanapiDestination("x-qanapi-destination")
+                        .body(
+                            EncryptionEncryptParams.Body.builder()
+                                .putAdditionalProperty("name", JsonValue.from("bar"))
+                                .putAdditionalProperty("email", JsonValue.from("bar"))
+                                .putAdditionalProperty("ssn", JsonValue.from("bar"))
+                                .putAdditionalProperty("dob", JsonValue.from("bar"))
+                                .putAdditionalProperty("address", JsonValue.from("bar"))
+                                .build()
+                        )
                         .build()
                 )
             }
@@ -335,8 +445,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun authLogin429WithRawResponse() {
-        val authService = client.v2().auth().withRawResponse()
+    fun encryptionEncrypt429WithRawResponse() {
+        val encryptionService = client.v3().encryption().withRawResponse()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -346,10 +456,20 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<RateLimitException> {
-                authService.login(
-                    AuthLoginParams.builder()
-                        .email("valid@email.com")
-                        .password("secret1234")
+                encryptionService.encrypt(
+                    EncryptionEncryptParams.builder()
+                        .proxy("proxy")
+                        .xQanapiFields("x-qanapi-fields")
+                        .xQanapiDestination("x-qanapi-destination")
+                        .body(
+                            EncryptionEncryptParams.Body.builder()
+                                .putAdditionalProperty("name", JsonValue.from("bar"))
+                                .putAdditionalProperty("email", JsonValue.from("bar"))
+                                .putAdditionalProperty("ssn", JsonValue.from("bar"))
+                                .putAdditionalProperty("dob", JsonValue.from("bar"))
+                                .putAdditionalProperty("address", JsonValue.from("bar"))
+                                .build()
+                        )
                         .build()
                 )
             }
@@ -360,8 +480,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun authLogin500() {
-        val authService = client.v2().auth()
+    fun encryptionEncrypt500() {
+        val encryptionService = client.v3().encryption()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -371,10 +491,20 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<InternalServerException> {
-                authService.login(
-                    AuthLoginParams.builder()
-                        .email("valid@email.com")
-                        .password("secret1234")
+                encryptionService.encrypt(
+                    EncryptionEncryptParams.builder()
+                        .proxy("proxy")
+                        .xQanapiFields("x-qanapi-fields")
+                        .xQanapiDestination("x-qanapi-destination")
+                        .body(
+                            EncryptionEncryptParams.Body.builder()
+                                .putAdditionalProperty("name", JsonValue.from("bar"))
+                                .putAdditionalProperty("email", JsonValue.from("bar"))
+                                .putAdditionalProperty("ssn", JsonValue.from("bar"))
+                                .putAdditionalProperty("dob", JsonValue.from("bar"))
+                                .putAdditionalProperty("address", JsonValue.from("bar"))
+                                .build()
+                        )
                         .build()
                 )
             }
@@ -385,8 +515,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun authLogin500WithRawResponse() {
-        val authService = client.v2().auth().withRawResponse()
+    fun encryptionEncrypt500WithRawResponse() {
+        val encryptionService = client.v3().encryption().withRawResponse()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -396,10 +526,20 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<InternalServerException> {
-                authService.login(
-                    AuthLoginParams.builder()
-                        .email("valid@email.com")
-                        .password("secret1234")
+                encryptionService.encrypt(
+                    EncryptionEncryptParams.builder()
+                        .proxy("proxy")
+                        .xQanapiFields("x-qanapi-fields")
+                        .xQanapiDestination("x-qanapi-destination")
+                        .body(
+                            EncryptionEncryptParams.Body.builder()
+                                .putAdditionalProperty("name", JsonValue.from("bar"))
+                                .putAdditionalProperty("email", JsonValue.from("bar"))
+                                .putAdditionalProperty("ssn", JsonValue.from("bar"))
+                                .putAdditionalProperty("dob", JsonValue.from("bar"))
+                                .putAdditionalProperty("address", JsonValue.from("bar"))
+                                .build()
+                        )
                         .build()
                 )
             }
@@ -410,8 +550,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun authLogin999() {
-        val authService = client.v2().auth()
+    fun encryptionEncrypt999() {
+        val encryptionService = client.v3().encryption()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -421,10 +561,20 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<UnexpectedStatusCodeException> {
-                authService.login(
-                    AuthLoginParams.builder()
-                        .email("valid@email.com")
-                        .password("secret1234")
+                encryptionService.encrypt(
+                    EncryptionEncryptParams.builder()
+                        .proxy("proxy")
+                        .xQanapiFields("x-qanapi-fields")
+                        .xQanapiDestination("x-qanapi-destination")
+                        .body(
+                            EncryptionEncryptParams.Body.builder()
+                                .putAdditionalProperty("name", JsonValue.from("bar"))
+                                .putAdditionalProperty("email", JsonValue.from("bar"))
+                                .putAdditionalProperty("ssn", JsonValue.from("bar"))
+                                .putAdditionalProperty("dob", JsonValue.from("bar"))
+                                .putAdditionalProperty("address", JsonValue.from("bar"))
+                                .build()
+                        )
                         .build()
                 )
             }
@@ -435,8 +585,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun authLogin999WithRawResponse() {
-        val authService = client.v2().auth().withRawResponse()
+    fun encryptionEncrypt999WithRawResponse() {
+        val encryptionService = client.v3().encryption().withRawResponse()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -446,10 +596,20 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<UnexpectedStatusCodeException> {
-                authService.login(
-                    AuthLoginParams.builder()
-                        .email("valid@email.com")
-                        .password("secret1234")
+                encryptionService.encrypt(
+                    EncryptionEncryptParams.builder()
+                        .proxy("proxy")
+                        .xQanapiFields("x-qanapi-fields")
+                        .xQanapiDestination("x-qanapi-destination")
+                        .body(
+                            EncryptionEncryptParams.Body.builder()
+                                .putAdditionalProperty("name", JsonValue.from("bar"))
+                                .putAdditionalProperty("email", JsonValue.from("bar"))
+                                .putAdditionalProperty("ssn", JsonValue.from("bar"))
+                                .putAdditionalProperty("dob", JsonValue.from("bar"))
+                                .putAdditionalProperty("address", JsonValue.from("bar"))
+                                .build()
+                        )
                         .build()
                 )
             }
@@ -460,8 +620,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun authLoginInvalidJsonBody() {
-        val authService = client.v2().auth()
+    fun encryptionEncryptInvalidJsonBody() {
+        val encryptionService = client.v3().encryption()
         stubFor(
             post(anyUrl())
                 .willReturn(status(200).withHeader(HEADER_NAME, HEADER_VALUE).withBody(NOT_JSON))
@@ -469,10 +629,20 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<QanapiException> {
-                authService.login(
-                    AuthLoginParams.builder()
-                        .email("valid@email.com")
-                        .password("secret1234")
+                encryptionService.encrypt(
+                    EncryptionEncryptParams.builder()
+                        .proxy("proxy")
+                        .xQanapiFields("x-qanapi-fields")
+                        .xQanapiDestination("x-qanapi-destination")
+                        .body(
+                            EncryptionEncryptParams.Body.builder()
+                                .putAdditionalProperty("name", JsonValue.from("bar"))
+                                .putAdditionalProperty("email", JsonValue.from("bar"))
+                                .putAdditionalProperty("ssn", JsonValue.from("bar"))
+                                .putAdditionalProperty("dob", JsonValue.from("bar"))
+                                .putAdditionalProperty("address", JsonValue.from("bar"))
+                                .build()
+                        )
                         .build()
                 )
             }

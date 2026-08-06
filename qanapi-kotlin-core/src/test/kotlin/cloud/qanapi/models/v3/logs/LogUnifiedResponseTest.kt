@@ -2,7 +2,6 @@
 
 package cloud.qanapi.models.v3.logs
 
-import cloud.qanapi.core.JsonValue
 import cloud.qanapi.core.jsonMapper
 import cloud.qanapi.models.v3.Configuration
 import cloud.qanapi.models.v3.Permission
@@ -34,7 +33,7 @@ internal class LogUnifiedResponseTest {
                                 .build()
                         )
                         .description("description")
-                        .details(JsonValue.from(mapOf<String, Any>()))
+                        .details("details")
                         .fullLog(
                             LogUnifiedResponse.Data.FullLog.ActivityLog.builder()
                                 .action("action")
@@ -121,7 +120,7 @@ internal class LogUnifiedResponseTest {
                             .build()
                     )
                     .description("description")
-                    .details(JsonValue.from(mapOf<String, Any>()))
+                    .details("details")
                     .fullLog(
                         LogUnifiedResponse.Data.FullLog.ActivityLog.builder()
                             .action("action")
@@ -213,7 +212,7 @@ internal class LogUnifiedResponseTest {
                                 .build()
                         )
                         .description("description")
-                        .details(JsonValue.from(mapOf<String, Any>()))
+                        .details("details")
                         .fullLog(
                             LogUnifiedResponse.Data.FullLog.ActivityLog.builder()
                                 .action("action")
