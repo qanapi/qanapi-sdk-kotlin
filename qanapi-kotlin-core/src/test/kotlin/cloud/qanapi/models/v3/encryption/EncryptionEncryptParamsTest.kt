@@ -15,8 +15,8 @@ internal class EncryptionEncryptParamsTest {
             .proxy("proxy")
             .xQanapiFields("x-qanapi-fields")
             .xQanapiDestination("x-qanapi-destination")
-            .body(
-                EncryptionEncryptParams.Body.builder()
+            .data(
+                EncryptionEncryptParams.Data.builder()
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                     .build()
             )
@@ -29,8 +29,8 @@ internal class EncryptionEncryptParamsTest {
             EncryptionEncryptParams.builder()
                 .proxy("proxy")
                 .xQanapiFields("x-qanapi-fields")
-                .body(
-                    EncryptionEncryptParams.Body.builder()
+                .data(
+                    EncryptionEncryptParams.Data.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
@@ -48,8 +48,8 @@ internal class EncryptionEncryptParamsTest {
                 .proxy("proxy")
                 .xQanapiFields("x-qanapi-fields")
                 .xQanapiDestination("x-qanapi-destination")
-                .body(
-                    EncryptionEncryptParams.Body.builder()
+                .data(
+                    EncryptionEncryptParams.Data.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
@@ -72,8 +72,8 @@ internal class EncryptionEncryptParamsTest {
             EncryptionEncryptParams.builder()
                 .proxy("proxy")
                 .xQanapiFields("x-qanapi-fields")
-                .body(
-                    EncryptionEncryptParams.Body.builder()
+                .data(
+                    EncryptionEncryptParams.Data.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
@@ -92,8 +92,8 @@ internal class EncryptionEncryptParamsTest {
                 .proxy("proxy")
                 .xQanapiFields("x-qanapi-fields")
                 .xQanapiDestination("x-qanapi-destination")
-                .body(
-                    EncryptionEncryptParams.Body.builder()
+                .data(
+                    EncryptionEncryptParams.Data.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
@@ -103,7 +103,7 @@ internal class EncryptionEncryptParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                EncryptionEncryptParams.Body.builder()
+                EncryptionEncryptParams.Data.builder()
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                     .build()
             )
@@ -115,8 +115,8 @@ internal class EncryptionEncryptParamsTest {
             EncryptionEncryptParams.builder()
                 .proxy("proxy")
                 .xQanapiFields("x-qanapi-fields")
-                .body(
-                    EncryptionEncryptParams.Body.builder()
+                .data(
+                    EncryptionEncryptParams.Data.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
@@ -126,7 +126,7 @@ internal class EncryptionEncryptParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                EncryptionEncryptParams.Body.builder()
+                EncryptionEncryptParams.Data.builder()
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                     .build()
             )

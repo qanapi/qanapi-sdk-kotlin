@@ -19,7 +19,7 @@ class EncryptionDecryptParams
 private constructor(
     private val proxy: String?,
     private val xQanapiFields: String?,
-    private val body: Body,
+    private val data: Data,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -29,9 +29,9 @@ private constructor(
     fun xQanapiFields(): String? = xQanapiFields
 
     /** A JSON object to decrypt fields on. A maximum depth of 32 is allowed. */
-    fun body(): Body = body
+    fun data(): Data = data
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+    fun _additionalBodyProperties(): Map<String, JsonValue> = data._additionalProperties()
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -48,7 +48,7 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .body()
+         * .data()
          * ```
          */
         fun builder() = Builder()
@@ -59,14 +59,14 @@ private constructor(
 
         private var proxy: String? = null
         private var xQanapiFields: String? = null
-        private var body: Body? = null
+        private var data: Data? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(encryptionDecryptParams: EncryptionDecryptParams) = apply {
             proxy = encryptionDecryptParams.proxy
             xQanapiFields = encryptionDecryptParams.xQanapiFields
-            body = encryptionDecryptParams.body
+            data = encryptionDecryptParams.data
             additionalHeaders = encryptionDecryptParams.additionalHeaders.toBuilder()
             additionalQueryParams = encryptionDecryptParams.additionalQueryParams.toBuilder()
         }
@@ -76,7 +76,7 @@ private constructor(
         fun xQanapiFields(xQanapiFields: String?) = apply { this.xQanapiFields = xQanapiFields }
 
         /** A JSON object to decrypt fields on. A maximum depth of 32 is allowed. */
-        fun body(body: Body) = apply { this.body = body }
+        fun data(data: Data) = apply { this.data = data }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -183,7 +183,7 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .body()
+         * .data()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -192,13 +192,13 @@ private constructor(
             EncryptionDecryptParams(
                 proxy,
                 xQanapiFields,
-                checkRequired("body", body),
+                checkRequired("data", data),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): Body = body
+    fun _body(): Data = data
 
     fun _pathParam(index: Int): String =
         when (index) {
@@ -217,7 +217,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     /** A JSON object to decrypt fields on. A maximum depth of 32 is allowed. */
-    class Body
+    class Data
     @JsonCreator
     private constructor(
         @com.fasterxml.jackson.annotation.JsonValue
@@ -232,17 +232,17 @@ private constructor(
 
         companion object {
 
-            /** Returns a mutable builder for constructing an instance of [Body]. */
+            /** Returns a mutable builder for constructing an instance of [Data]. */
             fun builder() = Builder()
         }
 
-        /** A builder for [Body]. */
+        /** A builder for [Data]. */
         class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(body: Body) = apply {
-                additionalProperties = body.additionalProperties.toMutableMap()
+            internal fun from(data: Data) = apply {
+                additionalProperties = data.additionalProperties.toMutableMap()
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -265,11 +265,11 @@ private constructor(
             }
 
             /**
-             * Returns an immutable instance of [Body].
+             * Returns an immutable instance of [Data].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): Body = Body(additionalProperties.toImmutable())
+            fun build(): Data = Data(additionalProperties.toImmutable())
         }
 
         private var validated: Boolean = false
@@ -283,7 +283,7 @@ private constructor(
          * @throws QanapiInvalidDataException if any value type in this object doesn't match its
          *   expected type.
          */
-        fun validate(): Body = apply {
+        fun validate(): Data = apply {
             if (validated) {
                 return@apply
             }
@@ -313,14 +313,14 @@ private constructor(
                 return true
             }
 
-            return other is Body && additionalProperties == other.additionalProperties
+            return other is Data && additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "Body{additionalProperties=$additionalProperties}"
+        override fun toString() = "Data{additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -331,14 +331,14 @@ private constructor(
         return other is EncryptionDecryptParams &&
             proxy == other.proxy &&
             xQanapiFields == other.xQanapiFields &&
-            body == other.body &&
+            data == other.data &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(proxy, xQanapiFields, body, additionalHeaders, additionalQueryParams)
+        Objects.hash(proxy, xQanapiFields, data, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "EncryptionDecryptParams{proxy=$proxy, xQanapiFields=$xQanapiFields, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "EncryptionDecryptParams{proxy=$proxy, xQanapiFields=$xQanapiFields, data=$data, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
