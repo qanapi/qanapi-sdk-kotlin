@@ -17,19 +17,14 @@ import cloud.qanapi.core.http.HttpResponseFor
 import cloud.qanapi.core.http.json
 import cloud.qanapi.core.http.parseable
 import cloud.qanapi.core.prepare
+import cloud.qanapi.models.v3.User
 import cloud.qanapi.models.v3.users.UserCreateParams
-import cloud.qanapi.models.v3.users.UserCreateResponse
 import cloud.qanapi.models.v3.users.UserDeleteParams
 import cloud.qanapi.models.v3.users.UserListParams
-import cloud.qanapi.models.v3.users.UserListResponse
 import cloud.qanapi.models.v3.users.UserMeParams
-import cloud.qanapi.models.v3.users.UserMeResponse
 import cloud.qanapi.models.v3.users.UserPatchParams
-import cloud.qanapi.models.v3.users.UserPatchResponse
 import cloud.qanapi.models.v3.users.UserRestoreParams
-import cloud.qanapi.models.v3.users.UserRestoreResponse
 import cloud.qanapi.models.v3.users.UserShowParams
-import cloud.qanapi.models.v3.users.UserShowResponse
 
 class UserServiceImpl internal constructor(private val clientOptions: ClientOptions) : UserService {
 
@@ -42,17 +37,11 @@ class UserServiceImpl internal constructor(private val clientOptions: ClientOpti
     override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): UserService =
         UserServiceImpl(clientOptions.toBuilder().apply(modifier).build())
 
-    override fun create(
-        params: UserCreateParams,
-        requestOptions: RequestOptions,
-    ): UserCreateResponse =
+    override fun create(params: UserCreateParams, requestOptions: RequestOptions): User =
         // post /v3/users
         withRawResponse().create(params, requestOptions).parse()
 
-    override fun list(
-        params: UserListParams,
-        requestOptions: RequestOptions,
-    ): List<UserListResponse> =
+    override fun list(params: UserListParams, requestOptions: RequestOptions): List<User> =
         // get /v3/users
         withRawResponse().list(params, requestOptions).parse()
 
@@ -61,22 +50,19 @@ class UserServiceImpl internal constructor(private val clientOptions: ClientOpti
         withRawResponse().delete(params, requestOptions)
     }
 
-    override fun me(params: UserMeParams, requestOptions: RequestOptions): UserMeResponse =
+    override fun me(params: UserMeParams, requestOptions: RequestOptions): User =
         // get /v3/users/me
         withRawResponse().me(params, requestOptions).parse()
 
-    override fun patch(params: UserPatchParams, requestOptions: RequestOptions): UserPatchResponse =
+    override fun patch(params: UserPatchParams, requestOptions: RequestOptions): User =
         // patch /v3/users/{user}
         withRawResponse().patch(params, requestOptions).parse()
 
-    override fun restore(
-        params: UserRestoreParams,
-        requestOptions: RequestOptions,
-    ): UserRestoreResponse =
-        // patch /v3/users/{user}
+    override fun restore(params: UserRestoreParams, requestOptions: RequestOptions): User =
+        // patch /v3/users/{user}/restore
         withRawResponse().restore(params, requestOptions).parse()
 
-    override fun show(params: UserShowParams, requestOptions: RequestOptions): UserShowResponse =
+    override fun show(params: UserShowParams, requestOptions: RequestOptions): User =
         // get /v3/users/{user}
         withRawResponse().show(params, requestOptions).parse()
 
@@ -91,13 +77,12 @@ class UserServiceImpl internal constructor(private val clientOptions: ClientOpti
         ): UserService.WithRawResponse =
             UserServiceImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
 
-        private val createHandler: Handler<UserCreateResponse> =
-            jsonHandler<UserCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<User> = jsonHandler<User>(clientOptions.jsonMapper)
 
         override fun create(
             params: UserCreateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<UserCreateResponse> {
+        ): HttpResponseFor<User> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -119,13 +104,13 @@ class UserServiceImpl internal constructor(private val clientOptions: ClientOpti
             }
         }
 
-        private val listHandler: Handler<List<UserListResponse>> =
-            jsonHandler<List<UserListResponse>>(clientOptions.jsonMapper)
+        private val listHandler: Handler<List<User>> =
+            jsonHandler<List<User>>(clientOptions.jsonMapper)
 
         override fun list(
             params: UserListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<List<UserListResponse>> {
+        ): HttpResponseFor<List<User>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -170,13 +155,12 @@ class UserServiceImpl internal constructor(private val clientOptions: ClientOpti
             }
         }
 
-        private val meHandler: Handler<UserMeResponse> =
-            jsonHandler<UserMeResponse>(clientOptions.jsonMapper)
+        private val meHandler: Handler<User> = jsonHandler<User>(clientOptions.jsonMapper)
 
         override fun me(
             params: UserMeParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<UserMeResponse> {
+        ): HttpResponseFor<User> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -197,13 +181,12 @@ class UserServiceImpl internal constructor(private val clientOptions: ClientOpti
             }
         }
 
-        private val patchHandler: Handler<UserPatchResponse> =
-            jsonHandler<UserPatchResponse>(clientOptions.jsonMapper)
+        private val patchHandler: Handler<User> = jsonHandler<User>(clientOptions.jsonMapper)
 
         override fun patch(
             params: UserPatchParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<UserPatchResponse> {
+        ): HttpResponseFor<User> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("user", params.user())
@@ -228,13 +211,12 @@ class UserServiceImpl internal constructor(private val clientOptions: ClientOpti
             }
         }
 
-        private val restoreHandler: Handler<UserRestoreResponse> =
-            jsonHandler<UserRestoreResponse>(clientOptions.jsonMapper)
+        private val restoreHandler: Handler<User> = jsonHandler<User>(clientOptions.jsonMapper)
 
         override fun restore(
             params: UserRestoreParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<UserRestoreResponse> {
+        ): HttpResponseFor<User> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("user", params.user())
@@ -242,8 +224,8 @@ class UserServiceImpl internal constructor(private val clientOptions: ClientOpti
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v3", "users", params._pathParam(0))
-                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .addPathSegments("v3", "users", params._pathParam(0), "restore")
+                    .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -259,13 +241,12 @@ class UserServiceImpl internal constructor(private val clientOptions: ClientOpti
             }
         }
 
-        private val showHandler: Handler<UserShowResponse> =
-            jsonHandler<UserShowResponse>(clientOptions.jsonMapper)
+        private val showHandler: Handler<User> = jsonHandler<User>(clientOptions.jsonMapper)
 
         override fun show(
             params: UserShowParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<UserShowResponse> {
+        ): HttpResponseFor<User> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("user", params.user())

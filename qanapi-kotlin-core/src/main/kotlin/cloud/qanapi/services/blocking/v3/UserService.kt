@@ -6,19 +6,14 @@ import cloud.qanapi.core.ClientOptions
 import cloud.qanapi.core.RequestOptions
 import cloud.qanapi.core.http.HttpResponse
 import cloud.qanapi.core.http.HttpResponseFor
+import cloud.qanapi.models.v3.User
 import cloud.qanapi.models.v3.users.UserCreateParams
-import cloud.qanapi.models.v3.users.UserCreateResponse
 import cloud.qanapi.models.v3.users.UserDeleteParams
 import cloud.qanapi.models.v3.users.UserListParams
-import cloud.qanapi.models.v3.users.UserListResponse
 import cloud.qanapi.models.v3.users.UserMeParams
-import cloud.qanapi.models.v3.users.UserMeResponse
 import cloud.qanapi.models.v3.users.UserPatchParams
-import cloud.qanapi.models.v3.users.UserPatchResponse
 import cloud.qanapi.models.v3.users.UserRestoreParams
-import cloud.qanapi.models.v3.users.UserRestoreResponse
 import cloud.qanapi.models.v3.users.UserShowParams
-import cloud.qanapi.models.v3.users.UserShowResponse
 import com.google.errorprone.annotations.MustBeClosed
 
 interface UserService {
@@ -39,16 +34,16 @@ interface UserService {
     fun create(
         params: UserCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): UserCreateResponse
+    ): User
 
     /** List users */
     fun list(
         params: UserListParams = UserListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): List<UserListResponse>
+    ): List<User>
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): List<UserListResponse> =
+    fun list(requestOptions: RequestOptions): List<User> =
         list(UserListParams.none(), requestOptions)
 
     /** Delete user */
@@ -69,43 +64,40 @@ interface UserService {
     fun me(
         params: UserMeParams = UserMeParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): UserMeResponse
+    ): User
 
     /** @see me */
-    fun me(requestOptions: RequestOptions): UserMeResponse = me(UserMeParams.none(), requestOptions)
+    fun me(requestOptions: RequestOptions): User = me(UserMeParams.none(), requestOptions)
 
     /** Update user */
     fun patch(
         user: Long,
         params: UserPatchParams = UserPatchParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): UserPatchResponse = patch(params.toBuilder().user(user).build(), requestOptions)
+    ): User = patch(params.toBuilder().user(user).build(), requestOptions)
 
     /** @see patch */
-    fun patch(
-        params: UserPatchParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): UserPatchResponse
+    fun patch(params: UserPatchParams, requestOptions: RequestOptions = RequestOptions.none()): User
 
     /** @see patch */
-    fun patch(user: Long, requestOptions: RequestOptions): UserPatchResponse =
+    fun patch(user: Long, requestOptions: RequestOptions): User =
         patch(user, UserPatchParams.none(), requestOptions)
 
-    /** Update user */
+    /** Restore user */
     fun restore(
         user: Long,
         params: UserRestoreParams = UserRestoreParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): UserRestoreResponse = restore(params.toBuilder().user(user).build(), requestOptions)
+    ): User = restore(params.toBuilder().user(user).build(), requestOptions)
 
     /** @see restore */
     fun restore(
         params: UserRestoreParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): UserRestoreResponse
+    ): User
 
     /** @see restore */
-    fun restore(user: Long, requestOptions: RequestOptions): UserRestoreResponse =
+    fun restore(user: Long, requestOptions: RequestOptions): User =
         restore(user, UserRestoreParams.none(), requestOptions)
 
     /** Get user */
@@ -113,16 +105,13 @@ interface UserService {
         user: Long,
         params: UserShowParams = UserShowParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): UserShowResponse = show(params.toBuilder().user(user).build(), requestOptions)
+    ): User = show(params.toBuilder().user(user).build(), requestOptions)
 
     /** @see show */
-    fun show(
-        params: UserShowParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): UserShowResponse
+    fun show(params: UserShowParams, requestOptions: RequestOptions = RequestOptions.none()): User
 
     /** @see show */
-    fun show(user: Long, requestOptions: RequestOptions): UserShowResponse =
+    fun show(user: Long, requestOptions: RequestOptions): User =
         show(user, UserShowParams.none(), requestOptions)
 
     /** A view of [UserService] that provides access to raw HTTP responses for each method. */
@@ -143,7 +132,7 @@ interface UserService {
         fun create(
             params: UserCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<UserCreateResponse>
+        ): HttpResponseFor<User>
 
         /**
          * Returns a raw HTTP response for `get /v3/users`, but is otherwise the same as
@@ -153,11 +142,11 @@ interface UserService {
         fun list(
             params: UserListParams = UserListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<List<UserListResponse>>
+        ): HttpResponseFor<List<User>>
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<List<UserListResponse>> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<List<User>> =
             list(UserListParams.none(), requestOptions)
 
         /**
@@ -191,11 +180,11 @@ interface UserService {
         fun me(
             params: UserMeParams = UserMeParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<UserMeResponse>
+        ): HttpResponseFor<User>
 
         /** @see me */
         @MustBeClosed
-        fun me(requestOptions: RequestOptions): HttpResponseFor<UserMeResponse> =
+        fun me(requestOptions: RequestOptions): HttpResponseFor<User> =
             me(UserMeParams.none(), requestOptions)
 
         /**
@@ -207,46 +196,41 @@ interface UserService {
             user: Long,
             params: UserPatchParams = UserPatchParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<UserPatchResponse> =
-            patch(params.toBuilder().user(user).build(), requestOptions)
+        ): HttpResponseFor<User> = patch(params.toBuilder().user(user).build(), requestOptions)
 
         /** @see patch */
         @MustBeClosed
         fun patch(
             params: UserPatchParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<UserPatchResponse>
+        ): HttpResponseFor<User>
 
         /** @see patch */
         @MustBeClosed
-        fun patch(user: Long, requestOptions: RequestOptions): HttpResponseFor<UserPatchResponse> =
+        fun patch(user: Long, requestOptions: RequestOptions): HttpResponseFor<User> =
             patch(user, UserPatchParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `patch /v3/users/{user}`, but is otherwise the same as
-         * [UserService.restore].
+         * Returns a raw HTTP response for `patch /v3/users/{user}/restore`, but is otherwise the
+         * same as [UserService.restore].
          */
         @MustBeClosed
         fun restore(
             user: Long,
             params: UserRestoreParams = UserRestoreParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<UserRestoreResponse> =
-            restore(params.toBuilder().user(user).build(), requestOptions)
+        ): HttpResponseFor<User> = restore(params.toBuilder().user(user).build(), requestOptions)
 
         /** @see restore */
         @MustBeClosed
         fun restore(
             params: UserRestoreParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<UserRestoreResponse>
+        ): HttpResponseFor<User>
 
         /** @see restore */
         @MustBeClosed
-        fun restore(
-            user: Long,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<UserRestoreResponse> =
+        fun restore(user: Long, requestOptions: RequestOptions): HttpResponseFor<User> =
             restore(user, UserRestoreParams.none(), requestOptions)
 
         /**
@@ -258,19 +242,18 @@ interface UserService {
             user: Long,
             params: UserShowParams = UserShowParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<UserShowResponse> =
-            show(params.toBuilder().user(user).build(), requestOptions)
+        ): HttpResponseFor<User> = show(params.toBuilder().user(user).build(), requestOptions)
 
         /** @see show */
         @MustBeClosed
         fun show(
             params: UserShowParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<UserShowResponse>
+        ): HttpResponseFor<User>
 
         /** @see show */
         @MustBeClosed
-        fun show(user: Long, requestOptions: RequestOptions): HttpResponseFor<UserShowResponse> =
+        fun show(user: Long, requestOptions: RequestOptions): HttpResponseFor<User> =
             show(user, UserShowParams.none(), requestOptions)
     }
 }

@@ -76,8 +76,8 @@ internal class ConfigurationServiceAsyncTest {
             QanapiOkHttpClientAsync.builder().apiKey("My API Key").subdomain("My-Subdomain").build()
         val configurationServiceAsync = client.v3().configurations()
 
-        val response = configurationServiceAsync.show("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+        val configuration = configurationServiceAsync.show("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
 
-        response.validate()
+        configuration.validate()
     }
 }

@@ -3,6 +3,9 @@
 package cloud.qanapi.models.v3.logs
 
 import cloud.qanapi.core.jsonMapper
+import cloud.qanapi.models.v3.Permission
+import cloud.qanapi.models.v3.Role
+import cloud.qanapi.models.v3.User
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -22,20 +25,16 @@ internal class LogActivityResponseTest {
                         .ip("ip")
                         .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .user(
-                            LogActivityResponse.Data.User.builder()
+                            User.builder()
                                 .id(0L)
                                 .email("dev@stainless.com")
                                 .name("name")
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .addRole(
-                                    LogActivityResponse.Data.User.Role.builder()
+                                    Role.builder()
                                         .name("name")
                                         .description("description")
-                                        .addPermission(
-                                            LogActivityResponse.Data.User.Role.Permission.builder()
-                                                .name("name")
-                                                .build()
-                                        )
+                                        .addPermission(Permission.builder().name("name").build())
                                         .build()
                                 )
                                 .twoFactorEnabled(true)
@@ -74,20 +73,16 @@ internal class LogActivityResponseTest {
                     .ip("ip")
                     .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .user(
-                        LogActivityResponse.Data.User.builder()
+                        User.builder()
                             .id(0L)
                             .email("dev@stainless.com")
                             .name("name")
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .addRole(
-                                LogActivityResponse.Data.User.Role.builder()
+                                Role.builder()
                                     .name("name")
                                     .description("description")
-                                    .addPermission(
-                                        LogActivityResponse.Data.User.Role.Permission.builder()
-                                            .name("name")
-                                            .build()
-                                    )
+                                    .addPermission(Permission.builder().name("name").build())
                                     .build()
                             )
                             .twoFactorEnabled(true)
@@ -131,20 +126,16 @@ internal class LogActivityResponseTest {
                         .ip("ip")
                         .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .user(
-                            LogActivityResponse.Data.User.builder()
+                            User.builder()
                                 .id(0L)
                                 .email("dev@stainless.com")
                                 .name("name")
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .addRole(
-                                    LogActivityResponse.Data.User.Role.builder()
+                                    Role.builder()
                                         .name("name")
                                         .description("description")
-                                        .addPermission(
-                                            LogActivityResponse.Data.User.Role.Permission.builder()
-                                                .name("name")
-                                                .build()
-                                        )
+                                        .addPermission(Permission.builder().name("name").build())
                                         .build()
                                 )
                                 .twoFactorEnabled(true)

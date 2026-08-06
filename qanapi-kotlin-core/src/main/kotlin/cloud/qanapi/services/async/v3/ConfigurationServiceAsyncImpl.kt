@@ -17,15 +17,12 @@ import cloud.qanapi.core.http.HttpResponseFor
 import cloud.qanapi.core.http.json
 import cloud.qanapi.core.http.parseable
 import cloud.qanapi.core.prepareAsync
+import cloud.qanapi.models.v3.Configuration
 import cloud.qanapi.models.v3.configurations.ConfigurationCreateParams
-import cloud.qanapi.models.v3.configurations.ConfigurationCreateResponse
 import cloud.qanapi.models.v3.configurations.ConfigurationDeleteParams
 import cloud.qanapi.models.v3.configurations.ConfigurationListParams
-import cloud.qanapi.models.v3.configurations.ConfigurationListResponse
 import cloud.qanapi.models.v3.configurations.ConfigurationShowParams
-import cloud.qanapi.models.v3.configurations.ConfigurationShowResponse
 import cloud.qanapi.models.v3.configurations.ConfigurationUpdateParams
-import cloud.qanapi.models.v3.configurations.ConfigurationUpdateResponse
 
 class ConfigurationServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     ConfigurationServiceAsync {
@@ -42,21 +39,21 @@ class ConfigurationServiceAsyncImpl internal constructor(private val clientOptio
     override suspend fun create(
         params: ConfigurationCreateParams,
         requestOptions: RequestOptions,
-    ): ConfigurationCreateResponse =
+    ): Configuration =
         // post /v3/configurations
         withRawResponse().create(params, requestOptions).parse()
 
     override suspend fun update(
         params: ConfigurationUpdateParams,
         requestOptions: RequestOptions,
-    ): ConfigurationUpdateResponse =
+    ): Configuration =
         // put /v3/configurations/{configuration}
         withRawResponse().update(params, requestOptions).parse()
 
     override suspend fun list(
         params: ConfigurationListParams,
         requestOptions: RequestOptions,
-    ): List<ConfigurationListResponse> =
+    ): List<Configuration> =
         // get /v3/configurations
         withRawResponse().list(params, requestOptions).parse()
 
@@ -68,7 +65,7 @@ class ConfigurationServiceAsyncImpl internal constructor(private val clientOptio
     override suspend fun show(
         params: ConfigurationShowParams,
         requestOptions: RequestOptions,
-    ): ConfigurationShowResponse =
+    ): Configuration =
         // get /v3/configurations/{configuration}
         withRawResponse().show(params, requestOptions).parse()
 
@@ -85,13 +82,13 @@ class ConfigurationServiceAsyncImpl internal constructor(private val clientOptio
                 clientOptions.toBuilder().apply(modifier).build()
             )
 
-        private val createHandler: Handler<ConfigurationCreateResponse> =
-            jsonHandler<ConfigurationCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<Configuration> =
+            jsonHandler<Configuration>(clientOptions.jsonMapper)
 
         override suspend fun create(
             params: ConfigurationCreateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ConfigurationCreateResponse> {
+        ): HttpResponseFor<Configuration> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -113,13 +110,13 @@ class ConfigurationServiceAsyncImpl internal constructor(private val clientOptio
             }
         }
 
-        private val updateHandler: Handler<ConfigurationUpdateResponse> =
-            jsonHandler<ConfigurationUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<Configuration> =
+            jsonHandler<Configuration>(clientOptions.jsonMapper)
 
         override suspend fun update(
             params: ConfigurationUpdateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ConfigurationUpdateResponse> {
+        ): HttpResponseFor<Configuration> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("configuration", params.configuration())
@@ -144,13 +141,13 @@ class ConfigurationServiceAsyncImpl internal constructor(private val clientOptio
             }
         }
 
-        private val listHandler: Handler<List<ConfigurationListResponse>> =
-            jsonHandler<List<ConfigurationListResponse>>(clientOptions.jsonMapper)
+        private val listHandler: Handler<List<Configuration>> =
+            jsonHandler<List<Configuration>>(clientOptions.jsonMapper)
 
         override suspend fun list(
             params: ConfigurationListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<List<ConfigurationListResponse>> {
+        ): HttpResponseFor<List<Configuration>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -195,13 +192,13 @@ class ConfigurationServiceAsyncImpl internal constructor(private val clientOptio
             }
         }
 
-        private val showHandler: Handler<ConfigurationShowResponse> =
-            jsonHandler<ConfigurationShowResponse>(clientOptions.jsonMapper)
+        private val showHandler: Handler<Configuration> =
+            jsonHandler<Configuration>(clientOptions.jsonMapper)
 
         override suspend fun show(
             params: ConfigurationShowParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ConfigurationShowResponse> {
+        ): HttpResponseFor<Configuration> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("configuration", params.configuration())
