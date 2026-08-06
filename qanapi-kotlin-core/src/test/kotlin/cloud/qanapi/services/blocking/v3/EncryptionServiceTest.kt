@@ -23,8 +23,8 @@ internal class EncryptionServiceTest {
                 EncryptionDecryptParams.builder()
                     .proxy("proxy")
                     .xQanapiFields("x-qanapi-fields")
-                    .body(
-                        EncryptionDecryptParams.Body.builder()
+                    .data(
+                        EncryptionDecryptParams.Data.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )
@@ -47,8 +47,8 @@ internal class EncryptionServiceTest {
                     .proxy("proxy")
                     .xQanapiFields("x-qanapi-fields")
                     .xQanapiDestination("x-qanapi-destination")
-                    .body(
-                        EncryptionEncryptParams.Body.builder()
+                    .data(
+                        EncryptionEncryptParams.Data.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .build()
                     )

@@ -14,8 +14,8 @@ internal class EncryptionDecryptParamsTest {
         EncryptionDecryptParams.builder()
             .proxy("proxy")
             .xQanapiFields("x-qanapi-fields")
-            .body(
-                EncryptionDecryptParams.Body.builder()
+            .data(
+                EncryptionDecryptParams.Data.builder()
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                     .build()
             )
@@ -27,8 +27,8 @@ internal class EncryptionDecryptParamsTest {
         val params =
             EncryptionDecryptParams.builder()
                 .proxy("proxy")
-                .body(
-                    EncryptionDecryptParams.Body.builder()
+                .data(
+                    EncryptionDecryptParams.Data.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
@@ -45,8 +45,8 @@ internal class EncryptionDecryptParamsTest {
             EncryptionDecryptParams.builder()
                 .proxy("proxy")
                 .xQanapiFields("x-qanapi-fields")
-                .body(
-                    EncryptionDecryptParams.Body.builder()
+                .data(
+                    EncryptionDecryptParams.Data.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
@@ -63,8 +63,8 @@ internal class EncryptionDecryptParamsTest {
         val params =
             EncryptionDecryptParams.builder()
                 .proxy("proxy")
-                .body(
-                    EncryptionDecryptParams.Body.builder()
+                .data(
+                    EncryptionDecryptParams.Data.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
@@ -81,8 +81,8 @@ internal class EncryptionDecryptParamsTest {
             EncryptionDecryptParams.builder()
                 .proxy("proxy")
                 .xQanapiFields("x-qanapi-fields")
-                .body(
-                    EncryptionDecryptParams.Body.builder()
+                .data(
+                    EncryptionDecryptParams.Data.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
@@ -92,7 +92,7 @@ internal class EncryptionDecryptParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                EncryptionDecryptParams.Body.builder()
+                EncryptionDecryptParams.Data.builder()
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                     .build()
             )
@@ -103,8 +103,8 @@ internal class EncryptionDecryptParamsTest {
         val params =
             EncryptionDecryptParams.builder()
                 .proxy("proxy")
-                .body(
-                    EncryptionDecryptParams.Body.builder()
+                .data(
+                    EncryptionDecryptParams.Data.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
@@ -114,7 +114,7 @@ internal class EncryptionDecryptParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                EncryptionDecryptParams.Body.builder()
+                EncryptionDecryptParams.Data.builder()
                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                     .build()
             )

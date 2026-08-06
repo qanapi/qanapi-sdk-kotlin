@@ -48,8 +48,8 @@ internal class ServiceParamsTest {
                 .proxy("proxy")
                 .xQanapiFields("x-qanapi-fields")
                 .xQanapiDestination("x-qanapi-destination")
-                .body(
-                    EncryptionEncryptParams.Body.builder()
+                .data(
+                    EncryptionEncryptParams.Data.builder()
                         .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
