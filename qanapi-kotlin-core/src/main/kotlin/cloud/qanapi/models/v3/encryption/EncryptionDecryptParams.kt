@@ -18,7 +18,7 @@ import java.util.Objects
 class EncryptionDecryptParams
 private constructor(
     private val proxy: String?,
-    private val xQanapiFields: String?,
+    private val xQanapiFields: String,
     private val data: Data,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -26,7 +26,7 @@ private constructor(
 
     fun proxy(): String? = proxy
 
-    fun xQanapiFields(): String? = xQanapiFields
+    fun xQanapiFields(): String = xQanapiFields
 
     /** A JSON object to decrypt fields on. A maximum depth of 32 is allowed. */
     fun data(): Data = data
@@ -48,6 +48,7 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
+         * .xQanapiFields()
          * .data()
          * ```
          */
@@ -73,7 +74,7 @@ private constructor(
 
         fun proxy(proxy: String?) = apply { this.proxy = proxy }
 
-        fun xQanapiFields(xQanapiFields: String?) = apply { this.xQanapiFields = xQanapiFields }
+        fun xQanapiFields(xQanapiFields: String) = apply { this.xQanapiFields = xQanapiFields }
 
         /** A JSON object to decrypt fields on. A maximum depth of 32 is allowed. */
         fun data(data: Data) = apply { this.data = data }
@@ -183,6 +184,7 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
+         * .xQanapiFields()
          * .data()
          * ```
          *
@@ -191,7 +193,7 @@ private constructor(
         fun build(): EncryptionDecryptParams =
             EncryptionDecryptParams(
                 proxy,
-                xQanapiFields,
+                checkRequired("xQanapiFields", xQanapiFields),
                 checkRequired("data", data),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -209,7 +211,7 @@ private constructor(
     override fun _headers(): Headers =
         Headers.builder()
             .apply {
-                xQanapiFields?.let { put("x-qanapi-fields", it) }
+                put("x-qanapi-fields", xQanapiFields)
                 putAll(additionalHeaders)
             }
             .build()
