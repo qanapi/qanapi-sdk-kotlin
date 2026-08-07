@@ -4,9 +4,15 @@ package cloud.qanapi.proguard
 
 import cloud.qanapi.client.okhttp.QanapiOkHttpClient
 import cloud.qanapi.core.jsonMapper
-import cloud.qanapi.models.v2.auth.AuthLoginResponse
 import cloud.qanapi.models.v2.encrypt.EncryptEncryptDataResponse
+import cloud.qanapi.models.v3.ApiKey
+import cloud.qanapi.models.v3.Configuration
+import cloud.qanapi.models.v3.Permission
+import cloud.qanapi.models.v3.Role
+import cloud.qanapi.models.v3.User
+import cloud.qanapi.models.v3.Value
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import java.time.OffsetDateTime
 import kotlin.reflect.full.memberFunctions
 import kotlin.reflect.jvm.javaMethod
 import org.assertj.core.api.Assertions.assertThat
@@ -49,27 +55,53 @@ internal class ProGuardCompatibilityTest {
             QanapiOkHttpClient.builder().apiKey("My API Key").subdomain("My-Subdomain").build()
 
         assertThat(client).isNotNull()
-        assertThat(client.v2()).isNotNull()
         assertThat(client.v3()).isNotNull()
+        assertThat(client.v2()).isNotNull()
     }
 
     @Test
-    fun authLoginResponseRoundtrip() {
+    fun apiKeyRoundtrip() {
         val jsonMapper = jsonMapper()
-        val authLoginResponse =
-            AuthLoginResponse.builder()
-                .accessToken("access_token")
-                .expiresIn(0L)
-                .tokenType("token_type")
+        val apiKey =
+            ApiKey.builder()
+                .id("1")
+                .prefix("qapi_")
+                .status(ApiKey.Status.ACTIVE)
+                .addConfiguration(
+                    Configuration.builder()
+                        .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .name("name")
+                        .type("type")
+                        .addValue(Value.builder().key("key").value("value").build())
+                        .build()
+                )
+                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .addPermission(Permission.builder().name("name").build())
+                .revokedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .user(
+                    User.builder()
+                        .id(0L)
+                        .email("dev@stainless.com")
+                        .name("name")
+                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .addRole(
+                            Role.builder()
+                                .name("name")
+                                .description("description")
+                                .addPermission(Permission.builder().name("name").build())
+                                .build()
+                        )
+                        .twoFactorEnabled(true)
+                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .build()
+                )
                 .build()
 
-        val roundtrippedAuthLoginResponse =
-            jsonMapper.readValue(
-                jsonMapper.writeValueAsString(authLoginResponse),
-                jacksonTypeRef<AuthLoginResponse>(),
-            )
+        val roundtrippedApiKey =
+            jsonMapper.readValue(jsonMapper.writeValueAsString(apiKey), jacksonTypeRef<ApiKey>())
 
-        assertThat(roundtrippedAuthLoginResponse).isEqualTo(authLoginResponse)
+        assertThat(roundtrippedApiKey).isEqualTo(apiKey)
     }
 
     @Test
