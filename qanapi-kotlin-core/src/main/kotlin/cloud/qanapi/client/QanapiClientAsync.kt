@@ -42,9 +42,9 @@ interface QanapiClientAsync {
      */
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): QanapiClientAsync
 
-    fun v2(): V2ServiceAsync
-
     fun v3(): V3ServiceAsync
+
+    fun v2(): V2ServiceAsync
 
     /**
      * Closes this client, relinquishing any underlying resources.
@@ -71,8 +71,8 @@ interface QanapiClientAsync {
             modifier: (ClientOptions.Builder) -> Unit
         ): QanapiClientAsync.WithRawResponse
 
-        fun v2(): V2ServiceAsync.WithRawResponse
-
         fun v3(): V3ServiceAsync.WithRawResponse
+
+        fun v2(): V2ServiceAsync.WithRawResponse
     }
 }

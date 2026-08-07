@@ -42,9 +42,9 @@ interface QanapiClient {
      */
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): QanapiClient
 
-    fun v2(): V2Service
-
     fun v3(): V3Service
+
+    fun v2(): V2Service
 
     /**
      * Closes this client, relinquishing any underlying resources.
@@ -69,8 +69,8 @@ interface QanapiClient {
          */
         fun withOptions(modifier: (ClientOptions.Builder) -> Unit): QanapiClient.WithRawResponse
 
-        fun v2(): V2Service.WithRawResponse
-
         fun v3(): V3Service.WithRawResponse
+
+        fun v2(): V2Service.WithRawResponse
     }
 }

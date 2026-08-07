@@ -57,7 +57,7 @@ import cloud.qanapi.models.v3.encryption.EncryptionEncryptResponse
 val client: QanapiClient = QanapiOkHttpClient.fromEnv()
 
 val params: EncryptionEncryptParams = EncryptionEncryptParams.builder()
-    .proxy("proxy")
+    .proxy("{proxy}")
     .xQanapiFields("password")
     .data(EncryptionEncryptParams.Data.builder()
         .putAdditionalProperty("password", JsonValue.from("secret123"))
@@ -164,7 +164,7 @@ import cloud.qanapi.models.v3.encryption.EncryptionEncryptResponse
 val client: QanapiClient = QanapiOkHttpClient.fromEnv()
 
 val params: EncryptionEncryptParams = EncryptionEncryptParams.builder()
-    .proxy("proxy")
+    .proxy("{proxy}")
     .xQanapiFields("password")
     .data(EncryptionEncryptParams.Data.builder()
         .putAdditionalProperty("password", JsonValue.from("secret123"))
@@ -187,7 +187,7 @@ import cloud.qanapi.models.v3.encryption.EncryptionEncryptResponse
 val client: QanapiClientAsync = QanapiOkHttpClientAsync.fromEnv()
 
 val params: EncryptionEncryptParams = EncryptionEncryptParams.builder()
-    .proxy("proxy")
+    .proxy("{proxy}")
     .xQanapiFields("password")
     .data(EncryptionEncryptParams.Data.builder()
         .putAdditionalProperty("password", JsonValue.from("secret123"))
@@ -212,7 +212,7 @@ import cloud.qanapi.models.v3.encryption.EncryptionEncryptParams
 import cloud.qanapi.models.v3.encryption.EncryptionEncryptResponse
 
 val params: EncryptionEncryptParams = EncryptionEncryptParams.builder()
-    .proxy("proxy")
+    .proxy("{proxy}")
     .xQanapiFields("password")
     .data(EncryptionEncryptParams.Data.builder()
         .putAdditionalProperty("password", JsonValue.from("secret123"))
@@ -580,7 +580,7 @@ import cloud.qanapi.core.JsonNull
 import cloud.qanapi.core.JsonNumber
 import cloud.qanapi.core.JsonValue
 
-val additionalProperties: Map<String, JsonValue> = client.v2().auth().login(params)._additionalProperties()
+val additionalProperties: Map<String, JsonValue> = client.v3().configurations().create(params)._additionalProperties()
 val secretPropertyValue: JsonValue = additionalProperties.get("secretProperty")
 
 val result = when (secretPropertyValue) {
@@ -597,19 +597,19 @@ To access a property's raw JSON value, which may be undocumented, call its `_` p
 ```kotlin
 import cloud.qanapi.core.JsonField
 
-val email: JsonField<String> = client.v2().auth().login(params)._email()
+val name: JsonField<String> = client.v3().configurations().create(params)._name()
 
-if (email.isMissing()) {
+if (name.isMissing()) {
   // The property is absent from the JSON response
-} else if (email.isNull()) {
+} else if (name.isNull()) {
   // The property was set to literal null
 } else {
   // Check if value was provided as a string
   // Other methods include `asNumber()`, `asBoolean()`, etc.
-  val jsonString: String? = email.asString();
+  val jsonString: String? = name.asString();
 
   // Try to deserialize into a custom type
-  val myObject: MyClass = email.asUnknown()!!.convert(MyClass::class.java)
+  val myObject: MyClass = name.asUnknown()!!.convert(MyClass::class.java)
 }
 ```
 
@@ -624,9 +624,9 @@ Validating the response is _not_ forwards compatible with new types from the API
 If you would still prefer to check that the response is completely well-typed upfront, then either call `validate()`:
 
 ```kotlin
-import cloud.qanapi.models.v2.auth.AuthLoginResponse
+import cloud.qanapi.models.v3.Configuration
 
-val response: AuthLoginResponse = client.v2().auth().login(params).validate()
+val configuration: Configuration = client.v3().configurations().create(params).validate()
 ```
 
 Or configure the method call to validate the response using the `responseValidation` method:
