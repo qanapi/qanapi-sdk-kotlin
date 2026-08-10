@@ -7,7 +7,7 @@ import cloud.qanapi.core.http.Headers
 import cloud.qanapi.core.http.QueryParams
 import java.util.Objects
 
-/** Retrieve user profile and roles */
+/** Get user details */
 class AuthRetrieveUserDetailsParams
 private constructor(
     private val additionalHeaders: Headers,

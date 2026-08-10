@@ -31,13 +31,13 @@ interface AuthService {
      */
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): AuthService
 
-    /** Authenticate user and return JWT */
+    /** Login */
     fun login(
         params: AuthLoginParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AuthLoginResponse
 
-    /** Log out the current user */
+    /** Logout */
     fun logout(
         params: AuthLogoutParams = AuthLogoutParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -47,7 +47,7 @@ interface AuthService {
     fun logout(requestOptions: RequestOptions): AuthLogoutResponse =
         logout(AuthLogoutParams.none(), requestOptions)
 
-    /** Refresh access token using refresh token */
+    /** Refresh token */
     fun refreshToken(
         params: AuthRefreshTokenParams = AuthRefreshTokenParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -57,7 +57,7 @@ interface AuthService {
     fun refreshToken(requestOptions: RequestOptions): AuthRefreshTokenResponse =
         refreshToken(AuthRefreshTokenParams.none(), requestOptions)
 
-    /** Retrieve user profile and roles */
+    /** Get user details */
     fun retrieveUserDetails(
         params: AuthRetrieveUserDetailsParams = AuthRetrieveUserDetailsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -67,7 +67,7 @@ interface AuthService {
     fun retrieveUserDetails(requestOptions: RequestOptions): AuthRetrieveUserDetailsResponse =
         retrieveUserDetails(AuthRetrieveUserDetailsParams.none(), requestOptions)
 
-    /** Revoke the current token */
+    /** Revoke token */
     fun revokeToken(
         params: AuthRevokeTokenParams = AuthRevokeTokenParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),

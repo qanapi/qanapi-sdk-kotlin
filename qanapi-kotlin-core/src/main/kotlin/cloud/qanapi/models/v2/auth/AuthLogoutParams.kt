@@ -9,7 +9,7 @@ import cloud.qanapi.core.http.QueryParams
 import cloud.qanapi.core.toImmutable
 import java.util.Objects
 
-/** Log out the current user */
+/** Logout */
 class AuthLogoutParams
 private constructor(
     private val additionalHeaders: Headers,

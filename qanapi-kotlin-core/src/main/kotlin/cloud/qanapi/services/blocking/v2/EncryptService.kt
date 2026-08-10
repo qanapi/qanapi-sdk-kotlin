@@ -23,7 +23,7 @@ interface EncryptService {
      */
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): EncryptService
 
-    /** Encrypt data with optional ACL */
+    /** Encrypt data */
     fun encryptData(
         params: EncryptEncryptDataParams,
         requestOptions: RequestOptions = RequestOptions.none(),

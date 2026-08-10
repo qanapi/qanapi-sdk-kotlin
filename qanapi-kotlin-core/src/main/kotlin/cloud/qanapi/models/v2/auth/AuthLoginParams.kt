@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import java.util.Collections
 import java.util.Objects
 
-/** Authenticate user and return JWT */
+/** Login */
 class AuthLoginParams
 private constructor(
     private val body: Body,

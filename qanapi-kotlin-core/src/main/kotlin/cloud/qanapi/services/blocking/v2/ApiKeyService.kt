@@ -25,7 +25,7 @@ interface ApiKeyService {
      */
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ApiKeyService
 
-    /** Revoke an API Key */
+    /** Revoke API Key */
     fun revoke(
         apiKey: String,
         params: ApiKeyRevokeParams = ApiKeyRevokeParams.none(),
@@ -42,7 +42,7 @@ interface ApiKeyService {
     fun revoke(apiKey: String, requestOptions: RequestOptions): ApiKeyRevokeResponse =
         revoke(apiKey, ApiKeyRevokeParams.none(), requestOptions)
 
-    /** Rotate an API Key */
+    /** Rotate API Key */
     fun rotate(
         apiKey: String,
         params: ApiKeyRotateParams = ApiKeyRotateParams.none(),

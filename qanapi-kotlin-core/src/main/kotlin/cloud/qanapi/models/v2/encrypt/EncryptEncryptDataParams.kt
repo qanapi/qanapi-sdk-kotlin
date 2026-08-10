@@ -32,7 +32,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import java.util.Collections
 import java.util.Objects
 
-/** Encrypt data with optional ACL */
+/** Encrypt data */
 class EncryptEncryptDataParams
 private constructor(
     private val body: Body,
