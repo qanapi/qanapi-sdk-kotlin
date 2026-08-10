@@ -9,7 +9,7 @@ import cloud.qanapi.core.http.QueryParams
 import cloud.qanapi.core.toImmutable
 import java.util.Objects
 
-/** Revoke the current token */
+/** Revoke token */
 class AuthRevokeTokenParams
 private constructor(
     private val additionalHeaders: Headers,

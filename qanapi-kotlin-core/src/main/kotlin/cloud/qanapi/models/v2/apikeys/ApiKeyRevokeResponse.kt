@@ -11,20 +11,33 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
+import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
 
 class ApiKeyRevokeResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
+    private val id: JsonField<String>,
     private val message: JsonField<String>,
+    private val revokedAt: JsonField<OffsetDateTime>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("message") @ExcludeMissing message: JsonField<String> = JsonMissing.of()
-    ) : this(message, mutableMapOf())
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("message") @ExcludeMissing message: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("revoked_at")
+        @ExcludeMissing
+        revokedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    ) : this(id, message, revokedAt, mutableMapOf())
+
+    /**
+     * @throws QanapiInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun id(): String? = id.getNullable("id")
 
     /**
      * @throws QanapiInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -33,11 +46,33 @@ private constructor(
     fun message(): String? = message.getNullable("message")
 
     /**
+     * @throws QanapiInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun revokedAt(): OffsetDateTime? = revokedAt.getNullable("revoked_at")
+
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+    /**
      * Returns the raw JSON value of [message].
      *
      * Unlike [message], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("message") @ExcludeMissing fun _message(): JsonField<String> = message
+
+    /**
+     * Returns the raw JSON value of [revokedAt].
+     *
+     * Unlike [revokedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("revoked_at")
+    @ExcludeMissing
+    fun _revokedAt(): JsonField<OffsetDateTime> = revokedAt
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -60,13 +95,27 @@ private constructor(
     /** A builder for [ApiKeyRevokeResponse]. */
     class Builder internal constructor() {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var message: JsonField<String> = JsonMissing.of()
+        private var revokedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(apiKeyRevokeResponse: ApiKeyRevokeResponse) = apply {
+            id = apiKeyRevokeResponse.id
             message = apiKeyRevokeResponse.message
+            revokedAt = apiKeyRevokeResponse.revokedAt
             additionalProperties = apiKeyRevokeResponse.additionalProperties.toMutableMap()
         }
+
+        fun id(id: String) = id(JsonField.of(id))
+
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         fun message(message: String) = message(JsonField.of(message))
 
@@ -77,6 +126,17 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun message(message: JsonField<String>) = apply { this.message = message }
+
+        fun revokedAt(revokedAt: OffsetDateTime) = revokedAt(JsonField.of(revokedAt))
+
+        /**
+         * Sets [Builder.revokedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.revokedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun revokedAt(revokedAt: JsonField<OffsetDateTime>) = apply { this.revokedAt = revokedAt }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -103,7 +163,7 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          */
         fun build(): ApiKeyRevokeResponse =
-            ApiKeyRevokeResponse(message, additionalProperties.toMutableMap())
+            ApiKeyRevokeResponse(id, message, revokedAt, additionalProperties.toMutableMap())
     }
 
     private var validated: Boolean = false
@@ -121,7 +181,9 @@ private constructor(
             return@apply
         }
 
+        id()
         message()
+        revokedAt()
         validated = true
     }
 
@@ -138,7 +200,10 @@ private constructor(
      *
      * Used for best match union deserialization.
      */
-    internal fun validity(): Int = (if (message.asKnown() == null) 0 else 1)
+    internal fun validity(): Int =
+        (if (id.asKnown() == null) 0 else 1) +
+            (if (message.asKnown() == null) 0 else 1) +
+            (if (revokedAt.asKnown() == null) 0 else 1)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -146,14 +211,16 @@ private constructor(
         }
 
         return other is ApiKeyRevokeResponse &&
+            id == other.id &&
             message == other.message &&
+            revokedAt == other.revokedAt &&
             additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy { Objects.hash(message, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, message, revokedAt, additionalProperties) }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ApiKeyRevokeResponse{message=$message, additionalProperties=$additionalProperties}"
+        "ApiKeyRevokeResponse{id=$id, message=$message, revokedAt=$revokedAt, additionalProperties=$additionalProperties}"
 }

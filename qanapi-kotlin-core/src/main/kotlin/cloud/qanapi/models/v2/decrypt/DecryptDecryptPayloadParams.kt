@@ -31,7 +31,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import java.util.Collections
 import java.util.Objects
 
-/** Decrypt encrypted payload */
+/** Decrypt data */
 class DecryptDecryptPayloadParams
 private constructor(
     private val body: Body,

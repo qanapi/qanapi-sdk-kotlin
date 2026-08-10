@@ -50,7 +50,11 @@ internal class ServiceParamsTest {
                 .xQanapiDestination("x-qanapi-destination")
                 .data(
                     EncryptionEncryptParams.Data.builder()
-                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .putAdditionalProperty("name", JsonValue.from("bar"))
+                        .putAdditionalProperty("email", JsonValue.from("bar"))
+                        .putAdditionalProperty("ssn", JsonValue.from("bar"))
+                        .putAdditionalProperty("dob", JsonValue.from("bar"))
+                        .putAdditionalProperty("address", JsonValue.from("bar"))
                         .build()
                 )
                 .putAdditionalHeader("Secret-Header", "42")

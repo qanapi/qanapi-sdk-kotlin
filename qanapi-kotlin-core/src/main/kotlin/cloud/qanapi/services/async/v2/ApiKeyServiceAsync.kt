@@ -25,7 +25,7 @@ interface ApiKeyServiceAsync {
      */
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ApiKeyServiceAsync
 
-    /** Revoke an API Key */
+    /** Revoke API Key */
     suspend fun revoke(
         apiKey: String,
         params: ApiKeyRevokeParams = ApiKeyRevokeParams.none(),
@@ -42,7 +42,7 @@ interface ApiKeyServiceAsync {
     suspend fun revoke(apiKey: String, requestOptions: RequestOptions): ApiKeyRevokeResponse =
         revoke(apiKey, ApiKeyRevokeParams.none(), requestOptions)
 
-    /** Rotate an API Key */
+    /** Rotate API Key */
     suspend fun rotate(
         apiKey: String,
         params: ApiKeyRotateParams = ApiKeyRotateParams.none(),

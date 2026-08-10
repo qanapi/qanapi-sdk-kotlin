@@ -9,7 +9,7 @@ import cloud.qanapi.core.http.QueryParams
 import cloud.qanapi.core.toImmutable
 import java.util.Objects
 
-/** Rotate an API Key */
+/** Rotate API Key */
 class ApiKeyRotateParams
 private constructor(
     private val apiKey: String?,

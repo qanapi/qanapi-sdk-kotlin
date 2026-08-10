@@ -23,7 +23,7 @@ interface DecryptServiceAsync {
      */
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): DecryptServiceAsync
 
-    /** Decrypt encrypted payload */
+    /** Decrypt data */
     suspend fun decryptPayload(
         params: DecryptDecryptPayloadParams,
         requestOptions: RequestOptions = RequestOptions.none(),

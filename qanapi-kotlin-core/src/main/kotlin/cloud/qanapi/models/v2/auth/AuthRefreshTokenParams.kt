@@ -9,7 +9,7 @@ import cloud.qanapi.core.http.QueryParams
 import cloud.qanapi.core.toImmutable
 import java.util.Objects
 
-/** Refresh access token using refresh token */
+/** Refresh token */
 class AuthRefreshTokenParams
 private constructor(
     private val additionalHeaders: Headers,

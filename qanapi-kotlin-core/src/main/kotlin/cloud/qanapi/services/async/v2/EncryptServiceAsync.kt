@@ -23,7 +23,7 @@ interface EncryptServiceAsync {
      */
     fun withOptions(modifier: (ClientOptions.Builder) -> Unit): EncryptServiceAsync
 
-    /** Encrypt data with optional ACL */
+    /** Encrypt data */
     suspend fun encryptData(
         params: EncryptEncryptDataParams,
         requestOptions: RequestOptions = RequestOptions.none(),

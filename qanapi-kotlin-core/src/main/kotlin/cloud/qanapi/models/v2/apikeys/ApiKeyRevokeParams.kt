@@ -9,7 +9,7 @@ import cloud.qanapi.core.http.QueryParams
 import cloud.qanapi.core.toImmutable
 import java.util.Objects
 
-/** Revoke an API Key */
+/** Revoke API Key */
 class ApiKeyRevokeParams
 private constructor(
     private val apiKey: String?,
