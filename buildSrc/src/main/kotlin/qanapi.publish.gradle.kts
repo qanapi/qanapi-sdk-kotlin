@@ -43,7 +43,7 @@ configure<MavenPublishBaseExtension> {
 
     pom {
         name.set("Qanapi")
-        description.set("Secure API with enforced JWT and API Key headers. All endpoints require proper\nauthentication.")
+        description.set("Secure API with enforced API Key headers. Supports V2 and V3 endpoints.")
         url.set("https://docs.qanapi.com/")
 
         licenses {

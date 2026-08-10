@@ -1,0 +1,276 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package cloud.qanapi.services.async.v3
+
+import cloud.qanapi.core.ClientOptions
+import cloud.qanapi.core.RequestOptions
+import cloud.qanapi.core.checkRequired
+import cloud.qanapi.core.handlers.emptyHandler
+import cloud.qanapi.core.handlers.errorBodyHandler
+import cloud.qanapi.core.handlers.errorHandler
+import cloud.qanapi.core.handlers.jsonHandler
+import cloud.qanapi.core.http.HttpMethod
+import cloud.qanapi.core.http.HttpRequest
+import cloud.qanapi.core.http.HttpResponse
+import cloud.qanapi.core.http.HttpResponse.Handler
+import cloud.qanapi.core.http.HttpResponseFor
+import cloud.qanapi.core.http.json
+import cloud.qanapi.core.http.parseable
+import cloud.qanapi.core.prepareAsync
+import cloud.qanapi.models.v3.User
+import cloud.qanapi.models.v3.users.UserCreateParams
+import cloud.qanapi.models.v3.users.UserDeleteParams
+import cloud.qanapi.models.v3.users.UserListParams
+import cloud.qanapi.models.v3.users.UserMeParams
+import cloud.qanapi.models.v3.users.UserPatchParams
+import cloud.qanapi.models.v3.users.UserRestoreParams
+import cloud.qanapi.models.v3.users.UserShowParams
+
+class UserServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    UserServiceAsync {
+
+    private val withRawResponse: UserServiceAsync.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
+
+    override fun withRawResponse(): UserServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): UserServiceAsync =
+        UserServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
+    override suspend fun create(params: UserCreateParams, requestOptions: RequestOptions): User =
+        // post /v3/users
+        withRawResponse().create(params, requestOptions).parse()
+
+    override suspend fun list(params: UserListParams, requestOptions: RequestOptions): List<User> =
+        // get /v3/users
+        withRawResponse().list(params, requestOptions).parse()
+
+    override suspend fun delete(params: UserDeleteParams, requestOptions: RequestOptions) {
+        // delete /v3/users/{user}
+        withRawResponse().delete(params, requestOptions)
+    }
+
+    override suspend fun me(params: UserMeParams, requestOptions: RequestOptions): User =
+        // get /v3/users/me
+        withRawResponse().me(params, requestOptions).parse()
+
+    override suspend fun patch(params: UserPatchParams, requestOptions: RequestOptions): User =
+        // patch /v3/users/{user}
+        withRawResponse().patch(params, requestOptions).parse()
+
+    override suspend fun restore(params: UserRestoreParams, requestOptions: RequestOptions): User =
+        // patch /v3/users/{user}/restore
+        withRawResponse().restore(params, requestOptions).parse()
+
+    override suspend fun show(params: UserShowParams, requestOptions: RequestOptions): User =
+        // get /v3/users/{user}
+        withRawResponse().show(params, requestOptions).parse()
+
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        UserServiceAsync.WithRawResponse {
+
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): UserServiceAsync.WithRawResponse =
+            UserServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
+
+        private val createHandler: Handler<User> = jsonHandler<User>(clientOptions.jsonMapper)
+
+        override suspend fun create(
+            params: UserCreateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<User> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("v3", "users")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { createHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val listHandler: Handler<List<User>> =
+            jsonHandler<List<User>>(clientOptions.jsonMapper)
+
+        override suspend fun list(
+            params: UserListParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<List<User>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("v3", "users")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { listHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.forEach { it.validate() }
+                        }
+                    }
+            }
+        }
+
+        private val deleteHandler: Handler<Void?> = emptyHandler()
+
+        override suspend fun delete(
+            params: UserDeleteParams,
+            requestOptions: RequestOptions,
+        ): HttpResponse {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("user", params.user())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("v3", "users", params._pathParam(0))
+                    .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response.use { deleteHandler.handle(it) }
+            }
+        }
+
+        private val meHandler: Handler<User> = jsonHandler<User>(clientOptions.jsonMapper)
+
+        override suspend fun me(
+            params: UserMeParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<User> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("v3", "users", "me")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { meHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val patchHandler: Handler<User> = jsonHandler<User>(clientOptions.jsonMapper)
+
+        override suspend fun patch(
+            params: UserPatchParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<User> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("user", params.user())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("v3", "users", params._pathParam(0))
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { patchHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val restoreHandler: Handler<User> = jsonHandler<User>(clientOptions.jsonMapper)
+
+        override suspend fun restore(
+            params: UserRestoreParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<User> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("user", params.user())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("v3", "users", params._pathParam(0), "restore")
+                    .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { restoreHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val showHandler: Handler<User> = jsonHandler<User>(clientOptions.jsonMapper)
+
+        override suspend fun show(
+            params: UserShowParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<User> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("user", params.user())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("v3", "users", params._pathParam(0))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { showHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+    }
+}

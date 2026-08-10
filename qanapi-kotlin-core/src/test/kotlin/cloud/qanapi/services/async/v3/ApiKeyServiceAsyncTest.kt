@@ -1,0 +1,56 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package cloud.qanapi.services.async.v3
+
+import cloud.qanapi.client.okhttp.QanapiOkHttpClientAsync
+import org.junit.jupiter.api.Disabled
+import org.junit.jupiter.api.Test
+
+internal class ApiKeyServiceAsyncTest {
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    suspend fun list() {
+        val client =
+            QanapiOkHttpClientAsync.builder().apiKey("My API Key").subdomain("My-Subdomain").build()
+        val apiKeyServiceAsync = client.v3().apiKeys()
+
+        val apiKeys = apiKeyServiceAsync.list()
+
+        apiKeys.forEach { it.validate() }
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    suspend fun revoke() {
+        val client =
+            QanapiOkHttpClientAsync.builder().apiKey("My API Key").subdomain("My-Subdomain").build()
+        val apiKeyServiceAsync = client.v3().apiKeys()
+
+        apiKeyServiceAsync.revoke(0L)
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    suspend fun rotate() {
+        val client =
+            QanapiOkHttpClientAsync.builder().apiKey("My API Key").subdomain("My-Subdomain").build()
+        val apiKeyServiceAsync = client.v3().apiKeys()
+
+        val response = apiKeyServiceAsync.rotate(0L)
+
+        response.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    suspend fun show() {
+        val client =
+            QanapiOkHttpClientAsync.builder().apiKey("My API Key").subdomain("My-Subdomain").build()
+        val apiKeyServiceAsync = client.v3().apiKeys()
+
+        val apiKey = apiKeyServiceAsync.show(0L)
+
+        apiKey.validate()
+    }
+}

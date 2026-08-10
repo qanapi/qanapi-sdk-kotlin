@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.6.0 (2026-08-10)
+
+Full Changelog: [v1.5.0...v1.6.0](https://github.com/qanapi/qanapi-sdk-kotlin/compare/v1.5.0...v1.6.0)
+
+### Features
+
+* **api:** add all v2 routes to a sub resource ([29f28ca](https://github.com/qanapi/qanapi-sdk-kotlin/commit/29f28ca249959f56b6d9c17a56f8e04a0b077b22))
+* **api:** Add API V3 support ([2e9b4ab](https://github.com/qanapi/qanapi-sdk-kotlin/commit/2e9b4ab11cb1b241f2f4ea279926860ee13e2db1))
+* **api:** add schema models ([93c4633](https://github.com/qanapi/qanapi-sdk-kotlin/commit/93c4633a17bc054adc3f3abd355a21ac8519fea7))
+* **api:** Add v2 routes as sub resources ([fb89f3b](https://github.com/qanapi/qanapi-sdk-kotlin/commit/fb89f3b2fedc58c235126e4cdd2c209d79cd777c))
+* **api:** examples ([8e4310b](https://github.com/qanapi/qanapi-sdk-kotlin/commit/8e4310bc87a4b363df45087af8c46602ec504bd2))
+* **api:** make x-qanapi-fields required in v3 decrypt ([6015c08](https://github.com/qanapi/qanapi-sdk-kotlin/commit/6015c08f346307b0897a79928c5a43958f0f3924))
+* **api:** move v3 to the top ([0fd884e](https://github.com/qanapi/qanapi-sdk-kotlin/commit/0fd884e5b8c47ff5680961b24ead12b4de5e75e3))
+* **api:** rename V2 encryption schemas ([18d53dc](https://github.com/qanapi/qanapi-sdk-kotlin/commit/18d53dcf0032607412126e8a3116f3336349dd03))
+* **api:** set v3 encryption routes body param name ([4ab3b8d](https://github.com/qanapi/qanapi-sdk-kotlin/commit/4ab3b8d7000b9034dc9ea4e73c828557686e18fa))
+* **api:** update OpenApi spec to reflect docs ([82487dc](https://github.com/qanapi/qanapi-sdk-kotlin/commit/82487dcf47036e3cefd03ffaf49b17995e454942))
+* **api:** V3 Encryption Schemas ([a8cb1ed](https://github.com/qanapi/qanapi-sdk-kotlin/commit/a8cb1edb641324a054f3ca462967541dc6ca6a42))
+
 ## 1.5.0 (2026-07-24)
 
 Full Changelog: [v1.4.0...v1.5.0](https://github.com/qanapi/qanapi-sdk-kotlin/compare/v1.4.0...v1.5.0)

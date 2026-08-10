@@ -2,8 +2,8 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/cloud.qanapi/qanapi-kotlin)](https://central.sonatype.com/artifact/cloud.qanapi/qanapi-kotlin/1.5.0)
-[![javadoc](https://javadoc.io/badge2/cloud.qanapi/qanapi-kotlin/1.5.0/javadoc.svg)](https://javadoc.io/doc/cloud.qanapi/qanapi-kotlin/1.5.0)
+[![Maven Central](https://img.shields.io/maven-central/v/cloud.qanapi/qanapi-kotlin)](https://central.sonatype.com/artifact/cloud.qanapi/qanapi-kotlin/1.6.0)
+[![javadoc](https://javadoc.io/badge2/cloud.qanapi/qanapi-kotlin/1.6.0/javadoc.svg)](https://javadoc.io/doc/cloud.qanapi/qanapi-kotlin/1.6.0)
 
 <!-- x-release-please-end -->
 
@@ -13,7 +13,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 <!-- x-release-please-start-version -->
 
-The REST API documentation can be found on [docs.qanapi.com](https://docs.qanapi.com/). KDocs are available on [javadoc.io](https://javadoc.io/doc/cloud.qanapi/qanapi-kotlin/1.5.0).
+The REST API documentation can be found on [docs.qanapi.com](https://docs.qanapi.com/). KDocs are available on [javadoc.io](https://javadoc.io/doc/cloud.qanapi/qanapi-kotlin/1.6.0).
 
 <!-- x-release-please-end -->
 
@@ -24,7 +24,7 @@ The REST API documentation can be found on [docs.qanapi.com](https://docs.qanapi
 ### Gradle
 
 ```kotlin
-implementation("cloud.qanapi:qanapi-kotlin:1.5.0")
+implementation("cloud.qanapi:qanapi-kotlin:1.6.0")
 ```
 
 ### Maven
@@ -33,7 +33,7 @@ implementation("cloud.qanapi:qanapi-kotlin:1.5.0")
 <dependency>
   <groupId>cloud.qanapi</groupId>
   <artifactId>qanapi-kotlin</artifactId>
-  <version>1.5.0</version>
+  <version>1.6.0</version>
 </dependency>
 ```
 
@@ -48,18 +48,22 @@ This library requires Java 8 or later.
 ```kotlin
 import cloud.qanapi.client.QanapiClient
 import cloud.qanapi.client.okhttp.QanapiOkHttpClient
-import cloud.qanapi.models.auth.AuthLoginParams
-import cloud.qanapi.models.auth.AuthLoginResponse
+import cloud.qanapi.core.JsonValue
+import cloud.qanapi.models.v3.encryption.EncryptionEncryptParams
+import cloud.qanapi.models.v3.encryption.EncryptionEncryptResponse
 
 // Configures using the `qanapi.apiKey`, `qanapi.subdomain` and `qanapi.baseUrl` system properties
 // Or configures using the `QANAPI_API_KEY`, `QANAPI_SUBDOMAIN` and `QANAPI_BASE_URL` environment variables
 val client: QanapiClient = QanapiOkHttpClient.fromEnv()
 
-val params: AuthLoginParams = AuthLoginParams.builder()
-    .email("valid@email.com")
-    .password("secret1234")
+val params: EncryptionEncryptParams = EncryptionEncryptParams.builder()
+    .proxy("{proxy}")
+    .xQanapiFields("password")
+    .data(EncryptionEncryptParams.Data.builder()
+        .putAdditionalProperty("password", JsonValue.from("secret123"))
+        .build())
     .build()
-val response: AuthLoginResponse = client.auth().login(params)
+val response: EncryptionEncryptResponse = client.v3().encryption().encrypt(params)
 ```
 
 ## Client configuration
@@ -103,11 +107,11 @@ val client: QanapiClient = QanapiOkHttpClient.builder()
 
 See this table for the available options:
 
-| Setter      | System property    | Environment variable | Required | Default value                               |
-| ----------- | ------------------ | -------------------- | -------- | ------------------------------------------- |
-| `apiKey`    | `qanapi.apiKey`    | `QANAPI_API_KEY`     | true     | -                                           |
-| `subdomain` | `qanapi.subdomain` | `QANAPI_SUBDOMAIN`   | true     | -                                           |
-| `baseUrl`   | `qanapi.baseUrl`   | `QANAPI_BASE_URL`    | true     | `"https://{subdomain}.qanapi.cloud/api/v2"` |
+| Setter      | System property    | Environment variable | Required | Default value                            |
+| ----------- | ------------------ | -------------------- | -------- | ---------------------------------------- |
+| `apiKey`    | `qanapi.apiKey`    | `QANAPI_API_KEY`     | true     | -                                        |
+| `subdomain` | `qanapi.subdomain` | `QANAPI_SUBDOMAIN`   | true     | -                                        |
+| `baseUrl`   | `qanapi.baseUrl`   | `QANAPI_BASE_URL`    | true     | `"https://{subdomain}.qanapi.cloud/api"` |
 
 System properties take precedence over environment variables.
 
@@ -134,7 +138,7 @@ The `withOptions()` method does not affect the original client or service.
 
 To send a request to the Qanapi API, build an instance of some `Params` class and pass it to the corresponding client method. When the response is received, it will be deserialized into an instance of a Kotlin class.
 
-For example, `client.auth().login(...)` should be called with an instance of `AuthLoginParams`, and it will return an instance of `AuthLoginResponse`.
+For example, `client.v3().encryption().encrypt(...)` should be called with an instance of `EncryptionEncryptParams`, and it will return an instance of `EncryptionEncryptResponse`.
 
 ## Immutability
 
@@ -151,18 +155,22 @@ The default client is synchronous. To switch to asynchronous execution, call the
 ```kotlin
 import cloud.qanapi.client.QanapiClient
 import cloud.qanapi.client.okhttp.QanapiOkHttpClient
-import cloud.qanapi.models.auth.AuthLoginParams
-import cloud.qanapi.models.auth.AuthLoginResponse
+import cloud.qanapi.core.JsonValue
+import cloud.qanapi.models.v3.encryption.EncryptionEncryptParams
+import cloud.qanapi.models.v3.encryption.EncryptionEncryptResponse
 
 // Configures using the `qanapi.apiKey`, `qanapi.subdomain` and `qanapi.baseUrl` system properties
 // Or configures using the `QANAPI_API_KEY`, `QANAPI_SUBDOMAIN` and `QANAPI_BASE_URL` environment variables
 val client: QanapiClient = QanapiOkHttpClient.fromEnv()
 
-val params: AuthLoginParams = AuthLoginParams.builder()
-    .email("valid@email.com")
-    .password("secret1234")
+val params: EncryptionEncryptParams = EncryptionEncryptParams.builder()
+    .proxy("{proxy}")
+    .xQanapiFields("password")
+    .data(EncryptionEncryptParams.Data.builder()
+        .putAdditionalProperty("password", JsonValue.from("secret123"))
+        .build())
     .build()
-val response: AuthLoginResponse = client.async().auth().login(params)
+val response: EncryptionEncryptResponse = client.async().v3().encryption().encrypt(params)
 ```
 
 Or create an asynchronous client from the beginning:
@@ -170,18 +178,22 @@ Or create an asynchronous client from the beginning:
 ```kotlin
 import cloud.qanapi.client.QanapiClientAsync
 import cloud.qanapi.client.okhttp.QanapiOkHttpClientAsync
-import cloud.qanapi.models.auth.AuthLoginParams
-import cloud.qanapi.models.auth.AuthLoginResponse
+import cloud.qanapi.core.JsonValue
+import cloud.qanapi.models.v3.encryption.EncryptionEncryptParams
+import cloud.qanapi.models.v3.encryption.EncryptionEncryptResponse
 
 // Configures using the `qanapi.apiKey`, `qanapi.subdomain` and `qanapi.baseUrl` system properties
 // Or configures using the `QANAPI_API_KEY`, `QANAPI_SUBDOMAIN` and `QANAPI_BASE_URL` environment variables
 val client: QanapiClientAsync = QanapiOkHttpClientAsync.fromEnv()
 
-val params: AuthLoginParams = AuthLoginParams.builder()
-    .email("valid@email.com")
-    .password("secret1234")
+val params: EncryptionEncryptParams = EncryptionEncryptParams.builder()
+    .proxy("{proxy}")
+    .xQanapiFields("password")
+    .data(EncryptionEncryptParams.Data.builder()
+        .putAdditionalProperty("password", JsonValue.from("secret123"))
+        .build())
     .build()
-val response: AuthLoginResponse = client.auth().login(params)
+val response: EncryptionEncryptResponse = client.v3().encryption().encrypt(params)
 ```
 
 The asynchronous client supports the same options as the synchronous one, except most methods are [suspending](https://kotlinlang.org/docs/coroutines-guide.html).
@@ -193,16 +205,20 @@ The SDK defines methods that deserialize responses into instances of Kotlin clas
 To access this data, prefix any HTTP method call on a client or service with `withRawResponse()`:
 
 ```kotlin
+import cloud.qanapi.core.JsonValue
 import cloud.qanapi.core.http.Headers
 import cloud.qanapi.core.http.HttpResponseFor
-import cloud.qanapi.models.auth.AuthLoginParams
-import cloud.qanapi.models.auth.AuthLoginResponse
+import cloud.qanapi.models.v3.encryption.EncryptionEncryptParams
+import cloud.qanapi.models.v3.encryption.EncryptionEncryptResponse
 
-val params: AuthLoginParams = AuthLoginParams.builder()
-    .email("valid@email.com")
-    .password("secret1234")
+val params: EncryptionEncryptParams = EncryptionEncryptParams.builder()
+    .proxy("{proxy}")
+    .xQanapiFields("password")
+    .data(EncryptionEncryptParams.Data.builder()
+        .putAdditionalProperty("password", JsonValue.from("secret123"))
+        .build())
     .build()
-val response: HttpResponseFor<AuthLoginResponse> = client.auth().withRawResponse().login(params)
+val response: HttpResponseFor<EncryptionEncryptResponse> = client.v3().encryption().withRawResponse().encrypt(params)
 
 val statusCode: Int = response.statusCode()
 val headers: Headers = response.headers()
@@ -211,9 +227,9 @@ val headers: Headers = response.headers()
 You can still deserialize the response into an instance of a Kotlin class if needed:
 
 ```kotlin
-import cloud.qanapi.models.auth.AuthLoginResponse
+import cloud.qanapi.models.v3.encryption.EncryptionEncryptResponse
 
-val parsedResponse: AuthLoginResponse = response.parse()
+val parsedResponse: EncryptionEncryptResponse = response.parse()
 ```
 
 ## Error handling
@@ -322,9 +338,9 @@ Requests time out after 1 minute by default.
 To set a custom timeout, configure the method call using the `timeout` method:
 
 ```kotlin
-import cloud.qanapi.models.auth.AuthLoginResponse
+import cloud.qanapi.models.v3.encryption.EncryptionEncryptResponse
 
-val response: AuthLoginResponse = client.auth().login(
+val response: EncryptionEncryptResponse = client.v3().encryption().encrypt(
   params, RequestOptions.builder().timeout(Duration.ofSeconds(30)).build()
 )
 ```
@@ -463,9 +479,9 @@ To set undocumented parameters, call the `putAdditionalHeader`, `putAdditionalQu
 
 ```kotlin
 import cloud.qanapi.core.JsonValue
-import cloud.qanapi.models.auth.AuthLoginParams
+import cloud.qanapi.models.v3.encryption.EncryptionEncryptParams
 
-val params: AuthLoginParams = AuthLoginParams.builder()
+val params: EncryptionEncryptParams = EncryptionEncryptParams.builder()
     .putAdditionalHeader("Secret-Header", "42")
     .putAdditionalQueryParam("secret_query_param", "42")
     .putAdditionalBodyProperty("secretProperty", JsonValue.from("42"))
@@ -478,7 +494,7 @@ To set undocumented parameters on _nested_ headers, query params, or body classe
 
 ```kotlin
 import cloud.qanapi.core.JsonValue
-import cloud.qanapi.models.encrypt.EncryptEncryptDataParams
+import cloud.qanapi.models.v2.encrypt.EncryptEncryptDataParams
 
 val params: EncryptEncryptDataParams = EncryptEncryptDataParams.builder()
     .access(EncryptEncryptDataParams.Access.builder()
@@ -493,11 +509,11 @@ To set a documented parameter or property to an undocumented or not yet supporte
 
 ```kotlin
 import cloud.qanapi.core.JsonValue
-import cloud.qanapi.models.auth.AuthLoginParams
+import cloud.qanapi.models.v3.encryption.EncryptionEncryptParams
 
-val params: AuthLoginParams = AuthLoginParams.builder()
-    .email(JsonValue.from(42))
-    .password("secret1234")
+val params: EncryptionEncryptParams = EncryptionEncryptParams.builder()
+    .xQanapiFields("password")
+    .data(JsonValue.from(42))
     .build()
 ```
 
@@ -542,11 +558,19 @@ To forcibly omit a required parameter or property, pass [`JsonMissing`](qanapi-k
 
 ```kotlin
 import cloud.qanapi.core.JsonMissing
-import cloud.qanapi.models.auth.AuthLoginParams
+import cloud.qanapi.core.JsonValue
+import cloud.qanapi.models.v3.encryption.EncryptionEncryptParams
 
-val params: AuthLoginParams = AuthLoginParams.builder()
-    .password("secret1234")
-    .email(JsonMissing.of())
+val params: EncryptionEncryptParams = EncryptionEncryptParams.builder()
+    .xQanapiFields("x-qanapi-fields")
+    .data(EncryptionEncryptParams.Data.builder()
+        .putAdditionalProperty("name", JsonValue.from("bar"))
+        .putAdditionalProperty("email", JsonValue.from("bar"))
+        .putAdditionalProperty("ssn", JsonValue.from("bar"))
+        .putAdditionalProperty("dob", JsonValue.from("bar"))
+        .putAdditionalProperty("address", JsonValue.from("bar"))
+        .build())
+    .proxy(JsonMissing.of())
     .build()
 ```
 
@@ -560,7 +584,7 @@ import cloud.qanapi.core.JsonNull
 import cloud.qanapi.core.JsonNumber
 import cloud.qanapi.core.JsonValue
 
-val additionalProperties: Map<String, JsonValue> = client.auth().login(params)._additionalProperties()
+val additionalProperties: Map<String, JsonValue> = client.v3().configurations().create(params)._additionalProperties()
 val secretPropertyValue: JsonValue = additionalProperties.get("secretProperty")
 
 val result = when (secretPropertyValue) {
@@ -577,19 +601,19 @@ To access a property's raw JSON value, which may be undocumented, call its `_` p
 ```kotlin
 import cloud.qanapi.core.JsonField
 
-val email: JsonField<String> = client.auth().login(params)._email()
+val name: JsonField<String> = client.v3().configurations().create(params)._name()
 
-if (email.isMissing()) {
+if (name.isMissing()) {
   // The property is absent from the JSON response
-} else if (email.isNull()) {
+} else if (name.isNull()) {
   // The property was set to literal null
 } else {
   // Check if value was provided as a string
   // Other methods include `asNumber()`, `asBoolean()`, etc.
-  val jsonString: String? = email.asString();
+  val jsonString: String? = name.asString();
 
   // Try to deserialize into a custom type
-  val myObject: MyClass = email.asUnknown()!!.convert(MyClass::class.java)
+  val myObject: MyClass = name.asUnknown()!!.convert(MyClass::class.java)
 }
 ```
 
@@ -604,17 +628,17 @@ Validating the response is _not_ forwards compatible with new types from the API
 If you would still prefer to check that the response is completely well-typed upfront, then either call `validate()`:
 
 ```kotlin
-import cloud.qanapi.models.auth.AuthLoginResponse
+import cloud.qanapi.models.v3.Configuration
 
-val response: AuthLoginResponse = client.auth().login(params).validate()
+val configuration: Configuration = client.v3().configurations().create(params).validate()
 ```
 
 Or configure the method call to validate the response using the `responseValidation` method:
 
 ```kotlin
-import cloud.qanapi.models.auth.AuthLoginResponse
+import cloud.qanapi.models.v3.encryption.EncryptionEncryptResponse
 
-val response: AuthLoginResponse = client.auth().login(
+val response: EncryptionEncryptResponse = client.v3().encryption().encrypt(
   params, RequestOptions.builder().responseValidation(true).build()
 )
 ```

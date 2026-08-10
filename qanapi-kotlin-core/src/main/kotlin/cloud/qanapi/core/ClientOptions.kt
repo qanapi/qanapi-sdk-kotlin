@@ -119,7 +119,7 @@ private constructor(
     /**
      * The base URL to use for every request.
      *
-     * Defaults to the production environment: `https://{subdomain}.qanapi.cloud/api/v2`.
+     * Defaults to the production environment: `https://{subdomain}.qanapi.cloud/api`.
      */
     fun baseUrl(): String = (baseUrl ?: PRODUCTION_URL).replace("{subdomain}", subdomain)
 
@@ -127,7 +127,7 @@ private constructor(
 
     companion object {
 
-        const val PRODUCTION_URL = "https://{subdomain}.qanapi.cloud/api/v2"
+        const val PRODUCTION_URL = "https://{subdomain}.qanapi.cloud/api"
 
         /**
          * Returns a mutable builder for constructing an instance of [ClientOptions].
@@ -239,7 +239,7 @@ private constructor(
         /**
          * The base URL to use for every request.
          *
-         * Defaults to the production environment: `https://{subdomain}.qanapi.cloud/api/v2`.
+         * Defaults to the production environment: `https://{subdomain}.qanapi.cloud/api`.
          */
         fun baseUrl(baseUrl: String?) = apply { this.baseUrl = baseUrl }
 
@@ -394,11 +394,11 @@ private constructor(
          *
          * See this table for the available options:
          *
-         * |Setter     |System property   |Environment variable|Required|Default value                              |
-         * |-----------|------------------|--------------------|--------|-------------------------------------------|
-         * |`apiKey`   |`qanapi.apiKey`   |`QANAPI_API_KEY`    |true    |-                                          |
-         * |`subdomain`|`qanapi.subdomain`|`QANAPI_SUBDOMAIN`  |true    |-                                          |
-         * |`baseUrl`  |`qanapi.baseUrl`  |`QANAPI_BASE_URL`   |true    |`"https://{subdomain}.qanapi.cloud/api/v2"`|
+         * |Setter     |System property   |Environment variable|Required|Default value                           |
+         * |-----------|------------------|--------------------|--------|----------------------------------------|
+         * |`apiKey`   |`qanapi.apiKey`   |`QANAPI_API_KEY`    |true    |-                                       |
+         * |`subdomain`|`qanapi.subdomain`|`QANAPI_SUBDOMAIN`  |true    |-                                       |
+         * |`baseUrl`  |`qanapi.baseUrl`  |`QANAPI_BASE_URL`   |true    |`"https://{subdomain}.qanapi.cloud/api"`|
          *
          * System properties take precedence over environment variables.
          */
