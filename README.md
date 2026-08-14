@@ -3,7 +3,7 @@
 <!-- x-release-please-start-version -->
 
 [![Maven Central](https://img.shields.io/maven-central/v/cloud.qanapi/qanapi-kotlin)](https://central.sonatype.com/artifact/cloud.qanapi/qanapi-kotlin/1.6.0)
-[![javadoc](https://javadoc.io/badge2/cloud.qanapi/qanapi-kotlin/1.6.0/javadoc.svg)](https://javadoc.io/doc/cloud.qanapi/qanapi-kotlin/1.6.0)
+[![javadoc](https://javadoc.io/badge2/cloud.qanapi/qanapi-kotlin/javadoc.svg)](https://javadoc.io/doc/cloud.qanapi/qanapi-kotlin/1.6.0)
 
 <!-- x-release-please-end -->
 
