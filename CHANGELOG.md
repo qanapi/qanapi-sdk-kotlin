@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.7.0 (2026-08-18)
+
+Full Changelog: [v1.6.0...v1.7.0](https://github.com/qanapi/qanapi-sdk-kotlin/compare/v1.6.0...v1.7.0)
+
+### Features
+
+* **api:** add API V3 classification routes ([622e47c](https://github.com/qanapi/qanapi-sdk-kotlin/commit/622e47ce5a27b3b93367565782c19a54ebd3648e))
+
+
+### Bug Fixes
+
+* **docs:** link the javadoc badge so the version stays current after release ([79e1cf4](https://github.com/qanapi/qanapi-sdk-kotlin/commit/79e1cf44f392de05b8544543d651aaff42bfea36))
+
+
+### Chores
+
+* **internal:** codegen related update ([ed9a8cc](https://github.com/qanapi/qanapi-sdk-kotlin/commit/ed9a8cca19fd61a5cb5a72f29ddb275815a30e7c))
+
 ## 1.6.0 (2026-08-10)
 
 Full Changelog: [v1.5.0...v1.6.0](https://github.com/qanapi/qanapi-sdk-kotlin/compare/v1.5.0...v1.6.0)
