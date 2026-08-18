@@ -50,6 +50,7 @@ internal class EncryptionServiceTest {
                 EncryptionEncryptParams.builder()
                     .proxy("proxy")
                     .xQanapiFields("x-qanapi-fields")
+                    .xQanapiClassification("x-qanapi-classification")
                     .xQanapiDestination("x-qanapi-destination")
                     .data(
                         EncryptionEncryptParams.Data.builder()

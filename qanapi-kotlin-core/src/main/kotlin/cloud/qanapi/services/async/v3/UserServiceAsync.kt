@@ -11,9 +11,9 @@ import cloud.qanapi.models.v3.users.UserCreateParams
 import cloud.qanapi.models.v3.users.UserDeleteParams
 import cloud.qanapi.models.v3.users.UserListParams
 import cloud.qanapi.models.v3.users.UserMeParams
-import cloud.qanapi.models.v3.users.UserPatchParams
 import cloud.qanapi.models.v3.users.UserRestoreParams
 import cloud.qanapi.models.v3.users.UserShowParams
+import cloud.qanapi.models.v3.users.UserUpdateParams
 import com.google.errorprone.annotations.MustBeClosed
 
 interface UserServiceAsync {
@@ -35,6 +35,23 @@ interface UserServiceAsync {
         params: UserCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): User
+
+    /** Update user */
+    suspend fun update(
+        user: Long,
+        params: UserUpdateParams = UserUpdateParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): User = update(params.toBuilder().user(user).build(), requestOptions)
+
+    /** @see update */
+    suspend fun update(
+        params: UserUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): User
+
+    /** @see update */
+    suspend fun update(user: Long, requestOptions: RequestOptions): User =
+        update(user, UserUpdateParams.none(), requestOptions)
 
     /** List users */
     suspend fun list(
@@ -71,23 +88,6 @@ interface UserServiceAsync {
 
     /** @see me */
     suspend fun me(requestOptions: RequestOptions): User = me(UserMeParams.none(), requestOptions)
-
-    /** Update user */
-    suspend fun patch(
-        user: Long,
-        params: UserPatchParams = UserPatchParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): User = patch(params.toBuilder().user(user).build(), requestOptions)
-
-    /** @see patch */
-    suspend fun patch(
-        params: UserPatchParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): User
-
-    /** @see patch */
-    suspend fun patch(user: Long, requestOptions: RequestOptions): User =
-        patch(user, UserPatchParams.none(), requestOptions)
 
     /** Restore user */
     suspend fun restore(
@@ -144,6 +144,29 @@ interface UserServiceAsync {
         ): HttpResponseFor<User>
 
         /**
+         * Returns a raw HTTP response for `patch /v3/users/{user}`, but is otherwise the same as
+         * [UserServiceAsync.update].
+         */
+        @MustBeClosed
+        suspend fun update(
+            user: Long,
+            params: UserUpdateParams = UserUpdateParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<User> = update(params.toBuilder().user(user).build(), requestOptions)
+
+        /** @see update */
+        @MustBeClosed
+        suspend fun update(
+            params: UserUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<User>
+
+        /** @see update */
+        @MustBeClosed
+        suspend fun update(user: Long, requestOptions: RequestOptions): HttpResponseFor<User> =
+            update(user, UserUpdateParams.none(), requestOptions)
+
+        /**
          * Returns a raw HTTP response for `get /v3/users`, but is otherwise the same as
          * [UserServiceAsync.list].
          */
@@ -195,29 +218,6 @@ interface UserServiceAsync {
         @MustBeClosed
         suspend fun me(requestOptions: RequestOptions): HttpResponseFor<User> =
             me(UserMeParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `patch /v3/users/{user}`, but is otherwise the same as
-         * [UserServiceAsync.patch].
-         */
-        @MustBeClosed
-        suspend fun patch(
-            user: Long,
-            params: UserPatchParams = UserPatchParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<User> = patch(params.toBuilder().user(user).build(), requestOptions)
-
-        /** @see patch */
-        @MustBeClosed
-        suspend fun patch(
-            params: UserPatchParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<User>
-
-        /** @see patch */
-        @MustBeClosed
-        suspend fun patch(user: Long, requestOptions: RequestOptions): HttpResponseFor<User> =
-            patch(user, UserPatchParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `patch /v3/users/{user}/restore`, but is otherwise the

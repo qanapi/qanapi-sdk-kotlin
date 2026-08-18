@@ -118,7 +118,7 @@ interface ConfigurationServiceAsync {
         ): HttpResponseFor<Configuration>
 
         /**
-         * Returns a raw HTTP response for `put /v3/configurations/{configuration}`, but is
+         * Returns a raw HTTP response for `patch /v3/configurations/{configuration}`, but is
          * otherwise the same as [ConfigurationServiceAsync.update].
          */
         @MustBeClosed

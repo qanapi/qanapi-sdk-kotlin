@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package cloud.qanapi.services.async.v3
+package cloud.qanapi.services.blocking.v3
 
 import cloud.qanapi.core.ClientOptions
 import cloud.qanapi.core.RequestOptions
@@ -16,89 +16,92 @@ import cloud.qanapi.core.http.HttpResponse.Handler
 import cloud.qanapi.core.http.HttpResponseFor
 import cloud.qanapi.core.http.json
 import cloud.qanapi.core.http.parseable
-import cloud.qanapi.core.prepareAsync
-import cloud.qanapi.models.v3.Configuration
-import cloud.qanapi.models.v3.configurations.ConfigurationCreateParams
-import cloud.qanapi.models.v3.configurations.ConfigurationDeleteParams
-import cloud.qanapi.models.v3.configurations.ConfigurationListParams
-import cloud.qanapi.models.v3.configurations.ConfigurationShowParams
-import cloud.qanapi.models.v3.configurations.ConfigurationUpdateParams
+import cloud.qanapi.core.prepare
+import cloud.qanapi.models.v3.classifications.ClassificationCreateParams
+import cloud.qanapi.models.v3.classifications.ClassificationCreateResponse
+import cloud.qanapi.models.v3.classifications.ClassificationDeleteParams
+import cloud.qanapi.models.v3.classifications.ClassificationListParams
+import cloud.qanapi.models.v3.classifications.ClassificationListResponse
+import cloud.qanapi.models.v3.classifications.ClassificationShowParams
+import cloud.qanapi.models.v3.classifications.ClassificationShowResponse
+import cloud.qanapi.models.v3.classifications.ClassificationUpdateParams
+import cloud.qanapi.models.v3.classifications.ClassificationUpdateResponse
 
-class ConfigurationServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
-    ConfigurationServiceAsync {
+class ClassificationServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    ClassificationService {
 
-    private val withRawResponse: ConfigurationServiceAsync.WithRawResponse by lazy {
+    private val withRawResponse: ClassificationService.WithRawResponse by lazy {
         WithRawResponseImpl(clientOptions)
     }
 
-    override fun withRawResponse(): ConfigurationServiceAsync.WithRawResponse = withRawResponse
+    override fun withRawResponse(): ClassificationService.WithRawResponse = withRawResponse
 
-    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ConfigurationServiceAsync =
-        ConfigurationServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ClassificationService =
+        ClassificationServiceImpl(clientOptions.toBuilder().apply(modifier).build())
 
-    override suspend fun create(
-        params: ConfigurationCreateParams,
+    override fun create(
+        params: ClassificationCreateParams,
         requestOptions: RequestOptions,
-    ): Configuration =
-        // post /v3/configurations
+    ): ClassificationCreateResponse =
+        // post /v3/classifications
         withRawResponse().create(params, requestOptions).parse()
 
-    override suspend fun update(
-        params: ConfigurationUpdateParams,
+    override fun update(
+        params: ClassificationUpdateParams,
         requestOptions: RequestOptions,
-    ): Configuration =
-        // patch /v3/configurations/{configuration}
+    ): ClassificationUpdateResponse =
+        // patch /v3/classifications/{classification}
         withRawResponse().update(params, requestOptions).parse()
 
-    override suspend fun list(
-        params: ConfigurationListParams,
+    override fun list(
+        params: ClassificationListParams,
         requestOptions: RequestOptions,
-    ): List<Configuration> =
-        // get /v3/configurations
+    ): ClassificationListResponse =
+        // get /v3/classifications
         withRawResponse().list(params, requestOptions).parse()
 
-    override suspend fun delete(params: ConfigurationDeleteParams, requestOptions: RequestOptions) {
-        // delete /v3/configurations/{configuration}
+    override fun delete(params: ClassificationDeleteParams, requestOptions: RequestOptions) {
+        // delete /v3/classifications/{classification}
         withRawResponse().delete(params, requestOptions)
     }
 
-    override suspend fun show(
-        params: ConfigurationShowParams,
+    override fun show(
+        params: ClassificationShowParams,
         requestOptions: RequestOptions,
-    ): Configuration =
-        // get /v3/configurations/{configuration}
+    ): ClassificationShowResponse =
+        // get /v3/classifications/{classification}
         withRawResponse().show(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        ConfigurationServiceAsync.WithRawResponse {
+        ClassificationService.WithRawResponse {
 
         private val errorHandler: Handler<HttpResponse> =
             errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
-        ): ConfigurationServiceAsync.WithRawResponse =
-            ConfigurationServiceAsyncImpl.WithRawResponseImpl(
+        ): ClassificationService.WithRawResponse =
+            ClassificationServiceImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier).build()
             )
 
-        private val createHandler: Handler<Configuration> =
-            jsonHandler<Configuration>(clientOptions.jsonMapper)
+        private val createHandler: Handler<ClassificationCreateResponse> =
+            jsonHandler<ClassificationCreateResponse>(clientOptions.jsonMapper)
 
-        override suspend fun create(
-            params: ConfigurationCreateParams,
+        override fun create(
+            params: ClassificationCreateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<Configuration> {
+        ): HttpResponseFor<ClassificationCreateResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v3", "configurations")
+                    .addPathSegments("v3", "classifications")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
-                    .prepareAsync(clientOptions, params)
+                    .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
                     .use { createHandler.handle(it) }
@@ -110,26 +113,26 @@ class ConfigurationServiceAsyncImpl internal constructor(private val clientOptio
             }
         }
 
-        private val updateHandler: Handler<Configuration> =
-            jsonHandler<Configuration>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<ClassificationUpdateResponse> =
+            jsonHandler<ClassificationUpdateResponse>(clientOptions.jsonMapper)
 
-        override suspend fun update(
-            params: ConfigurationUpdateParams,
+        override fun update(
+            params: ClassificationUpdateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<Configuration> {
+        ): HttpResponseFor<ClassificationUpdateResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("configuration", params.configuration())
+            checkRequired("classification", params.classification())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v3", "configurations", params._pathParam(0))
+                    .addPathSegments("v3", "classifications", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
-                    .prepareAsync(clientOptions, params)
+                    .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
                     .use { updateHandler.handle(it) }
@@ -141,28 +144,28 @@ class ConfigurationServiceAsyncImpl internal constructor(private val clientOptio
             }
         }
 
-        private val listHandler: Handler<List<Configuration>> =
-            jsonHandler<List<Configuration>>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ClassificationListResponse> =
+            jsonHandler<ClassificationListResponse>(clientOptions.jsonMapper)
 
-        override suspend fun list(
-            params: ConfigurationListParams,
+        override fun list(
+            params: ClassificationListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<List<Configuration>> {
+        ): HttpResponseFor<ClassificationListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v3", "configurations")
+                    .addPathSegments("v3", "classifications")
                     .build()
-                    .prepareAsync(clientOptions, params)
+                    .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
                     .use { listHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
-                            it.forEach { it.validate() }
+                            it.validate()
                         }
                     }
             }
@@ -170,47 +173,47 @@ class ConfigurationServiceAsyncImpl internal constructor(private val clientOptio
 
         private val deleteHandler: Handler<Void?> = emptyHandler()
 
-        override suspend fun delete(
-            params: ConfigurationDeleteParams,
+        override fun delete(
+            params: ClassificationDeleteParams,
             requestOptions: RequestOptions,
         ): HttpResponse {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("configuration", params.configuration())
+            checkRequired("classification", params.classification())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.DELETE)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v3", "configurations", params._pathParam(0))
+                    .addPathSegments("v3", "classifications", params._pathParam(0))
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
-                    .prepareAsync(clientOptions, params)
+                    .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response.use { deleteHandler.handle(it) }
             }
         }
 
-        private val showHandler: Handler<Configuration> =
-            jsonHandler<Configuration>(clientOptions.jsonMapper)
+        private val showHandler: Handler<ClassificationShowResponse> =
+            jsonHandler<ClassificationShowResponse>(clientOptions.jsonMapper)
 
-        override suspend fun show(
-            params: ConfigurationShowParams,
+        override fun show(
+            params: ClassificationShowParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<Configuration> {
+        ): HttpResponseFor<ClassificationShowResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("configuration", params.configuration())
+            checkRequired("classification", params.classification())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v3", "configurations", params._pathParam(0))
+                    .addPathSegments("v3", "classifications", params._pathParam(0))
                     .build()
-                    .prepareAsync(clientOptions, params)
+                    .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
                     .use { showHandler.handle(it) }

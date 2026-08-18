@@ -19,6 +19,7 @@ class EncryptionEncryptParams
 private constructor(
     private val proxy: String?,
     private val xQanapiFields: String,
+    private val xQanapiClassification: String?,
     private val xQanapiDestination: String?,
     private val data: Data,
     private val additionalHeaders: Headers,
@@ -28,6 +29,8 @@ private constructor(
     fun proxy(): String? = proxy
 
     fun xQanapiFields(): String = xQanapiFields
+
+    fun xQanapiClassification(): String? = xQanapiClassification
 
     fun xQanapiDestination(): String? = xQanapiDestination
 
@@ -63,6 +66,7 @@ private constructor(
 
         private var proxy: String? = null
         private var xQanapiFields: String? = null
+        private var xQanapiClassification: String? = null
         private var xQanapiDestination: String? = null
         private var data: Data? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
@@ -71,6 +75,7 @@ private constructor(
         internal fun from(encryptionEncryptParams: EncryptionEncryptParams) = apply {
             proxy = encryptionEncryptParams.proxy
             xQanapiFields = encryptionEncryptParams.xQanapiFields
+            xQanapiClassification = encryptionEncryptParams.xQanapiClassification
             xQanapiDestination = encryptionEncryptParams.xQanapiDestination
             data = encryptionEncryptParams.data
             additionalHeaders = encryptionEncryptParams.additionalHeaders.toBuilder()
@@ -80,6 +85,10 @@ private constructor(
         fun proxy(proxy: String?) = apply { this.proxy = proxy }
 
         fun xQanapiFields(xQanapiFields: String) = apply { this.xQanapiFields = xQanapiFields }
+
+        fun xQanapiClassification(xQanapiClassification: String?) = apply {
+            this.xQanapiClassification = xQanapiClassification
+        }
 
         fun xQanapiDestination(xQanapiDestination: String?) = apply {
             this.xQanapiDestination = xQanapiDestination
@@ -203,6 +212,7 @@ private constructor(
             EncryptionEncryptParams(
                 proxy,
                 checkRequired("xQanapiFields", xQanapiFields),
+                xQanapiClassification,
                 xQanapiDestination,
                 checkRequired("data", data),
                 additionalHeaders.build(),
@@ -222,6 +232,7 @@ private constructor(
         Headers.builder()
             .apply {
                 put("x-qanapi-fields", xQanapiFields)
+                xQanapiClassification?.let { put("x-qanapi-classification", it) }
                 xQanapiDestination?.let { put("x-qanapi-destination", it) }
                 putAll(additionalHeaders)
             }
@@ -344,6 +355,7 @@ private constructor(
         return other is EncryptionEncryptParams &&
             proxy == other.proxy &&
             xQanapiFields == other.xQanapiFields &&
+            xQanapiClassification == other.xQanapiClassification &&
             xQanapiDestination == other.xQanapiDestination &&
             data == other.data &&
             additionalHeaders == other.additionalHeaders &&
@@ -354,6 +366,7 @@ private constructor(
         Objects.hash(
             proxy,
             xQanapiFields,
+            xQanapiClassification,
             xQanapiDestination,
             data,
             additionalHeaders,
@@ -361,5 +374,5 @@ private constructor(
         )
 
     override fun toString() =
-        "EncryptionEncryptParams{proxy=$proxy, xQanapiFields=$xQanapiFields, xQanapiDestination=$xQanapiDestination, data=$data, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "EncryptionEncryptParams{proxy=$proxy, xQanapiFields=$xQanapiFields, xQanapiClassification=$xQanapiClassification, xQanapiDestination=$xQanapiDestination, data=$data, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

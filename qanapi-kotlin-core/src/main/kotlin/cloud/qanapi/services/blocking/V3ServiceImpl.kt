@@ -5,6 +5,8 @@ package cloud.qanapi.services.blocking
 import cloud.qanapi.core.ClientOptions
 import cloud.qanapi.services.blocking.v3.ApiKeyService
 import cloud.qanapi.services.blocking.v3.ApiKeyServiceImpl
+import cloud.qanapi.services.blocking.v3.ClassificationService
+import cloud.qanapi.services.blocking.v3.ClassificationServiceImpl
 import cloud.qanapi.services.blocking.v3.ConfigurationService
 import cloud.qanapi.services.blocking.v3.ConfigurationServiceImpl
 import cloud.qanapi.services.blocking.v3.EncryptionService
@@ -36,6 +38,10 @@ class V3ServiceImpl internal constructor(private val clientOptions: ClientOption
 
     private val encryption: EncryptionService by lazy { EncryptionServiceImpl(clientOptions) }
 
+    private val classifications: ClassificationService by lazy {
+        ClassificationServiceImpl(clientOptions)
+    }
+
     override fun withRawResponse(): V3Service.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): V3Service =
@@ -52,6 +58,8 @@ class V3ServiceImpl internal constructor(private val clientOptions: ClientOption
     override fun logs(): LogService = logs
 
     override fun encryption(): EncryptionService = encryption
+
+    override fun classifications(): ClassificationService = classifications
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         V3Service.WithRawResponse {
@@ -80,6 +88,10 @@ class V3ServiceImpl internal constructor(private val clientOptions: ClientOption
             EncryptionServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val classifications: ClassificationService.WithRawResponse by lazy {
+            ClassificationServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
         ): V3Service.WithRawResponse =
@@ -96,5 +108,7 @@ class V3ServiceImpl internal constructor(private val clientOptions: ClientOption
         override fun logs(): LogService.WithRawResponse = logs
 
         override fun encryption(): EncryptionService.WithRawResponse = encryption
+
+        override fun classifications(): ClassificationService.WithRawResponse = classifications
     }
 }

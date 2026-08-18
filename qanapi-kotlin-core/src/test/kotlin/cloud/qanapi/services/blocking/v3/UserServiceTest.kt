@@ -4,7 +4,7 @@ package cloud.qanapi.services.blocking.v3
 
 import cloud.qanapi.client.okhttp.QanapiOkHttpClient
 import cloud.qanapi.models.v3.users.UserCreateParams
-import cloud.qanapi.models.v3.users.UserPatchParams
+import cloud.qanapi.models.v3.users.UserUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -20,6 +20,27 @@ internal class UserServiceTest {
         val user =
             userService.create(
                 UserCreateParams.builder().email("dev@stainless.com").role("role").build()
+            )
+
+        user.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun update() {
+        val client =
+            QanapiOkHttpClient.builder().apiKey("My API Key").subdomain("My-Subdomain").build()
+        val userService = client.v3().users()
+
+        val user =
+            userService.update(
+                UserUpdateParams.builder()
+                    .user(0L)
+                    .email("dev@stainless.com")
+                    .name("name")
+                    .role("role")
+                    .twoFactorEnabled(true)
+                    .build()
             )
 
         user.validate()
@@ -55,27 +76,6 @@ internal class UserServiceTest {
         val userService = client.v3().users()
 
         val user = userService.me()
-
-        user.validate()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun patch() {
-        val client =
-            QanapiOkHttpClient.builder().apiKey("My API Key").subdomain("My-Subdomain").build()
-        val userService = client.v3().users()
-
-        val user =
-            userService.patch(
-                UserPatchParams.builder()
-                    .user(0L)
-                    .email("dev@stainless.com")
-                    .name("name")
-                    .role("role")
-                    .twoFactorEnabled(true)
-                    .build()
-            )
 
         user.validate()
     }

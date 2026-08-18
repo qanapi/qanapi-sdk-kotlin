@@ -4,6 +4,7 @@ package cloud.qanapi.services.blocking
 
 import cloud.qanapi.core.ClientOptions
 import cloud.qanapi.services.blocking.v3.ApiKeyService
+import cloud.qanapi.services.blocking.v3.ClassificationService
 import cloud.qanapi.services.blocking.v3.ConfigurationService
 import cloud.qanapi.services.blocking.v3.EncryptionService
 import cloud.qanapi.services.blocking.v3.LogService
@@ -36,6 +37,8 @@ interface V3Service {
 
     fun encryption(): EncryptionService
 
+    fun classifications(): ClassificationService
+
     /** A view of [V3Service] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
@@ -57,5 +60,7 @@ interface V3Service {
         fun logs(): LogService.WithRawResponse
 
         fun encryption(): EncryptionService.WithRawResponse
+
+        fun classifications(): ClassificationService.WithRawResponse
     }
 }
