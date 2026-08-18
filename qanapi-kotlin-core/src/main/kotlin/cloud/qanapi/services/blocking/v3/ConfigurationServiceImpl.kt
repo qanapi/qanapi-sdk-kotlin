@@ -47,7 +47,7 @@ class ConfigurationServiceImpl internal constructor(private val clientOptions: C
         params: ConfigurationUpdateParams,
         requestOptions: RequestOptions,
     ): Configuration =
-        // put /v3/configurations/{configuration}
+        // patch /v3/configurations/{configuration}
         withRawResponse().update(params, requestOptions).parse()
 
     override fun list(
@@ -122,7 +122,7 @@ class ConfigurationServiceImpl internal constructor(private val clientOptions: C
             checkRequired("configuration", params.configuration())
             val request =
                 HttpRequest.builder()
-                    .method(HttpMethod.PUT)
+                    .method(HttpMethod.PATCH)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("v3", "configurations", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))

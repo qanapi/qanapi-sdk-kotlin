@@ -5,6 +5,8 @@ package cloud.qanapi.services.async
 import cloud.qanapi.core.ClientOptions
 import cloud.qanapi.services.async.v3.ApiKeyServiceAsync
 import cloud.qanapi.services.async.v3.ApiKeyServiceAsyncImpl
+import cloud.qanapi.services.async.v3.ClassificationServiceAsync
+import cloud.qanapi.services.async.v3.ClassificationServiceAsyncImpl
 import cloud.qanapi.services.async.v3.ConfigurationServiceAsync
 import cloud.qanapi.services.async.v3.ConfigurationServiceAsyncImpl
 import cloud.qanapi.services.async.v3.EncryptionServiceAsync
@@ -39,6 +41,10 @@ class V3ServiceAsyncImpl internal constructor(private val clientOptions: ClientO
         EncryptionServiceAsyncImpl(clientOptions)
     }
 
+    private val classifications: ClassificationServiceAsync by lazy {
+        ClassificationServiceAsyncImpl(clientOptions)
+    }
+
     override fun withRawResponse(): V3ServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): V3ServiceAsync =
@@ -55,6 +61,8 @@ class V3ServiceAsyncImpl internal constructor(private val clientOptions: ClientO
     override fun logs(): LogServiceAsync = logs
 
     override fun encryption(): EncryptionServiceAsync = encryption
+
+    override fun classifications(): ClassificationServiceAsync = classifications
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         V3ServiceAsync.WithRawResponse {
@@ -83,6 +91,10 @@ class V3ServiceAsyncImpl internal constructor(private val clientOptions: ClientO
             EncryptionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val classifications: ClassificationServiceAsync.WithRawResponse by lazy {
+            ClassificationServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
         ): V3ServiceAsync.WithRawResponse =
@@ -101,5 +113,7 @@ class V3ServiceAsyncImpl internal constructor(private val clientOptions: ClientO
         override fun logs(): LogServiceAsync.WithRawResponse = logs
 
         override fun encryption(): EncryptionServiceAsync.WithRawResponse = encryption
+
+        override fun classifications(): ClassificationServiceAsync.WithRawResponse = classifications
     }
 }

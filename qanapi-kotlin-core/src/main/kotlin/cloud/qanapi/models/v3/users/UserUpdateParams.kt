@@ -18,7 +18,7 @@ import java.util.Collections
 import java.util.Objects
 
 /** Update user */
-class UserPatchParams
+class UserUpdateParams
 private constructor(
     private val user: Long?,
     private val body: Body,
@@ -93,13 +93,13 @@ private constructor(
 
     companion object {
 
-        fun none(): UserPatchParams = builder().build()
+        fun none(): UserUpdateParams = builder().build()
 
-        /** Returns a mutable builder for constructing an instance of [UserPatchParams]. */
+        /** Returns a mutable builder for constructing an instance of [UserUpdateParams]. */
         fun builder() = Builder()
     }
 
-    /** A builder for [UserPatchParams]. */
+    /** A builder for [UserUpdateParams]. */
     class Builder internal constructor() {
 
         private var user: Long? = null
@@ -107,11 +107,11 @@ private constructor(
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
-        internal fun from(userPatchParams: UserPatchParams) = apply {
-            user = userPatchParams.user
-            body = userPatchParams.body.toBuilder()
-            additionalHeaders = userPatchParams.additionalHeaders.toBuilder()
-            additionalQueryParams = userPatchParams.additionalQueryParams.toBuilder()
+        internal fun from(userUpdateParams: UserUpdateParams) = apply {
+            user = userUpdateParams.user
+            body = userUpdateParams.body.toBuilder()
+            additionalHeaders = userUpdateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = userUpdateParams.additionalQueryParams.toBuilder()
         }
 
         fun user(user: Long?) = apply { this.user = user }
@@ -298,12 +298,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [UserPatchParams].
+         * Returns an immutable instance of [UserUpdateParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): UserPatchParams =
-            UserPatchParams(
+        fun build(): UserUpdateParams =
+            UserUpdateParams(
                 user,
                 body.build(),
                 additionalHeaders.build(),
@@ -579,7 +579,7 @@ private constructor(
             return true
         }
 
-        return other is UserPatchParams &&
+        return other is UserUpdateParams &&
             user == other.user &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
@@ -590,5 +590,5 @@ private constructor(
         Objects.hash(user, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "UserPatchParams{user=$user, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "UserUpdateParams{user=$user, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
