@@ -4,6 +4,7 @@ package cloud.qanapi.services.async
 
 import cloud.qanapi.core.ClientOptions
 import cloud.qanapi.services.async.v3.ApiKeyServiceAsync
+import cloud.qanapi.services.async.v3.ClassificationServiceAsync
 import cloud.qanapi.services.async.v3.ConfigurationServiceAsync
 import cloud.qanapi.services.async.v3.EncryptionServiceAsync
 import cloud.qanapi.services.async.v3.LogServiceAsync
@@ -36,6 +37,8 @@ interface V3ServiceAsync {
 
     fun encryption(): EncryptionServiceAsync
 
+    fun classifications(): ClassificationServiceAsync
+
     /** A view of [V3ServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
@@ -57,5 +60,7 @@ interface V3ServiceAsync {
         fun logs(): LogServiceAsync.WithRawResponse
 
         fun encryption(): EncryptionServiceAsync.WithRawResponse
+
+        fun classifications(): ClassificationServiceAsync.WithRawResponse
     }
 }

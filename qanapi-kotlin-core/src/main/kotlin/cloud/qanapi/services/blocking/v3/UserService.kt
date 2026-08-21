@@ -11,9 +11,9 @@ import cloud.qanapi.models.v3.users.UserCreateParams
 import cloud.qanapi.models.v3.users.UserDeleteParams
 import cloud.qanapi.models.v3.users.UserListParams
 import cloud.qanapi.models.v3.users.UserMeParams
-import cloud.qanapi.models.v3.users.UserPatchParams
 import cloud.qanapi.models.v3.users.UserRestoreParams
 import cloud.qanapi.models.v3.users.UserShowParams
+import cloud.qanapi.models.v3.users.UserUpdateParams
 import com.google.errorprone.annotations.MustBeClosed
 
 interface UserService {
@@ -35,6 +35,23 @@ interface UserService {
         params: UserCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): User
+
+    /** Update user */
+    fun update(
+        user: Long,
+        params: UserUpdateParams = UserUpdateParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): User = update(params.toBuilder().user(user).build(), requestOptions)
+
+    /** @see update */
+    fun update(
+        params: UserUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): User
+
+    /** @see update */
+    fun update(user: Long, requestOptions: RequestOptions): User =
+        update(user, UserUpdateParams.none(), requestOptions)
 
     /** List users */
     fun list(
@@ -68,20 +85,6 @@ interface UserService {
 
     /** @see me */
     fun me(requestOptions: RequestOptions): User = me(UserMeParams.none(), requestOptions)
-
-    /** Update user */
-    fun patch(
-        user: Long,
-        params: UserPatchParams = UserPatchParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): User = patch(params.toBuilder().user(user).build(), requestOptions)
-
-    /** @see patch */
-    fun patch(params: UserPatchParams, requestOptions: RequestOptions = RequestOptions.none()): User
-
-    /** @see patch */
-    fun patch(user: Long, requestOptions: RequestOptions): User =
-        patch(user, UserPatchParams.none(), requestOptions)
 
     /** Restore user */
     fun restore(
@@ -135,6 +138,29 @@ interface UserService {
         ): HttpResponseFor<User>
 
         /**
+         * Returns a raw HTTP response for `patch /v3/users/{user}`, but is otherwise the same as
+         * [UserService.update].
+         */
+        @MustBeClosed
+        fun update(
+            user: Long,
+            params: UserUpdateParams = UserUpdateParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<User> = update(params.toBuilder().user(user).build(), requestOptions)
+
+        /** @see update */
+        @MustBeClosed
+        fun update(
+            params: UserUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<User>
+
+        /** @see update */
+        @MustBeClosed
+        fun update(user: Long, requestOptions: RequestOptions): HttpResponseFor<User> =
+            update(user, UserUpdateParams.none(), requestOptions)
+
+        /**
          * Returns a raw HTTP response for `get /v3/users`, but is otherwise the same as
          * [UserService.list].
          */
@@ -186,29 +212,6 @@ interface UserService {
         @MustBeClosed
         fun me(requestOptions: RequestOptions): HttpResponseFor<User> =
             me(UserMeParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `patch /v3/users/{user}`, but is otherwise the same as
-         * [UserService.patch].
-         */
-        @MustBeClosed
-        fun patch(
-            user: Long,
-            params: UserPatchParams = UserPatchParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<User> = patch(params.toBuilder().user(user).build(), requestOptions)
-
-        /** @see patch */
-        @MustBeClosed
-        fun patch(
-            params: UserPatchParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<User>
-
-        /** @see patch */
-        @MustBeClosed
-        fun patch(user: Long, requestOptions: RequestOptions): HttpResponseFor<User> =
-            patch(user, UserPatchParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `patch /v3/users/{user}/restore`, but is otherwise the

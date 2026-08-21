@@ -4,7 +4,7 @@ package cloud.qanapi.services.async.v3
 
 import cloud.qanapi.client.okhttp.QanapiOkHttpClientAsync
 import cloud.qanapi.models.v3.users.UserCreateParams
-import cloud.qanapi.models.v3.users.UserPatchParams
+import cloud.qanapi.models.v3.users.UserUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -20,6 +20,27 @@ internal class UserServiceAsyncTest {
         val user =
             userServiceAsync.create(
                 UserCreateParams.builder().email("dev@stainless.com").role("role").build()
+            )
+
+        user.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    suspend fun update() {
+        val client =
+            QanapiOkHttpClientAsync.builder().apiKey("My API Key").subdomain("My-Subdomain").build()
+        val userServiceAsync = client.v3().users()
+
+        val user =
+            userServiceAsync.update(
+                UserUpdateParams.builder()
+                    .user(0L)
+                    .email("dev@stainless.com")
+                    .name("name")
+                    .role("role")
+                    .twoFactorEnabled(true)
+                    .build()
             )
 
         user.validate()
@@ -55,27 +76,6 @@ internal class UserServiceAsyncTest {
         val userServiceAsync = client.v3().users()
 
         val user = userServiceAsync.me()
-
-        user.validate()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    suspend fun patch() {
-        val client =
-            QanapiOkHttpClientAsync.builder().apiKey("My API Key").subdomain("My-Subdomain").build()
-        val userServiceAsync = client.v3().users()
-
-        val user =
-            userServiceAsync.patch(
-                UserPatchParams.builder()
-                    .user(0L)
-                    .email("dev@stainless.com")
-                    .name("name")
-                    .role("role")
-                    .twoFactorEnabled(true)
-                    .build()
-            )
 
         user.validate()
     }

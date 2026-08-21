@@ -75,6 +75,7 @@ internal class ErrorHandlingTest {
                     EncryptionEncryptParams.builder()
                         .proxy("proxy")
                         .xQanapiFields("x-qanapi-fields")
+                        .xQanapiClassification("x-qanapi-classification")
                         .xQanapiDestination("x-qanapi-destination")
                         .data(
                             EncryptionEncryptParams.Data.builder()
@@ -110,6 +111,7 @@ internal class ErrorHandlingTest {
                     EncryptionEncryptParams.builder()
                         .proxy("proxy")
                         .xQanapiFields("x-qanapi-fields")
+                        .xQanapiClassification("x-qanapi-classification")
                         .xQanapiDestination("x-qanapi-destination")
                         .data(
                             EncryptionEncryptParams.Data.builder()
@@ -145,6 +147,7 @@ internal class ErrorHandlingTest {
                     EncryptionEncryptParams.builder()
                         .proxy("proxy")
                         .xQanapiFields("x-qanapi-fields")
+                        .xQanapiClassification("x-qanapi-classification")
                         .xQanapiDestination("x-qanapi-destination")
                         .data(
                             EncryptionEncryptParams.Data.builder()
@@ -180,6 +183,7 @@ internal class ErrorHandlingTest {
                     EncryptionEncryptParams.builder()
                         .proxy("proxy")
                         .xQanapiFields("x-qanapi-fields")
+                        .xQanapiClassification("x-qanapi-classification")
                         .xQanapiDestination("x-qanapi-destination")
                         .data(
                             EncryptionEncryptParams.Data.builder()
@@ -215,6 +219,7 @@ internal class ErrorHandlingTest {
                     EncryptionEncryptParams.builder()
                         .proxy("proxy")
                         .xQanapiFields("x-qanapi-fields")
+                        .xQanapiClassification("x-qanapi-classification")
                         .xQanapiDestination("x-qanapi-destination")
                         .data(
                             EncryptionEncryptParams.Data.builder()
@@ -250,6 +255,7 @@ internal class ErrorHandlingTest {
                     EncryptionEncryptParams.builder()
                         .proxy("proxy")
                         .xQanapiFields("x-qanapi-fields")
+                        .xQanapiClassification("x-qanapi-classification")
                         .xQanapiDestination("x-qanapi-destination")
                         .data(
                             EncryptionEncryptParams.Data.builder()
@@ -285,6 +291,7 @@ internal class ErrorHandlingTest {
                     EncryptionEncryptParams.builder()
                         .proxy("proxy")
                         .xQanapiFields("x-qanapi-fields")
+                        .xQanapiClassification("x-qanapi-classification")
                         .xQanapiDestination("x-qanapi-destination")
                         .data(
                             EncryptionEncryptParams.Data.builder()
@@ -320,6 +327,7 @@ internal class ErrorHandlingTest {
                     EncryptionEncryptParams.builder()
                         .proxy("proxy")
                         .xQanapiFields("x-qanapi-fields")
+                        .xQanapiClassification("x-qanapi-classification")
                         .xQanapiDestination("x-qanapi-destination")
                         .data(
                             EncryptionEncryptParams.Data.builder()
@@ -355,6 +363,7 @@ internal class ErrorHandlingTest {
                     EncryptionEncryptParams.builder()
                         .proxy("proxy")
                         .xQanapiFields("x-qanapi-fields")
+                        .xQanapiClassification("x-qanapi-classification")
                         .xQanapiDestination("x-qanapi-destination")
                         .data(
                             EncryptionEncryptParams.Data.builder()
@@ -390,6 +399,7 @@ internal class ErrorHandlingTest {
                     EncryptionEncryptParams.builder()
                         .proxy("proxy")
                         .xQanapiFields("x-qanapi-fields")
+                        .xQanapiClassification("x-qanapi-classification")
                         .xQanapiDestination("x-qanapi-destination")
                         .data(
                             EncryptionEncryptParams.Data.builder()
@@ -425,6 +435,7 @@ internal class ErrorHandlingTest {
                     EncryptionEncryptParams.builder()
                         .proxy("proxy")
                         .xQanapiFields("x-qanapi-fields")
+                        .xQanapiClassification("x-qanapi-classification")
                         .xQanapiDestination("x-qanapi-destination")
                         .data(
                             EncryptionEncryptParams.Data.builder()
@@ -460,6 +471,7 @@ internal class ErrorHandlingTest {
                     EncryptionEncryptParams.builder()
                         .proxy("proxy")
                         .xQanapiFields("x-qanapi-fields")
+                        .xQanapiClassification("x-qanapi-classification")
                         .xQanapiDestination("x-qanapi-destination")
                         .data(
                             EncryptionEncryptParams.Data.builder()
@@ -495,6 +507,7 @@ internal class ErrorHandlingTest {
                     EncryptionEncryptParams.builder()
                         .proxy("proxy")
                         .xQanapiFields("x-qanapi-fields")
+                        .xQanapiClassification("x-qanapi-classification")
                         .xQanapiDestination("x-qanapi-destination")
                         .data(
                             EncryptionEncryptParams.Data.builder()
@@ -530,6 +543,7 @@ internal class ErrorHandlingTest {
                     EncryptionEncryptParams.builder()
                         .proxy("proxy")
                         .xQanapiFields("x-qanapi-fields")
+                        .xQanapiClassification("x-qanapi-classification")
                         .xQanapiDestination("x-qanapi-destination")
                         .data(
                             EncryptionEncryptParams.Data.builder()
@@ -565,6 +579,7 @@ internal class ErrorHandlingTest {
                     EncryptionEncryptParams.builder()
                         .proxy("proxy")
                         .xQanapiFields("x-qanapi-fields")
+                        .xQanapiClassification("x-qanapi-classification")
                         .xQanapiDestination("x-qanapi-destination")
                         .data(
                             EncryptionEncryptParams.Data.builder()
@@ -600,6 +615,7 @@ internal class ErrorHandlingTest {
                     EncryptionEncryptParams.builder()
                         .proxy("proxy")
                         .xQanapiFields("x-qanapi-fields")
+                        .xQanapiClassification("x-qanapi-classification")
                         .xQanapiDestination("x-qanapi-destination")
                         .data(
                             EncryptionEncryptParams.Data.builder()
@@ -633,6 +649,7 @@ internal class ErrorHandlingTest {
                     EncryptionEncryptParams.builder()
                         .proxy("proxy")
                         .xQanapiFields("x-qanapi-fields")
+                        .xQanapiClassification("x-qanapi-classification")
                         .xQanapiDestination("x-qanapi-destination")
                         .data(
                             EncryptionEncryptParams.Data.builder()

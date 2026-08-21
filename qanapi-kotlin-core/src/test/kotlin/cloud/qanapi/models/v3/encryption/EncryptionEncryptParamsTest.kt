@@ -14,6 +14,7 @@ internal class EncryptionEncryptParamsTest {
         EncryptionEncryptParams.builder()
             .proxy("proxy")
             .xQanapiFields("x-qanapi-fields")
+            .xQanapiClassification("x-qanapi-classification")
             .xQanapiDestination("x-qanapi-destination")
             .data(
                 EncryptionEncryptParams.Data.builder()
@@ -55,6 +56,7 @@ internal class EncryptionEncryptParamsTest {
             EncryptionEncryptParams.builder()
                 .proxy("proxy")
                 .xQanapiFields("x-qanapi-fields")
+                .xQanapiClassification("x-qanapi-classification")
                 .xQanapiDestination("x-qanapi-destination")
                 .data(
                     EncryptionEncryptParams.Data.builder()
@@ -73,6 +75,7 @@ internal class EncryptionEncryptParamsTest {
             .isEqualTo(
                 Headers.builder()
                     .put("x-qanapi-fields", "x-qanapi-fields")
+                    .put("x-qanapi-classification", "x-qanapi-classification")
                     .put("x-qanapi-destination", "x-qanapi-destination")
                     .build()
             )
@@ -107,6 +110,7 @@ internal class EncryptionEncryptParamsTest {
             EncryptionEncryptParams.builder()
                 .proxy("proxy")
                 .xQanapiFields("x-qanapi-fields")
+                .xQanapiClassification("x-qanapi-classification")
                 .xQanapiDestination("x-qanapi-destination")
                 .data(
                     EncryptionEncryptParams.Data.builder()

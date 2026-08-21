@@ -22,9 +22,9 @@ import cloud.qanapi.models.v3.users.UserCreateParams
 import cloud.qanapi.models.v3.users.UserDeleteParams
 import cloud.qanapi.models.v3.users.UserListParams
 import cloud.qanapi.models.v3.users.UserMeParams
-import cloud.qanapi.models.v3.users.UserPatchParams
 import cloud.qanapi.models.v3.users.UserRestoreParams
 import cloud.qanapi.models.v3.users.UserShowParams
+import cloud.qanapi.models.v3.users.UserUpdateParams
 
 class UserServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     UserServiceAsync {
@@ -42,6 +42,10 @@ class UserServiceAsyncImpl internal constructor(private val clientOptions: Clien
         // post /v3/users
         withRawResponse().create(params, requestOptions).parse()
 
+    override suspend fun update(params: UserUpdateParams, requestOptions: RequestOptions): User =
+        // patch /v3/users/{user}
+        withRawResponse().update(params, requestOptions).parse()
+
     override suspend fun list(params: UserListParams, requestOptions: RequestOptions): List<User> =
         // get /v3/users
         withRawResponse().list(params, requestOptions).parse()
@@ -54,10 +58,6 @@ class UserServiceAsyncImpl internal constructor(private val clientOptions: Clien
     override suspend fun me(params: UserMeParams, requestOptions: RequestOptions): User =
         // get /v3/users/me
         withRawResponse().me(params, requestOptions).parse()
-
-    override suspend fun patch(params: UserPatchParams, requestOptions: RequestOptions): User =
-        // patch /v3/users/{user}
-        withRawResponse().patch(params, requestOptions).parse()
 
     override suspend fun restore(params: UserRestoreParams, requestOptions: RequestOptions): User =
         // patch /v3/users/{user}/restore
@@ -99,6 +99,36 @@ class UserServiceAsyncImpl internal constructor(private val clientOptions: Clien
             return errorHandler.handle(response).parseable {
                 response
                     .use { createHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val updateHandler: Handler<User> = jsonHandler<User>(clientOptions.jsonMapper)
+
+        override suspend fun update(
+            params: UserUpdateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<User> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("user", params.user())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("v3", "users", params._pathParam(0))
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { updateHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
@@ -176,36 +206,6 @@ class UserServiceAsyncImpl internal constructor(private val clientOptions: Clien
             return errorHandler.handle(response).parseable {
                 response
                     .use { meHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
-
-        private val patchHandler: Handler<User> = jsonHandler<User>(clientOptions.jsonMapper)
-
-        override suspend fun patch(
-            params: UserPatchParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<User> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("user", params.user())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.PATCH)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v3", "users", params._pathParam(0))
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { patchHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
