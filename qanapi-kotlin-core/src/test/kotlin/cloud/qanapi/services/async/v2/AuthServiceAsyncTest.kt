@@ -50,24 +50,24 @@ internal class AuthServiceAsyncTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    suspend fun retrieveUserDetails() {
-        val client =
-            QanapiOkHttpClientAsync.builder().apiKey("My API Key").subdomain("My-Subdomain").build()
-        val authServiceAsync = client.v2().auth()
-
-        val response = authServiceAsync.retrieveUserDetails()
-
-        response.validate()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
     suspend fun revokeToken() {
         val client =
             QanapiOkHttpClientAsync.builder().apiKey("My API Key").subdomain("My-Subdomain").build()
         val authServiceAsync = client.v2().auth()
 
         val response = authServiceAsync.revokeToken()
+
+        response.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    suspend fun userDetails() {
+        val client =
+            QanapiOkHttpClientAsync.builder().apiKey("My API Key").subdomain("My-Subdomain").build()
+        val authServiceAsync = client.v2().auth()
+
+        val response = authServiceAsync.userDetails()
 
         response.validate()
     }

@@ -11,10 +11,10 @@ import cloud.qanapi.models.v2.auth.AuthLogoutParams
 import cloud.qanapi.models.v2.auth.AuthLogoutResponse
 import cloud.qanapi.models.v2.auth.AuthRefreshTokenParams
 import cloud.qanapi.models.v2.auth.AuthRefreshTokenResponse
-import cloud.qanapi.models.v2.auth.AuthRetrieveUserDetailsParams
-import cloud.qanapi.models.v2.auth.AuthRetrieveUserDetailsResponse
 import cloud.qanapi.models.v2.auth.AuthRevokeTokenParams
 import cloud.qanapi.models.v2.auth.AuthRevokeTokenResponse
+import cloud.qanapi.models.v2.auth.AuthUserDetailsParams
+import cloud.qanapi.models.v2.auth.AuthUserDetailsResponse
 import com.google.errorprone.annotations.MustBeClosed
 
 interface AuthService {
@@ -57,16 +57,6 @@ interface AuthService {
     fun refreshToken(requestOptions: RequestOptions): AuthRefreshTokenResponse =
         refreshToken(AuthRefreshTokenParams.none(), requestOptions)
 
-    /** Get user details */
-    fun retrieveUserDetails(
-        params: AuthRetrieveUserDetailsParams = AuthRetrieveUserDetailsParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): AuthRetrieveUserDetailsResponse
-
-    /** @see retrieveUserDetails */
-    fun retrieveUserDetails(requestOptions: RequestOptions): AuthRetrieveUserDetailsResponse =
-        retrieveUserDetails(AuthRetrieveUserDetailsParams.none(), requestOptions)
-
     /** Revoke token */
     fun revokeToken(
         params: AuthRevokeTokenParams = AuthRevokeTokenParams.none(),
@@ -76,6 +66,16 @@ interface AuthService {
     /** @see revokeToken */
     fun revokeToken(requestOptions: RequestOptions): AuthRevokeTokenResponse =
         revokeToken(AuthRevokeTokenParams.none(), requestOptions)
+
+    /** Get user details */
+    fun userDetails(
+        params: AuthUserDetailsParams = AuthUserDetailsParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): AuthUserDetailsResponse
+
+    /** @see userDetails */
+    fun userDetails(requestOptions: RequestOptions): AuthUserDetailsResponse =
+        userDetails(AuthUserDetailsParams.none(), requestOptions)
 
     /** A view of [AuthService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -130,23 +130,6 @@ interface AuthService {
             refreshToken(AuthRefreshTokenParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /v2/auth/userdetails`, but is otherwise the same as
-         * [AuthService.retrieveUserDetails].
-         */
-        @MustBeClosed
-        fun retrieveUserDetails(
-            params: AuthRetrieveUserDetailsParams = AuthRetrieveUserDetailsParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AuthRetrieveUserDetailsResponse>
-
-        /** @see retrieveUserDetails */
-        @MustBeClosed
-        fun retrieveUserDetails(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<AuthRetrieveUserDetailsResponse> =
-            retrieveUserDetails(AuthRetrieveUserDetailsParams.none(), requestOptions)
-
-        /**
          * Returns a raw HTTP response for `post /v2/auth/revoke`, but is otherwise the same as
          * [AuthService.revokeToken].
          */
@@ -160,5 +143,20 @@ interface AuthService {
         @MustBeClosed
         fun revokeToken(requestOptions: RequestOptions): HttpResponseFor<AuthRevokeTokenResponse> =
             revokeToken(AuthRevokeTokenParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /v2/auth/userdetails`, but is otherwise the same as
+         * [AuthService.userDetails].
+         */
+        @MustBeClosed
+        fun userDetails(
+            params: AuthUserDetailsParams = AuthUserDetailsParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<AuthUserDetailsResponse>
+
+        /** @see userDetails */
+        @MustBeClosed
+        fun userDetails(requestOptions: RequestOptions): HttpResponseFor<AuthUserDetailsResponse> =
+            userDetails(AuthUserDetailsParams.none(), requestOptions)
     }
 }

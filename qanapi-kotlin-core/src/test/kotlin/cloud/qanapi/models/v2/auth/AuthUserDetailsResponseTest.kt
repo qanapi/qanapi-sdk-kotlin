@@ -7,12 +7,12 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class AuthRetrieveUserDetailsResponseTest {
+internal class AuthUserDetailsResponseTest {
 
     @Test
     fun create() {
-        val authRetrieveUserDetailsResponse =
-            AuthRetrieveUserDetailsResponse.builder()
+        val authUserDetailsResponse =
+            AuthUserDetailsResponse.builder()
                 .id(123L)
                 .email("fake.user@example.com")
                 .emailVerifiedAt(null)
@@ -22,22 +22,22 @@ internal class AuthRetrieveUserDetailsResponseTest {
                 .roles(listOf("admin", "user", "readonly", "audit"))
                 .build()
 
-        assertThat(authRetrieveUserDetailsResponse.id()).isEqualTo(123L)
-        assertThat(authRetrieveUserDetailsResponse.email()).isEqualTo("fake.user@example.com")
-        assertThat(authRetrieveUserDetailsResponse.emailVerifiedAt()).isNull()
-        assertThat(authRetrieveUserDetailsResponse.firstLogin()).isEqualTo(0L)
-        assertThat(authRetrieveUserDetailsResponse.gravatarUrl())
+        assertThat(authUserDetailsResponse.id()).isEqualTo(123L)
+        assertThat(authUserDetailsResponse.email()).isEqualTo("fake.user@example.com")
+        assertThat(authUserDetailsResponse.emailVerifiedAt()).isNull()
+        assertThat(authUserDetailsResponse.firstLogin()).isEqualTo(0L)
+        assertThat(authUserDetailsResponse.gravatarUrl())
             .isEqualTo("https://www.gravatar.com/avatar/00000000000000000000000000000000")
-        assertThat(authRetrieveUserDetailsResponse.name()).isEqualTo("Fake User")
-        assertThat(authRetrieveUserDetailsResponse.roles())
+        assertThat(authUserDetailsResponse.name()).isEqualTo("Fake User")
+        assertThat(authUserDetailsResponse.roles())
             .containsExactly("admin", "user", "readonly", "audit")
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val authRetrieveUserDetailsResponse =
-            AuthRetrieveUserDetailsResponse.builder()
+        val authUserDetailsResponse =
+            AuthUserDetailsResponse.builder()
                 .id(123L)
                 .email("fake.user@example.com")
                 .emailVerifiedAt(null)
@@ -47,13 +47,12 @@ internal class AuthRetrieveUserDetailsResponseTest {
                 .roles(listOf("admin", "user", "readonly", "audit"))
                 .build()
 
-        val roundtrippedAuthRetrieveUserDetailsResponse =
+        val roundtrippedAuthUserDetailsResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(authRetrieveUserDetailsResponse),
-                jacksonTypeRef<AuthRetrieveUserDetailsResponse>(),
+                jsonMapper.writeValueAsString(authUserDetailsResponse),
+                jacksonTypeRef<AuthUserDetailsResponse>(),
             )
 
-        assertThat(roundtrippedAuthRetrieveUserDetailsResponse)
-            .isEqualTo(authRetrieveUserDetailsResponse)
+        assertThat(roundtrippedAuthUserDetailsResponse).isEqualTo(authUserDetailsResponse)
     }
 }
