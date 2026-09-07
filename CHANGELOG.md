@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.8.0 (2026-09-07)
+
+Full Changelog: [v1.7.0...v1.8.0](https://github.com/qanapi/qanapi-sdk-kotlin/compare/v1.7.0...v1.8.0)
+
+### Features
+
+* initial stlc build ([1e7b0f6](https://github.com/qanapi/qanapi-sdk-kotlin/commit/1e7b0f64504010eebff64ba19cc909b1e064852f))
+* initial stlc build ([8b335c0](https://github.com/qanapi/qanapi-sdk-kotlin/commit/8b335c05d0e1234bf2b120384d07588b09b2570b))
+
+
+### Chores
+
+* add github workflows as custom code ([8ba34f5](https://github.com/qanapi/qanapi-sdk-kotlin/commit/8ba34f53b80d3f4af0fd340bd4ef09cfa3fbf8cf))
+
 ## 1.7.0 (2026-08-18)
 
 Full Changelog: [v1.6.0...v1.7.0](https://github.com/qanapi/qanapi-sdk-kotlin/compare/v1.6.0...v1.7.0)
