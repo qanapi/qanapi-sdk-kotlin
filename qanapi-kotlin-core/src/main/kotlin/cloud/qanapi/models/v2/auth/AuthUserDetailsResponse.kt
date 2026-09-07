@@ -17,7 +17,7 @@ import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
 
-class AuthRetrieveUserDetailsResponse
+class AuthUserDetailsResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<Long>,
@@ -154,14 +154,11 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of
-         * [AuthRetrieveUserDetailsResponse].
-         */
+        /** Returns a mutable builder for constructing an instance of [AuthUserDetailsResponse]. */
         fun builder() = Builder()
     }
 
-    /** A builder for [AuthRetrieveUserDetailsResponse]. */
+    /** A builder for [AuthUserDetailsResponse]. */
     class Builder internal constructor() {
 
         private var id: JsonField<Long> = JsonMissing.of()
@@ -173,18 +170,16 @@ private constructor(
         private var roles: JsonField<MutableList<String>>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-        internal fun from(authRetrieveUserDetailsResponse: AuthRetrieveUserDetailsResponse) =
-            apply {
-                id = authRetrieveUserDetailsResponse.id
-                email = authRetrieveUserDetailsResponse.email
-                emailVerifiedAt = authRetrieveUserDetailsResponse.emailVerifiedAt
-                firstLogin = authRetrieveUserDetailsResponse.firstLogin
-                gravatarUrl = authRetrieveUserDetailsResponse.gravatarUrl
-                name = authRetrieveUserDetailsResponse.name
-                roles = authRetrieveUserDetailsResponse.roles.map { it.toMutableList() }
-                additionalProperties =
-                    authRetrieveUserDetailsResponse.additionalProperties.toMutableMap()
-            }
+        internal fun from(authUserDetailsResponse: AuthUserDetailsResponse) = apply {
+            id = authUserDetailsResponse.id
+            email = authUserDetailsResponse.email
+            emailVerifiedAt = authUserDetailsResponse.emailVerifiedAt
+            firstLogin = authUserDetailsResponse.firstLogin
+            gravatarUrl = authUserDetailsResponse.gravatarUrl
+            name = authUserDetailsResponse.name
+            roles = authUserDetailsResponse.roles.map { it.toMutableList() }
+            additionalProperties = authUserDetailsResponse.additionalProperties.toMutableMap()
+        }
 
         fun id(id: Long) = id(JsonField.of(id))
 
@@ -294,12 +289,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [AuthRetrieveUserDetailsResponse].
+         * Returns an immutable instance of [AuthUserDetailsResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): AuthRetrieveUserDetailsResponse =
-            AuthRetrieveUserDetailsResponse(
+        fun build(): AuthUserDetailsResponse =
+            AuthUserDetailsResponse(
                 id,
                 email,
                 emailVerifiedAt,
@@ -321,7 +316,7 @@ private constructor(
      * @throws QanapiInvalidDataException if any value type in this object doesn't match its
      *   expected type.
      */
-    fun validate(): AuthRetrieveUserDetailsResponse = apply {
+    fun validate(): AuthUserDetailsResponse = apply {
         if (validated) {
             return@apply
         }
@@ -363,7 +358,7 @@ private constructor(
             return true
         }
 
-        return other is AuthRetrieveUserDetailsResponse &&
+        return other is AuthUserDetailsResponse &&
             id == other.id &&
             email == other.email &&
             emailVerifiedAt == other.emailVerifiedAt &&
@@ -390,5 +385,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "AuthRetrieveUserDetailsResponse{id=$id, email=$email, emailVerifiedAt=$emailVerifiedAt, firstLogin=$firstLogin, gravatarUrl=$gravatarUrl, name=$name, roles=$roles, additionalProperties=$additionalProperties}"
+        "AuthUserDetailsResponse{id=$id, email=$email, emailVerifiedAt=$emailVerifiedAt, firstLogin=$firstLogin, gravatarUrl=$gravatarUrl, name=$name, roles=$roles, additionalProperties=$additionalProperties}"
 }

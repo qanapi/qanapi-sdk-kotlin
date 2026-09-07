@@ -8,7 +8,7 @@ import cloud.qanapi.core.http.QueryParams
 import java.util.Objects
 
 /** Get user details */
-class AuthRetrieveUserDetailsParams
+class AuthUserDetailsParams
 private constructor(
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -24,24 +24,21 @@ private constructor(
 
     companion object {
 
-        fun none(): AuthRetrieveUserDetailsParams = builder().build()
+        fun none(): AuthUserDetailsParams = builder().build()
 
-        /**
-         * Returns a mutable builder for constructing an instance of
-         * [AuthRetrieveUserDetailsParams].
-         */
+        /** Returns a mutable builder for constructing an instance of [AuthUserDetailsParams]. */
         fun builder() = Builder()
     }
 
-    /** A builder for [AuthRetrieveUserDetailsParams]. */
+    /** A builder for [AuthUserDetailsParams]. */
     class Builder internal constructor() {
 
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
-        internal fun from(authRetrieveUserDetailsParams: AuthRetrieveUserDetailsParams) = apply {
-            additionalHeaders = authRetrieveUserDetailsParams.additionalHeaders.toBuilder()
-            additionalQueryParams = authRetrieveUserDetailsParams.additionalQueryParams.toBuilder()
+        internal fun from(authUserDetailsParams: AuthUserDetailsParams) = apply {
+            additionalHeaders = authUserDetailsParams.additionalHeaders.toBuilder()
+            additionalQueryParams = authUserDetailsParams.additionalQueryParams.toBuilder()
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -143,12 +140,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [AuthRetrieveUserDetailsParams].
+         * Returns an immutable instance of [AuthUserDetailsParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): AuthRetrieveUserDetailsParams =
-            AuthRetrieveUserDetailsParams(additionalHeaders.build(), additionalQueryParams.build())
+        fun build(): AuthUserDetailsParams =
+            AuthUserDetailsParams(additionalHeaders.build(), additionalQueryParams.build())
     }
 
     override fun _headers(): Headers = additionalHeaders
@@ -160,7 +157,7 @@ private constructor(
             return true
         }
 
-        return other is AuthRetrieveUserDetailsParams &&
+        return other is AuthUserDetailsParams &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
@@ -168,5 +165,5 @@ private constructor(
     override fun hashCode(): Int = Objects.hash(additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "AuthRetrieveUserDetailsParams{additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "AuthUserDetailsParams{additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

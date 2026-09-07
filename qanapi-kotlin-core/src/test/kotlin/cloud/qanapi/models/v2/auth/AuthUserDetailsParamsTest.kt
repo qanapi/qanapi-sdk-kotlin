@@ -4,10 +4,10 @@ package cloud.qanapi.models.v2.auth
 
 import org.junit.jupiter.api.Test
 
-internal class AuthRetrieveUserDetailsParamsTest {
+internal class AuthUserDetailsParamsTest {
 
     @Test
     fun create() {
-        AuthRetrieveUserDetailsParams.builder().build()
+        AuthUserDetailsParams.builder().build()
     }
 }

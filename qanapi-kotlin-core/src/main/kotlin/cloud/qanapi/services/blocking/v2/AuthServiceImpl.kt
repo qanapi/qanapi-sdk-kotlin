@@ -21,10 +21,10 @@ import cloud.qanapi.models.v2.auth.AuthLogoutParams
 import cloud.qanapi.models.v2.auth.AuthLogoutResponse
 import cloud.qanapi.models.v2.auth.AuthRefreshTokenParams
 import cloud.qanapi.models.v2.auth.AuthRefreshTokenResponse
-import cloud.qanapi.models.v2.auth.AuthRetrieveUserDetailsParams
-import cloud.qanapi.models.v2.auth.AuthRetrieveUserDetailsResponse
 import cloud.qanapi.models.v2.auth.AuthRevokeTokenParams
 import cloud.qanapi.models.v2.auth.AuthRevokeTokenResponse
+import cloud.qanapi.models.v2.auth.AuthUserDetailsParams
+import cloud.qanapi.models.v2.auth.AuthUserDetailsResponse
 
 class AuthServiceImpl internal constructor(private val clientOptions: ClientOptions) : AuthService {
 
@@ -55,19 +55,19 @@ class AuthServiceImpl internal constructor(private val clientOptions: ClientOpti
         // post /v2/auth/refresh
         withRawResponse().refreshToken(params, requestOptions).parse()
 
-    override fun retrieveUserDetails(
-        params: AuthRetrieveUserDetailsParams,
-        requestOptions: RequestOptions,
-    ): AuthRetrieveUserDetailsResponse =
-        // get /v2/auth/userdetails
-        withRawResponse().retrieveUserDetails(params, requestOptions).parse()
-
     override fun revokeToken(
         params: AuthRevokeTokenParams,
         requestOptions: RequestOptions,
     ): AuthRevokeTokenResponse =
         // post /v2/auth/revoke
         withRawResponse().revokeToken(params, requestOptions).parse()
+
+    override fun userDetails(
+        params: AuthUserDetailsParams,
+        requestOptions: RequestOptions,
+    ): AuthUserDetailsResponse =
+        // get /v2/auth/userdetails
+        withRawResponse().userDetails(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         AuthService.WithRawResponse {
@@ -164,33 +164,6 @@ class AuthServiceImpl internal constructor(private val clientOptions: ClientOpti
             }
         }
 
-        private val retrieveUserDetailsHandler: Handler<AuthRetrieveUserDetailsResponse> =
-            jsonHandler<AuthRetrieveUserDetailsResponse>(clientOptions.jsonMapper)
-
-        override fun retrieveUserDetails(
-            params: AuthRetrieveUserDetailsParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<AuthRetrieveUserDetailsResponse> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("v2", "auth", "userdetails")
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { retrieveUserDetailsHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
-
         private val revokeTokenHandler: Handler<AuthRevokeTokenResponse> =
             jsonHandler<AuthRevokeTokenResponse>(clientOptions.jsonMapper)
 
@@ -211,6 +184,33 @@ class AuthServiceImpl internal constructor(private val clientOptions: ClientOpti
             return errorHandler.handle(response).parseable {
                 response
                     .use { revokeTokenHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val userDetailsHandler: Handler<AuthUserDetailsResponse> =
+            jsonHandler<AuthUserDetailsResponse>(clientOptions.jsonMapper)
+
+        override fun userDetails(
+            params: AuthUserDetailsParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<AuthUserDetailsResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("v2", "auth", "userdetails")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { userDetailsHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
